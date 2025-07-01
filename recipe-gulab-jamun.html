@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gulab Jamun Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Indian</div>
+                <h1>Gulab Jamun</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 1 hour</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 6</span>
+                    <span><i class="fas fa-pepper-hot"></i> Medium</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (532 reviews)</span>
+                </div>
+                <p class="recipe-description">Soft, melt-in-mouth milk solids dumplings soaked in rose-scented sugar syrup. This iconic Indian dessert is surprisingly easy to make at home with our foolproof recipe.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/xyz456/gulab-jamun.jpg" alt="Gulab Jamun">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Jamuns:</h3>
+                <ul>
+                    <li>1 cup milk powder</li>
+                    <li>1/4 cup all-purpose flour</li>
+                    <li>1/4 tsp baking soda</li>
+                    <li>2 tbsp ghee</li>
+                    <li>3-4 tbsp milk (as needed)</li>
+                </ul>
+                <h3>For Sugar Syrup:</h3>
+                <ul>
+                    <li>1.5 cups sugar</li>
+                    <li>1.5 cups water</li>
+                    <li>4-5 cardamom pods</li>
+                    <li>1 tsp rose water</li>
+                    <li>Few saffron strands</li>
+                </ul>
+                <h3>For Frying:</h3>
+                <ul>
+                    <li>Oil or ghee for deep frying</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Make Syrup</h3>
+                    <p>Boil sugar and water to 1-string consistency. Add cardamom, rose water and saffron. Keep warm.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Prepare Dough</h3>
+                    <p>Mix milk powder, flour and baking soda. Add ghee and rub into flour. Gradually add milk to make soft dough.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Shape Jamuns</h3>
+                    <p>Divide dough into 15-18 equal portions. Roll into smooth balls without cracks.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Fry Jamuns</h3>
+                    <p>Heat oil on medium-low. Fry jamuns until golden brown, rolling gently for even cooking.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Soak in Syrup</h3>
+                    <p>Transfer hot jamuns to warm syrup. Let soak for at least 2 hours before serving.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/QFvd7u_YjVk?si=Xrn4dOGlBHO0M6dJ" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Dough Tip:</strong> Dough should be soft but not sticky. Over-kneading makes jamuns hard.</p>
+                <p><strong>Frying Temperature:</strong> Maintain medium-low heat (160-170°C) for perfect browning.</p>
+                <p><strong>Storage:</strong> Can be refrigerated in syrup for up to 1 week.</p>
+                <p><strong>Variation:</strong> Use khoya/mawa instead of milk powder for richer texture.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">180</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">4g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">30g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">5g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">0g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Indian Desserts</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/16t8gmqiYN4Cd5xBidA5dJGPOxKAYQPfuyrWOqs3tVw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNTk1/MDQ0ODA4L3N0b2Nr/LXBob3RvLW1hbGFp/LWNob3AtY3JlYW0t/c2FuZHdpY2gtbWFk/ZS11c2luZy1maWxs/aW5nLXJhc2d1bGxh/LWd1bGFiLWphbXVu" alt="Rasgulla">
+                    <div class="recipe-card-content">
+                        <h3>Rasgulla</h3>
+                        <a href="recipe-rasgulla.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/def789/jalebi.jpg" alt="Jalebi">
+                    <div class="recipe-card-content">
+                        <h3>Jalebi</h3>
+                        <a href="recipe-jalebi.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/ghi012/rice-kheer.jpg" alt="Rice Kheer">
+                    <div class="recipe-card-content">
+                        <h3>Rice Kheer</h3>
+                        <a href="recipe-kheer.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homemade Sushi Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Japanese</div>
+                <h1>Homemade Sushi Rolls</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 1 hour</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 2-3</span>
+                    <span><i class="fas fa-pepper-hot"></i> Medium</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>4.8 (215 reviews)</span>
+                </div>
+                <p class="recipe-description">Learn to make beautiful sushi rolls at home with this step-by-step guide. Fresh ingredients, perfectly seasoned rice, and professional rolling techniques will have you creating restaurant-quality maki rolls in no time!</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/OiYTCIWFFwrr4Ij_OFTJLLUxSAPwiGIK3GQNSm5jPgw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9zdXNo/aS1mb29kLXBsYXRl/LWJsYWNrLWJhY2tn/cm91bmQtaGlnaC1x/dWFsaXR5LXBob3Rv/LTM1MzAxNDc1Ni5q/cGc" alt="Sushi Rolls">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Sushi Rice:</h3>
+                <ul>
+                    <li>2 cups sushi rice</li>
+                    <li>2 1/4 cups water</li>
+                    <li>1/4 cup rice vinegar</li>
+                    <li>2 tbsp sugar</li>
+                    <li>1 tsp salt</li>
+                </ul>
+                <h3>For California Rolls:</h3>
+                <ul>
+                    <li>5 sheets nori (seaweed)</li>
+                    <li>1 avocado, sliced</li>
+                    <li>1 cucumber, julienned</li>
+                    <li>8 oz imitation crab meat</li>
+                    <li>Sesame seeds</li>
+                </ul>
+                <h3>For Spicy Tuna Rolls:</h3>
+                <ul>
+                    <li>1/2 lb fresh tuna, diced</li>
+                    <li>2 tbsp mayonnaise</li>
+                    <li>1 tbsp sriracha</li>
+                    <li>1 tsp sesame oil</li>
+                </ul>
+                <h3>For Serving:</h3>
+                <ul>
+                    <li>Soy sauce</li>
+                    <li>Wasabi</li>
+                    <li>Pickled ginger</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Rice</h3>
+                    <p>Rinse rice until water runs clear. Cook with water, then transfer to wooden bowl. Mix vinegar, sugar and salt, then fold into rice while fanning to cool. Cover with damp cloth.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Prepare Fillings</h3>
+                    <p>Slice all vegetables into thin matchsticks. For spicy tuna, mix diced tuna with mayo, sriracha and sesame oil.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Roll Sushi</h3>
+                    <p>Place nori on bamboo mat. Spread thin layer of rice, leaving 1-inch border. Add fillings in center. Roll tightly using mat, moistening edge to seal. Slice with wet knife.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Serve</h3>
+                    <p>Arrange on platter with soy sauce, wasabi and ginger. For inside-out rolls, press sesame seeds onto rice exterior before slicing.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/nIoOv6lWYnk?si=37tjueAZDESdkOf3" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Rice Tip:</strong> Use wooden or plastic utensils for sushi rice - metal can affect flavor. Keep rice covered to prevent drying.</p>
+                <p><strong>Rolling Trick:</strong> Apply gentle, even pressure when rolling. Don't overfill - about 1/4 of nori should be filling.</p>
+                <p><strong>Variations:</strong> Try tempura shrimp, smoked salmon, or vegetarian with mango and cream cheese.</p>
+                <p><strong>Safety:</strong> Use sushi-grade fish from reputable sources if making raw fish rolls.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">300</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">12g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">50g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">5g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">3g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">8g</span>
+                    <span class="nutrition-label">Sugar</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Japanese Recipes</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/VdXY7fZtzmJyDbs9G1oX4LUC9IHIl3ALXu7TQBc_Smg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNDkv/Mzk1LzgyOC9zbWFs/bC9kZWxpY2lvdXMt/aGlnaC1yZXNvbHV0/aW9uLXJhbWVuLWJv/d2wtd2l0aC1wZXJm/ZWN0LXRvcHBpbmdz/LWZyZWUtcGhvdG8u/anBn" alt="Ramen">
+                    <div class="recipe-card-content">
+                        <h3>Tonkotsu Ramen</h3>
+                        <a href="recipe-tonkotsu-ramen.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/rNLeFzFiu-M9dhOOaE14JL7ji5Xu0yGjexupLthKyyE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMTAx/MjkyNTk4L3N0b2Nr/LXBob3RvLWRlbGlj/aW91cy10ZXJpeWFr/aS1jaGlja2Vu" alt="Teriyaki Chicken">
+                    <div class="recipe-card-content">
+                        <h3>Teriyaki Chicken</h3>
+                        <a href="recipe-teriyaki.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/G1RW8DYP-Mt_FtukojIhgTUWhgRYOdR1JJLtoCbc1Fc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMjg2/NzkxOTYyL3N0b2Nr/LXBob3RvLWtvcmVh/bi1mb29kLXNwaW5h/Y2gtYmVhbi1zcHJv/dXRzLXNveWJlYW4t/cGFzdGUtc291cA" alt="Miso Soup">
+                    <div class="recipe-card-content">
+                        <h3>Miso Soup</h3>
+                        <a href="recipe-miso-soup.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

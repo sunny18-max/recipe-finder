@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpiceTrail | Discover Global Recipes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <style>
+.burger {
+    display: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.burger div {
+    width: 25px;
+    height: 3px;
+    background-color: #e0ac69;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100vh;
+    background-color: #fff;
+    z-index: 1000;
+    transition: right 0.3s ease;
+    padding: 80px 20px;
+}
+
+.mobile-nav.open {
+    right: 0;
+}
+
+.mobile-nav ul {
+    list-style: none;
+}
+
+.mobile-nav ul li {
+    margin: 20px 0;
+}
+
+.mobile-nav ul li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+}
+
+.overlay.active {
+    display: block;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+/* Burger animation */
+.toggle .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+.toggle .line2 {
+    opacity: 0;
+}
+.toggle .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Media query for mobile */
+@media (max-width: 768px) {
+    .burger {
+        display: block;
+    }
+    .nav-links {
+        display: none;
+    }
+}
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="meal-plan.html">Meal Plan</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+        <div class="mobile-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="meal-plan.html">Meal Plan</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </div>
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1 class="bounce text-glow" style = "color : #e0ac69">Journey Through Global Flavors</h1>
+            <p class="slide-up" style = "color :#e0ac69">Discover authentic recipes from Indian kitchens to global cuisines</p>
+            <div class="hero-buttons">
+                <a href="search.html" class="btn pulse">Explore Recipes</a>
+                <a href="#trending" class="btn btn-outline">What's Trending</a>
+                <a href="#indian-special" class="btn btn-accent">Indian Special</a>
+            </div>
+        </div>
+        <div class="floating-ingredients">
+            <img src="https://imgs.search.brave.com/JOXh_fsAAtgPZkpdv9fpSg6-NI7ygTkPbyVTFtpPwic/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMTA3/NTk5MjE2L3N0b2Nr/LXBob3RvLWNvbG9y/ZnVsLWFyb21hdGlj/LWluZGlhbi1zcGlj/ZXMtYW5kLWhlcmJz/LW9uLWFuLW9sZC1v/YWstd29vZGVuLWJy/b3duLWJhY2tncm91/bmQ" class="floating-spices" alt="Indian spices">
+            <img src="https://imgs.search.brave.com/Pifh0TObzbspU7QqwDGLqnAPA-KTQBdA8NTthqXr3iw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/c2h1dHRlcnN0b2Nr/LmNvbS9zaHV0dGVy/c3RvY2svcGhvdG9z/LzIxNDI3OTMyMDEv/ZGlzcGxheV8xNTAw/L3N0b2NrLXBob3Rv/LWluZGlhbi1uYWFu/LWJyZWFkLWNsb3Nl/LXVwLXZpZXctMjE0/Mjc5MzIwMS5qcGc" class="floating-naan" alt="Naan bread">
+            <img src="https://imgs.search.brave.com/f2eUfH5xj9H5IFMwhMi-Pa1Q9rRyWZYpLw7oHi8gOjI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9idXR0/ZXItY2hpY2tlbi1j/dXJyeS1ib3dsLWRl/bGljaW91cy1pbmRp/YW4tbmFhbi1icmVh/ZC1iYXNtYXRpLXJp/Y2UtY2lsYW50cm8t/Z2FybmlzaC0xMDQw/MTkwMzcuanBn" class="floating-curry" alt="Indian curry">
+            <img src="https://imgs.search.brave.com/dVjPt6mhpLgkRufd_dExxEAcSeXP1kn8_pFjI1LRPtA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzEyLzA0LzgzLzk1/LzM2MF9GXzEyMDQ4/Mzk1NDJfU0RPUDBj/TzI4RXlIUFpkeUkx/QWxjSHhaMnlZcFU2/bDQuanBn" class="floating-samosa" alt="Samosa">
+            <img src="https://imgs.search.brave.com/gqInIdjkSvR1AyVtpCL22U1WC6dXmmxNOIGtmDnpC_k/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA3Lzk3LzE3Lzk2/LzM2MF9GXzc5NzE3/OTYwOF8zVW15N3BK/ZjVLbjBxUEZOTUJF/bFFZSXNVQjlGT2VV/ay5qcGc" class="floating-biryani" alt="Biryani">
+        </div>
+    </header>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose SpiceTrail?</h2>
+                <p>Discover the perfect recipe for every occasion</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card spin-hover">
+                    <i class="fas fa-mortar-pestle"></i>
+                    <h3>Authentic Recipes</h3>
+                    <p>Handcrafted recipes passed down through generations with detailed instructions.</p>
+                </div>
+                <div class="feature-card spin-hover">
+                    <i class="fas fa-heart-circle-check"></i>
+                    <h3>Dietary Filters</h3>
+                    <p>Find recipes tailored to your dietary needs - vegetarian, vegan, gluten-free, etc.</p>
+                </div>
+                <div class="feature-card spin-hover">
+                    <i class="fas fa-video"></i>
+                    <h3>Video Tutorials</h3>
+                    <p>Step-by-step video guides for perfect results every time.</p>
+                </div>
+                <div class="feature-card spin-hover">
+                    <i class="fas fa-flag"></i>
+                    <h3>Regional Specialties</h3>
+                    <p>Discover unique dishes from different Indian states and global regions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Global Culinary Treasures Section -->
+<section id="trending" class="trending">
+    <div class="container">
+        <div class="section-header">
+            <h2>Global Culinary Treasures</h2>
+            <p>Explore popular dishes from around the world</p>
+        </div>
+        <div class="recipe-carousel">
+            <!-- Indian Cuisine -->
+            <div class="recipe-card scale-in">
+                <div class="recipe-card-img">
+                    <img src="https://imgs.search.brave.com/5WkY3KyJxSyTGvCK4og9-2Jib6B9Vi6tydInJicsW7E/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTE1/Njg4ODY2OS9waG90/by9jaGVlc2UtbWFz/YWxhLWRvc2EtcmVj/aXBlLXdpdGgtc2Ft/YmFyLWFuZC1jaHV0/bmV5LXNlbGVjdGl2/ZS1mb2N1cy5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9OFAt/X09GUXhEY1RVVjh1/N1VTVzBENkt6Z2dP/T0lRQy1FUS1YN0sz/VTl6MD0"
+                        alt="Masala Dosa">
+                    <div class="recipe-card-badge indian">Indian</div>
+                </div>
+                <div class="recipe-info">
+                    <h3>Masala Dosa</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 45 mins</span>
+                        <span><i class="fas fa-pepper-hot"></i> Medium</span>
+                    </div>
+                    <div class="recipe-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.5 (128)</span>
+                    </div>
+                    <a href="recipe-masala-dosa.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="recipe-hover-content">
+                    <h3>Masala Dosa</h3>
+                    <p>Crispy rice crepe stuffed with spiced potatoes, served with coconut chutney and sambar.</p>
+                    <a href="recipe-masala-dosa.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Italian Cuisine -->
+            <div class="recipe-card scale-in">
+                <div class="recipe-card-img">
+                    <img src="https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_1280.jpg"
+                        alt="Margherita Pizza">
+                    <div class="recipe-card-badge italian">Italian</div>
+                </div>
+                <div class="recipe-info">
+                    <h3>Margherita Pizza</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 30 mins</span>
+                        <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                    </div>
+                    <div class="recipe-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>4.9 (256)</span>
+                    </div>
+                    <a href="recipe-pizza-margherita.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="recipe-hover-content">
+                    <h3>Margherita Pizza</h3>
+                    <p>Classic pizza with tomato sauce, fresh mozzarella, basil, and a drizzle of olive oil.</p>
+                    <a href="recipe-pizza-margherita.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Mexican Cuisine -->
+            <div class="recipe-card scale-in">
+                <div class="recipe-card-img">
+                    <img src="https://imgs.search.brave.com/m8NSZJMBLc2D4AQ8vBbVzPjNpzfb_sGnxBNpx7pYek8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9wbGF0dGVyLW1l/eGljYW4tc3RyZWV0/LXRhY29zLXdpdGgt/Y2FybmUtYXNhZGEt/Y2hvcml6by1hbC1w/YXN0b3ItY29ybi10/b3J0aWxsYXNfMjUw/OTI3LTQ5Ny5qcGc_/c2VtdD1haXNfaHli/cmlkJnc9NzQw"
+                        alt="Tacos">
+                    <div class="recipe-card-badge mexican">Mexican</div>
+                </div>
+                <div class="recipe-info">
+                    <h3>Street Tacos</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 25 mins</span>
+                        <span><i class="fas fa-pepper-hot"></i> Spicy</span>
+                    </div>
+                    <div class="recipe-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>4.8 (189)</span>
+                    </div>
+                    <a href="recipe-tacos.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="recipe-hover-content">
+                    <h3>Street Tacos</h3>
+                    <p>Authentic Mexican street tacos with marinated carne asada, fresh cilantro, and onions.</p>
+                    <a href="recipe-tacos.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Thai Cuisine -->
+            <div class="recipe-card scale-in">
+                <div class="recipe-card-img">
+                    <img src="https://imgs.search.brave.com/vTilrUiIa6RRp1WkVvPPjTcNLGL4kUiK0kRVgaaUn0U/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTI2/NDUxNTI5OS9waG90/by9mcmllZC1yaWNl/LW5vb2RsZXMtd2l0/aC12ZWdldGFibGVz/LXBhZC10aGFpLXN0/eWxlLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1DaW9LeFV2/blN5MExIN1JxUVZl/azc3MXgxdkh4WjY0/bnBkdktIQjRlVnFj/PQ"
+                        alt="Pad Thai">
+                    <div class="recipe-card-badge thai">Thai</div>
+                </div>
+                <div class="recipe-info">
+                    <h3>Pad Thai</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 35 mins</span>
+                        <span><i class="fas fa-pepper-hot"></i> Mild</span>
+                    </div>
+                    <div class="recipe-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.6 (215)</span>
+                    </div>
+                    <a href="recipe-pad-thai.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="recipe-hover-content">
+                    <h3>Pad Thai</h3>
+                    <p>Stir-fried rice noodles with eggs, tofu, shrimp, and a sweet-tangy tamarind sauce.</p>
+                    <a href="recipe-pad-thai.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Japanese Cuisine -->
+            <div class="recipe-card scale-in">
+                <div class="recipe-card-img">
+                    <img src="https://imgs.search.brave.com/OiYTCIWFFwrr4Ij_OFTJLLUxSAPwiGIK3GQNSm5jPgw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9zdXNo/aS1mb29kLXBsYXRl/LWJsYWNrLWJhY2tn/cm91bmQtaGlnaC1x/dWFsaXR5LXBob3Rv/LTM1MzAxNDc1Ni5q/cGc"
+                        alt="Sushi Platter">
+                    <div class="recipe-card-badge" style="background: linear-gradient(135deg, #FF416C, #FF4B2B)">
+                        Japanese</div>
+                </div>
+                <div class="recipe-info">
+                    <h3>Sushi Platter</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 60 mins</span>
+                        <span><i class="fas fa-fish"></i> Seafood</span>
+                    </div>
+                    <div class="recipe-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>4.9 (312)</span>
+                    </div>
+                    <a href="recipe-sushi.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="recipe-hover-content">
+                    <h3>Sushi Platter</h3>
+                    <p>Assortment of fresh nigiri, maki rolls, and sashimi with wasabi and pickled ginger.</p>
+                    <a href="recipe-sushi.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- French Cuisine -->
+            <div class="recipe-card scale-in">
+                <div class="recipe-card-img">
+                    <img src="https://imgs.search.brave.com/z9RIwPEmsF02qED-oJyRdI5aIgmIikfqhfjA1Ggi3KQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTA4/NTYwODU1MC9waG90/by9ib2V1Zi1ib3Vy/Z3VpZ25vbi5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9TjZn/ZVBFYnczNXhXRUNQ/TkdhamU5b2tHcXBz/cjhEcHZSS1dRVjBo/cFVrRT0"
+                        alt="Beef Bourguignon">
+                    <div class="recipe-card-badge" style="background: linear-gradient(135deg, #654ea3, #eaafc8)">French
+                    </div>
+                </div>
+                <div class="recipe-info">
+                    <h3>Beef Bourguignon</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 3 hrs</span>
+                        <span><i class="fas fa-utensils"></i> Advanced</span>
+                    </div>
+                    <div class="recipe-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.7 (178)</span>
+                    </div>
+                    <a href="recipe-boeuf-bourguignon.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="recipe-hover-content">
+                    <h3>Beef Bourguignon</h3>
+                    <p>Classic French stew with beef braised in red wine with mushrooms, onions, and bacon.</p>
+                    <a href="recipe-boeuf-bourguignon.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Indian Culinary Treasures Section -->
+<section id="indian-special" class="indian-special">
+    <div class="container">
+        <div class="section-header">
+            <h2>Indian Culinary Treasures</h2>
+            <p>Discover the rich flavors of India</p>
+        </div>
+        <div class="recipe-carousel">
+            <!-- North Indian -->
+            <div class="recipe-card scale-in">
+                <div class="recipe-card-img">
+                    <img src="https://imgs.search.brave.com/n-MvAzw2vMGdwbgIB0OUYtQVgvO7wgPvmB1fUiHA4bU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNjM0/MzAxOTg0L3N0b2Nr/LXBob3RvLXNwaWN5/LWJlZWYtcHVsYW8t/cG9sYW8tYmlyeWFu/aS1tYW5kaS1rYWNj/aGktZWdnLXNhbGFk/LXNlcnZlZA"
+                        alt="Chicken Biryani">
+                    <div class="recipe-card-badge indian">North Indian</div>
+                </div>
+                <div class="recipe-info">
+                    <h3>Chicken Biryani</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 60 mins</span>
+                        <span><i class="fas fa-pepper-hot"></i> Medium</span>
+                    </div>
+                    <div class="recipe-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>4.9 (342)</span>
+                    </div>
+                    <a href="recipe-biryani.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="recipe-hover-content">
+                    <h3>Chicken Biryani</h3>
+                    <p>Fragrant basmati rice layered with spiced chicken and caramelized onions.</p>
+                    <a href="recipe-biryani.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- South Indian -->
+            <div class="recipe-card scale-in">
+                <div class="recipe-card-img">
+                    <img src="https://imgs.search.brave.com/1lfjt9h0ShIOHjie_R-mN9vlUE7j2uVtAM4B3Iso6ZI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM2/OTYzMjc3Mi9waG90/by9pZGxpLXdpdGgt/c2FtYmFyLWFuZC1j/b2NvbnV0LWNodXRu/ZXktb24tdmlvbGV0/LWJhY2tncm91bmQu/anBnP3M9NjEyeDYx/MiZ3PTAmaz0yMCZj/PUFnNHRBcldpNUs5/RW1zWERobDdXMjFS/eFpqeFNSdVIyWV9H/b3Vid3Y5bms9"
+                        alt="Idli Sambar">
+                    <div class="recipe-card-badge indian">South Indian</div>
+                </div>
+                <div class="recipe-info">
+                    <h3>Idli Sambar</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 40 mins</span>
+                        <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                    </div>
+                    <div class="recipe-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.7 (287)</span>
+                    </div>
+                    <a href="recipe-idli-sambar.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="recipe-hover-content">
+                    <h3>Idli Sambar</h3>
+                    <p>Steamed rice cakes served with lentil-based vegetable stew and coconut chutney.</p>
+                    <a href="recipe-idli-sambar.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Street Food -->
+            <div class="recipe-card scale-in">
+                <div class="recipe-card-img">
+                    <img src="https://imgs.search.brave.com/4BxE8EBT2FuVe1Kfz7cE-V1GdxoTkJpfH3lL36460vo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTQ4/ODY4ODAwMS9waG90/by9pbmRpYW4tc2Ft/b3NhLWRlbGljaW91/cy1wYXN0cnktb24t/YS1wbGF0ZS13aXRo/LXRvbWF0b2VzLWFu/ZC1sZXR0dWNlLW9u/LWEtd29vZGVuLXRh/YmxlLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1zSmkzYVdu/RDNpM29HVDROM1Q2/UzNlRWI4dXl0WjhX/M2JaaU5hazQ5cEZr/PQ"
+                        alt="Samosa">
+                    <div class="recipe-card-badge indian">Street Food</div>
+                </div>
+                <div class="recipe-info">
+                    <h3>Samosa</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 50 mins</span>
+                        <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                    </div>
+                    <div class="recipe-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>4.9 (412)</span>
+                    </div>
+                    <a href="recipe-samosa.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="recipe-hover-content">
+                    <h3>Samosa</h3>
+                    <p>Crispy pastry filled with spiced potatoes and peas, served with mint chutney.</p>
+                    <a href="recipe-samosa.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Dessert -->
+            <div class="recipe-card scale-in">
+                <div class="recipe-card-img">
+                    <img src="https://imgs.search.brave.com/UgoGuBz8c3h4wxJdl26Mo9creh6alIen3G0kd79n2sQ/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NDErNmx5Q3pzZEwu/anBn"
+                        alt="Gulab Jamun">
+                    <div class="recipe-card-badge indian">Dessert</div>
+                </div>
+                <div class="recipe-info">
+                    <h3>Gulab Jamun</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 45 mins</span>
+                        <span><i class="fas fa-utensils"></i> Sweet</span>
+                    </div>
+                    <div class="recipe-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.8 (198)</span>
+                    </div>
+                    <a href="recipe-gulab-jamun.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="recipe-hover-content">
+                    <h3>Gulab Jamun</h3>
+                    <p>Soft milk-solid dumplings soaked in rose-flavored sugar syrup.</p>
+                    <a href="recipe-gulab-jamun.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Bengali Cuisine (New) -->
+            <div class="recipe-card scale-in">
+                <div class="recipe-card-img">
+                    <img src="https://imgs.search.brave.com/OhC3eTZQ8DU7kxR9iZD6OggFVfqDIGIocvL1ZpKa1Cg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hczIu/ZnRjZG4ubmV0L3Yy/L2pwZy8wNi81NS8w/OC80Ny8xMDAwX0Zf/NjU1MDg0NzcyX0FB/d3hhM1o0NEZ0QUFn/M3VrVFNNU1pOcTg4/c2hZMkdkLmpwZw"
+                        alt="Fish Curry">
+                    <div class="recipe-card-badge indian">Bengali</div>
+                </div>
+                <div class="recipe-info">
+                    <h3>Machher Jhol</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 40 mins</span>
+                        <span><i class="fas fa-fish"></i> Seafood</span>
+                    </div>
+                    <div class="recipe-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.6 (156)</span>
+                    </div>
+                    <a href="recipe-machher-jhol.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="recipe-hover-content">
+                    <h3>Machher Jhol</h3>
+                    <p>Bengali fish curry with mustard oil and spices, served with steamed rice.</p>
+                    <a href="recipe-machher-jhol.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Rajasthani Cuisine (New) -->
+            <div class="recipe-card scale-in">
+                <div class="recipe-card-img">
+                    <img src="https://imgs.search.brave.com/thf8M8_CNJfKNfNcQpIS7J3hCsjBpI4hvkRFgmj_q98/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9kYWwtcGFsYWst/bGVudGlsLXNwaW5h/Y2gtY3VycnktcG9w/dWxhci1pbmRpYW4t/bWFpbi1jb3Vyc2Ut/aGVhbHRoeS1yZWNp/cGUtc2VydmVkLWth/cmFoaS1wYW4tYm93/bC1zZWxlY3RpdmUt/Zm9jdXNfNDY2Njg5/LTU1NTQyLmpwZz9z/ZW10PWFpc19oeWJy/aWQmdz03NDA"
+                        alt="Dal Baati Churma">
+                    <div class="recipe-card-badge indian">Rajasthani</div>
+                </div>
+                <div class="recipe-info">
+                    <h3>Dal Baati Churma</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> 2 hrs</span>
+                        <span><i class="fas fa-bread-slice"></i> Traditional</span>
+                    </div>
+                    <div class="recipe-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>4.9 (231)</span>
+                    </div>
+                    <a href="recipe-dal-baati.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="recipe-hover-content">
+                    <h3>Dal Baati Churma</h3>
+                    <p>Rajasthani specialty of baked wheat balls served with lentils and sweet crumbled baati.</p>
+                    <a href="recipe-dal-baati.html" class="btn-view-recipe">View Recipe <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section class="regional-indian">
+        <div class="container">
+            <div class="section-header">
+                <h2>Explore Indian Regional Cuisines</h2>
+                <p>Discover the diversity of Indian food by region</p>
+            </div>
+            <div class="region-grid">
+                <div class="region-card fade-in">
+                    <img src="https://imgs.search.brave.com/ujkPpJcHOS8nJ6aeq-ri6NbKeKFabO5GCBegaG6flYU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNjUw/MDU2ODI4L3N0b2Nr/LXBob3RvLWJlZWYt/cHVsYW8ta2FjY2hp/LWJpcnlhbmktYmVl/Zi1yZXphbGEta2Fy/YWhpLWJvcmhhbmkt/emFyZGEtY2hpY2tl/bg" alt="North Indian">
+                    <div class="region-info">
+                        <h3>North Indian</h3>
+                        <p>Rich curries, tandoori dishes, and breads</p>
+                        <a href="north-indian.html" class="btn btn-small">Explore</a>
+                    </div>
+                </div>
+                <div class="region-card fade-in">
+                    <img src="https://imgs.search.brave.com/aVRsRaGtALG_GXO1AkN3hpbDiLKPOU1r9hovo9Lpk4A/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTIx/OTUxNDQyOC9waG90/by9zb3V0aC1pbmRp/YS10aGFsaS5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9SV95/eUsxa1V0dnNuOVJI/ZnB1b21hT2w1ZEI5/eEJUaFFsaGcxOHF3/TFEyZz0" alt="South Indian">
+                    <div class="region-info">
+                        <h3>South Indian</h3>
+                        <p>Dosas, idlis, and coconut-based dishes</p>
+                        <a href="south-indian.html" class="btn btn-small">Explore</a>
+                    </div>
+                </div>
+                <div class="region-card fade-in">
+                    <img src="https://imgs.search.brave.com/BR9NeEbif0CC-rGCuKhYV_SGqTux6yIdyxBiX0z4zSA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9pbmRpYW4tZm9v/ZC1hcnJhbmdlbWVu/dC13aXRoLXNhcmkt/dG9wLXZpZXdfMjMt/MjE0ODc0NzYxOS5q/cGc_c2VtdD1haXNf/aHlicmlk" alt="East Indian">
+                    <div class="region-info">
+                        <h3>East Indian</h3>
+                        <p>Fish curries and mustard-based dishes</p>
+                        <a href="east-indian.html" class="btn btn-small">Explore</a>
+                    </div>
+                </div>
+                <div class="region-card fade-in">
+                    <img src="https://imgs.search.brave.com/iDdlhfQtOKpKA5sXzwRSWHv14lesx2jLeL1BlKGr3n8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy9i/L2JhL05ld19QdW5q/YWJfQ2x1Yl9mb29k/X3NwcmVhZC5qcGc" alt="West Indian">
+                    <div class="region-info">
+                        <h3>West Indian</h3>
+                        <p>Vibrant flavors and seafood specialties</p>
+                        <a href="west-indian.html" class="btn btn-small">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our Users Say</h2>
+                <p>Hear from our community of food lovers</p>
+            </div>
+            <div class="testimonial-carousel">
+                <div class="testimonial-card">
+                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Priya K.">
+                    <div class="testimonial-content">
+                        <p>"As an NRI, SpiceTrail helps me recreate my grandmother's recipes with authentic flavors. The step-by-step videos are a lifesaver!"</p>
+                        <div class="testimonial-author">
+                            <h4>Mallika K.</h4>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="David M.">
+                    <div class="testimonial-content">
+                        <p>"I've learned to cook authentic Indian food through SpiceTrail. The regional guides helped me understand the diversity of Indian cuisine."</p>
+                        <div class="testimonial-author">
+                            <h4>David M.</h4>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Ananya R.">
+                    <div class="testimonial-content">
+                        <p>"The meal planner has transformed how I organize my weekly cooking. I save so much time and reduce food waste!"</p>
+                        <div class="testimonial-author">
+                            <h4>Ananya R.</h4>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter gradient-bg">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Get Weekly Recipe Inspiration</h2>
+                <p>Subscribe to our newsletter for seasonal recipes, cooking tips, and exclusive content</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+   <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <a href="index.html" class="brand">
+                            <span class="brand-icon">
+                                <i class="fas fa-pepper-hot"></i>
+                            </span>
+                            <span class="brand-text">SpiceTrail</span>
+                        </a>
+                    </div>
+                    <p class="footer-about">Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/saathvik.k.56/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/ifcsunny/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@saathvikkalepu4512" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="favorites.html">Your Favorites</a></li>
+                        <li><a href="meal-plan.html">Meal Planner</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="indian-recipes.html">Indian Recipes</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="press.html">Press</a></li>
+                        <li><a href="partners.html">Partners</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="cookies.html">Cookie Policy</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> SpiceTrail. All rights reserved.</p>
+                <div class="footer-apps">
+                    <a href="#" class="app-link">
+                        <i class="fab fa-apple"></i>
+                        <span>App Store</span>
+                    </a>
+                    <a href="#" class="app-link">
+                        <i class="fab fa-google-play"></i>
+                        <span>Google Play</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const favoritesContainer = document.getElementById('favorites-container');
+    const favoritesStats = document.getElementById('favorites-stats');
+    const filterBtn = document.getElementById('filter-btn');
+    const filterDropdown = document.getElementById('filter-dropdown');
+    const sortBtn = document.getElementById('sort-btn');
+    const sortDropdown = document.getElementById('sort-dropdown');
+    const exportBtn = document.getElementById('export-btn');
+    const exportModal = document.getElementById('export-modal');
+    const closeModal = document.querySelector('.close-modal');
+    const exportPreview = document.getElementById('export-preview');
+    const applyFiltersBtn = document.getElementById('apply-filters');
+    const resetFiltersBtn = document.getElementById('reset-filters');
+
+
+    const burger = document.querySelector('.burger');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const overlay = document.querySelector('.overlay');
+    const navLinks = document.querySelectorAll('.mobile-nav a');
+
+    const sampleRecipes = [
+        {
+            id: 1,
+            title: 'Butter Chicken',
+            image: 'https://images.unsplash.com/photo-1631898030817-6d2d7bb55c1f',
+            time: 45,
+            servings: 4,
+            cuisine: 'indian',
+            difficulty: 'medium',
+            dateAdded: new Date('2023-05-15'),
+            ingredients: ['chicken', 'yogurt', 'tomatoes', 'spices'],
+            tags: ['curry', 'comfort food'],
+            rating: 4.8
+        },
+        {
+            id: 2,
+            title: 'Vegetable Biryani',
+            image: 'https://imgs.search.brave.com/lhl1pGruJk_c8gWzn3TiEpRuYfwM04xQ8t6GtwjxzBI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTc1/MDI3NTUzOC9waG90/by92ZWdldGFibGUt/YmlyeWFuaS5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9eGhX/RXo2UEw1Mk0xWGkx/UnNTQ1IwQWZEVDBE/VjlVZVF4dkpmVnVk/VXlmRT0',
+            time: 60,
+            servings: 6,
+            cuisine: 'indian',
+            difficulty: 'medium',
+            dateAdded: new Date('2023-06-20'),
+            ingredients: ['rice', 'vegetables', 'spices', 'yogurt'],
+            tags: ['vegetarian', 'rice dish'],
+            rating: 4.5
+        },
+        {
+            id: 3,
+            title: 'Spaghetti Carbonara',
+            image: 'https://images.unsplash.com/photo-1588013273468-315fd88ea34c',
+            time: 25,
+            servings: 2,
+            cuisine: 'italian',
+            difficulty: 'easy',
+            dateAdded: new Date('2023-07-10'),
+            ingredients: ['pasta', 'eggs', 'pancetta', 'parmesan'],
+            tags: ['pasta', 'quick meal'],
+            rating: 4.7
+        },
+        {
+            id: 4,
+            title: 'Margherita Pizza',
+            image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002',
+            time: 40,
+            servings: 4,
+            cuisine: 'italian',
+            difficulty: 'medium',
+            dateAdded: new Date('2023-04-05'),
+            ingredients: ['pizza dough', 'tomato sauce', 'mozzarella', 'basil'],
+            tags: ['classic', 'vegetarian'],
+            rating: 4.9
+        },
+        {
+            id: 5,
+            title: 'Chicken Tacos',
+            image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47',
+            time: 30,
+            servings: 4,
+            cuisine: 'mexican',
+            difficulty: 'easy',
+            dateAdded: new Date('2023-08-12'),
+            ingredients: ['chicken', 'tortillas', 'avocado', 'salsa'],
+            tags: ['quick meal', 'family favorite'],
+            rating: 4.6
+        },
+        {
+            id: 6,
+            title: 'Beef Enchiladas',
+            image: 'https://images.unsplash.com/photo-1574894709920-11b28e7367e3',
+            time: 55,
+            servings: 6,
+            cuisine: 'mexican',
+            difficulty: 'medium',
+            dateAdded: new Date('2023-03-18'),
+            ingredients: ['beef', 'tortillas', 'cheese', 'enchilada sauce'],
+            tags: ['comfort food', 'freezer friendly'],
+            rating: 4.4
+        },
+        {
+            id: 7,
+            title: 'Kung Pao Chicken',
+            image: 'https://images.unsplash.com/photo-1563245372-f21724e3856d',
+            time: 35,
+            servings: 4,
+            cuisine: 'chinese',
+            difficulty: 'medium',
+            dateAdded: new Date('2023-09-05'),
+            ingredients: ['chicken', 'peanuts', 'vegetables', 'soy sauce'],
+            tags: ['spicy', 'takeout favorite'],
+            rating: 4.7
+        },
+        {
+            id: 8,
+            title: 'Vegetable Stir Fry',
+            image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c',
+            time: 20,
+            servings: 2,
+            cuisine: 'chinese',
+            difficulty: 'easy',
+            dateAdded: new Date('2023-07-22'),
+            ingredients: ['mixed vegetables', 'tofu', 'soy sauce', 'ginger'],
+            tags: ['vegetarian', 'quick meal'],
+            rating: 4.2
+        },
+        {
+            id: 9,
+            title: 'Chicken Teriyaki',
+            image: 'https://images.unsplash.com/photo-1604977046805-6b8d6a2e3b3b',
+            time: 30,
+            servings: 4,
+            cuisine: 'japanese',
+            difficulty: 'easy',
+            dateAdded: new Date('2023-08-30'),
+            ingredients: ['chicken', 'teriyaki sauce', 'rice', 'vegetables'],
+            tags: ['family favorite', 'meal prep'],
+            rating: 4.6
+        },
+        {
+            id: 10,
+            title: 'Miso Soup',
+            image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950',
+            time: 15,
+            servings: 4,
+            cuisine: 'japanese',
+            difficulty: 'easy',
+            dateAdded: new Date('2023-06-10'),
+            ingredients: ['miso paste', 'tofu', 'seaweed', 'green onions'],
+            tags: ['soup', 'light meal'],
+            rating: 4.3
+        },
+        {
+            id: 11,
+            title: 'Greek Salad',
+            image: 'https://images.unsplash.com/photo-1547592180-85f173990554',
+            time: 15,
+            servings: 2,
+            cuisine: 'mediterranean',
+            difficulty: 'easy',
+            dateAdded: new Date('2023-05-28'),
+            ingredients: ['cucumber', 'tomatoes', 'feta', 'olives'],
+            tags: ['vegetarian', 'healthy'],
+            rating: 4.5
+        },
+        {
+            id: 12,
+            title: 'Chicken Shawarma',
+            image: 'https://images.unsplash.com/photo-1603360946369-dc9bb6258143',
+            time: 50,
+            servings: 6,
+            cuisine: 'mediterranean',
+            difficulty: 'medium',
+            dateAdded: new Date('2023-04-15'),
+            ingredients: ['chicken', 'pita', 'garlic sauce', 'spices'],
+            tags: ['sandwich', 'meal prep'],
+            rating: 4.8
+        }
+    ];
+
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || sampleRecipes;
+    let activeFilters = {
+        cuisines: ['indian', 'italian', 'mexican', 'chinese', 'japanese', 'mediterranean'],
+        time: ['quick', 'medium', 'long'],
+        difficulty: ['easy', 'medium', 'hard']
+    };
+    let currentSort = 'date-desc';
+    let selectedRecipes = new Set();
+
+    const displayFavorites = () => {
+        let filteredFavorites = [...favorites];
+        
+        filteredFavorites = filteredFavorites.filter(recipe => {
+            return activeFilters.cuisines.includes(recipe.cuisine);
+        });
+        
+        filteredFavorites = filteredFavorites.filter(recipe => {
+            if (activeFilters.time.includes('quick') && recipe.time < 30) return true;
+            if (activeFilters.time.includes('medium') && recipe.time >= 30 && recipe.time <= 60) return true;
+            if (activeFilters.time.includes('long') && recipe.time > 60) return true;
+            return false;
+        });
+        
+        filteredFavorites = sortRecipes(filteredFavorites, currentSort);
+        
+        updateStats(filteredFavorites);
+        
+        if (filteredFavorites.length === 0) {
+            favoritesContainer.innerHTML = `
+                <div class="no-favorites scale-in">
+                    <img src="images/heart-broken.png" alt="No favorites" class="broken-heart animate__animated animate__pulse">
+                    <h3>No recipes match your filters</h3>
+                    <p>Try adjusting your filters to see more recipes</p>
+                    <button class="btn" id="reset-filters-view">Reset Filters</button>
+                </div>
+            `;
+            
+            document.getElementById('reset-filters-view').addEventListener('click', () => {
+                resetFilters();
+                displayFavorites();
+            });
+            
+            favoritesStats.style.display = 'none';
+            return;
+        }
+        
+        favoritesContainer.innerHTML = filteredFavorites.map(recipe => `
+            <div class="recipe-card ${selectedRecipes.has(recipe.id) ? 'selected' : ''}" data-id="${recipe.id}" data-cuisine="${recipe.cuisine}" data-time="${getTimeCategory(recipe.time)}">
+                <div class="recipe-image" style="background-image: url('${recipe.image}')">
+                    <span class="cuisine-badge">${formatCuisine(recipe.cuisine)}</span>
+                    <button class="quick-action" data-id="${recipe.id}">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <div class="recipe-rating">
+                        ${renderRatingStars(recipe.rating)}
+                        <span>${recipe.rating}</span>
+                    </div>
+                    <div class="select-checkbox">
+                        <input type="checkbox" id="select-${recipe.id}" ${selectedRecipes.has(recipe.id) ? 'checked' : ''}>
+                        <label for="select-${recipe.id}"></label>
+                    </div>
+                </div>
+                <div class="recipe-info">
+                    <h3>${recipe.title}</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> ${recipe.time} mins</span>
+                        <span><i class="fas fa-user"></i> ${recipe.servings} ${recipe.servings === 1 ? 'serving' : 'servings'}</span>
+                        <span><i class="fas fa-utensils"></i> ${formatDifficulty(recipe.difficulty)}</span>
+                    </div>
+                    <div class="recipe-tags">
+                        ${recipe.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="recipe-actions">
+                        <button class="btn-icon remove-favorite" data-id="${recipe.id}" title="Remove from favorites">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <button class="btn-outline view-recipe" data-id="${recipe.id}">
+                            <i class="fas fa-book-open"></i> View
+                        </button>
+                        <button class="btn-icon add-to-cart" data-id="${recipe.id}" title="Add ingredients to shopping list">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        
+        addRecipeEventListeners();
+        favoritesStats.style.display = 'grid';
+    };
+
+    const renderRatingStars = (rating) => {
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 >= 0.5;
+        let stars = '';
+        
+        for (let i = 0; i < fullStars; i++) {
+            stars += '<i class="fas fa-star"></i>';
+        }
+        
+        if (hasHalfStar) {
+            stars += '<i class="fas fa-star-half-alt"></i>';
+        }
+        
+        const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+        for (let i = 0; i < emptyStars; i++) {
+            stars += '<i class="far fa-star"></i>';
+        }
+        
+        return stars;
+    };
+
+    const sortRecipes = (recipes, sortOption) => {
+        switch(sortOption) {
+            case 'name-asc': return [...recipes].sort((a, b) => a.title.localeCompare(b.title));
+            case 'name-desc': return [...recipes].sort((a, b) => b.title.localeCompare(a.title));
+            case 'time-asc': return [...recipes].sort((a, b) => a.time - b.time);
+            case 'time-desc': return [...recipes].sort((a, b) => b.time - a.time);
+            case 'date-asc': return [...recipes].sort((a, b) => a.dateAdded - b.dateAdded);
+            case 'date-desc': return [...recipes].sort((a, b) => b.dateAdded - a.dateAdded);
+            case 'rating-asc': return [...recipes].sort((a, b) => a.rating - b.rating);
+            case 'rating-desc': return [...recipes].sort((a, b) => b.rating - a.rating);
+            default: return recipes;
+        }
+    };
+
+    const updateStats = (filteredFavorites) => {
+        if (filteredFavorites.length === 0) return;
+        
+        document.getElementById('total-favorites').textContent = filteredFavorites.length;
+        
+        const uniqueCuisines = new Set(filteredFavorites.map(recipe => recipe.cuisine));
+        document.getElementById('total-cuisines').textContent = uniqueCuisines.size;
+        
+        const totalTime = filteredFavorites.reduce((sum, recipe) => sum + recipe.time, 0);
+        const avgTime = Math.round(totalTime / filteredFavorites.length);
+        document.getElementById('avg-time').textContent = avgTime;
+    };
+
+    const getTimeCategory = (time) => {
+        if (time < 30) return 'quick';
+        if (time <= 60) return 'medium';
+        return 'long';
+    };
+
+    const formatCuisine = (cuisine) => {
+        const cuisines = {
+            'indian': 'Indian',
+            'italian': 'Italian',
+            'mexican': 'Mexican',
+            'chinese': 'Chinese',
+            'japanese': 'Japanese',
+            'mediterranean': 'Mediterranean'
+        };
+        return cuisines[cuisine] || cuisine;
+    };
+
+    const formatDifficulty = (difficulty) => {
+        const difficulties = {
+            'easy': 'Easy',
+            'medium': 'Medium',
+            'hard': 'Hard'
+        };
+        return difficulties[difficulty] || difficulty;
+    };
+
+    const addRecipeEventListeners = () => {
+        document.querySelectorAll('.remove-favorite').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const recipeId = parseInt(button.getAttribute('data-id'));
+                removeFavorite(recipeId);
+            });
+        });
+        
+        document.querySelectorAll('.view-recipe').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const recipeId = parseInt(button.getAttribute('data-id'));
+                viewRecipe(recipeId);
+            });
+        });
+        
+        document.querySelectorAll('.quick-action').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const recipeId = parseInt(button.getAttribute('data-id'));
+                showQuickActions(recipeId, button);
+            });
+        });
+        
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const recipeId = parseInt(button.getAttribute('data-id'));
+                addToShoppingList(recipeId);
+            });
+        });
+        
+        document.querySelectorAll('.recipe-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.quick-action') && !e.target.closest('.remove-favorite') && !e.target.closest('.add-to-cart')) {
+                    const recipeId = parseInt(card.getAttribute('data-id'));
+                    viewRecipe(recipeId);
+                }
+            });
+        });
+        
+        document.querySelectorAll('.select-checkbox input').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                const recipeId = parseInt(checkbox.id.replace('select-', ''));
+                if (checkbox.checked) {
+                    selectedRecipes.add(recipeId);
+                    checkbox.closest('.recipe-card').classList.add('selected');
+                } else {
+                    selectedRecipes.delete(recipeId);
+                    checkbox.closest('.recipe-card').classList.remove('selected');
+                }
+                updateBulkActions();
+            });
+        });
+    };
+
+    const updateBulkActions = () => {
+        const bulkActions = document.getElementById('bulk-actions');
+        if (!bulkActions) return;
+        
+        if (selectedRecipes.size > 0) {
+            bulkActions.style.display = 'flex';
+            bulkActions.querySelector('#selected-count').textContent = selectedRecipes.size;
+        } else {
+            bulkActions.style.display = 'none';
+        }
+    };
+
+    const removeFavorite = (recipeId) => {
+        favorites = favorites.filter(recipe => recipe.id !== recipeId);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        selectedRecipes.delete(recipeId);
+        displayFavorites();
+        showNotification('Recipe removed from favorites', 'success');
+    };
+
+    const viewRecipe = (recipeId) => {
+        const recipe = favorites.find(r => r.id === recipeId);
+        if (recipe) {
+            const modal = createRecipeModal(recipe);
+            document.body.appendChild(modal);
+            modal.style.display = 'block';
+        }
+    };
+
+    const createRecipeModal = (recipe) => {
+        const modal = document.createElement('div');
+        modal.className = 'recipe-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div class="modal-header" style="background-image: url('${recipe.image}')">
+                    <div class="header-overlay">
+                        <h2>${recipe.title}</h2>
+                        <div class="recipe-meta">
+                            <span><i class="fas fa-clock"></i> ${recipe.time} mins</span>
+                            <span><i class="fas fa-user"></i> ${recipe.servings} servings</span>
+                            <span><i class="fas fa-utensils"></i> ${formatDifficulty(recipe.difficulty)}</span>
+                            <span>${renderRatingStars(recipe.rating)} ${recipe.rating}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="ingredients-section">
+                        <h3><i class="fas fa-shopping-basket"></i> Ingredients</h3>
+                        <ul>
+                            ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join('')}
+                        </ul>
+                        <button class="btn add-all-to-cart" data-id="${recipe.id}">
+                            <i class="fas fa-cart-plus"></i> Add All to Shopping List
+                        </button>
+                    </div>
+                    <div class="tags-section">
+                        <h3><i class="fas fa-tags"></i> Tags</h3>
+                        <div class="tags-container">
+                            ${recipe.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-outline close-modal-btn">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                    <button class="btn add-to-meal-plan" data-id="${recipe.id}">
+                        <i class="fas fa-calendar-plus"></i> Add to Meal Plan
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        modal.querySelector('.close-modal').addEventListener('click', () => {
+            modal.style.display = 'none';
+            setTimeout(() => modal.remove(), 300);
+        });
+        
+        modal.querySelector('.close-modal-btn').addEventListener('click', () => {
+            modal.style.display = 'none';
+            setTimeout(() => modal.remove(), 300);
+        });
+        
+        modal.querySelector('.add-all-to-cart').addEventListener('click', () => {
+            addToShoppingList(recipe.id);
+            modal.style.display = 'none';
+            setTimeout(() => modal.remove(), 300);
+        });
+        
+        modal.querySelector('.add-to-meal-plan').addEventListener('click', () => {
+            addToMealPlan(recipe.id);
+            modal.style.display = 'none';
+            setTimeout(() => modal.remove(), 300);
+        });
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                setTimeout(() => modal.remove(), 300);
+            }
+        });
+        
+        return modal;
+    };
+
+    const showQuickActions = (recipeId, button) => {
+        let menu = document.querySelector('.quick-actions-menu');
+        
+        if (!menu) {
+            menu = document.createElement('div');
+            menu.className = 'quick-actions-menu';
+            document.body.appendChild(menu);
+        }
+        
+        const recipe = favorites.find(r => r.id === recipeId);
+        
+        menu.innerHTML = `
+            <div class="quick-actions-header">
+                <h4>${recipe.title}</h4>
+                <button class="close-actions"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="quick-actions-list">
+                <button class="quick-action-item" data-action="view">
+                    <i class="fas fa-book-open"></i> View Recipe
+                </button>
+                <button class="quick-action-item" data-action="add-to-plan">
+                    <i class="fas fa-calendar-plus"></i> Add to Meal Plan
+                </button>
+                <button class="quick-action-item" data-action="add-to-cart">
+                    <i class="fas fa-shopping-cart"></i> Add to Shopping List
+                </button>
+                <button class="quick-action-item" data-action="share">
+                    <i class="fas fa-share-alt"></i> Share
+                </button>
+                <button class="quick-action-item" data-action="remove">
+                    <i class="fas fa-trash"></i> Remove
+                </button>
+            </div>
+        `;
+        
+        const rect = button.getBoundingClientRect();
+        menu.style.top = `${rect.bottom + window.scrollY}px`;
+        menu.style.left = `${rect.left + window.scrollX - 150}px`;
+        menu.style.display = 'block';
+        
+        menu.querySelector('.close-actions').addEventListener('click', () => {
+            menu.style.display = 'none';
+        });
+        
+        menu.querySelectorAll('.quick-action-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const action = item.getAttribute('data-action');
+                handleQuickAction(action, recipeId);
+                menu.style.display = 'none';
+            });
+        });
+        
+        const closeMenu = (e) => {
+            if (!menu.contains(e.target) && e.target !== button) {
+                menu.style.display = 'none';
+                document.removeEventListener('click', closeMenu);
+            }
+        };
+        
+        setTimeout(() => {
+            document.addEventListener('click', closeMenu);
+        }, 100);
+    };
+
+    const handleQuickAction = (action, recipeId) => {
+        switch(action) {
+            case 'view': viewRecipe(recipeId); break;
+            case 'add-to-plan': addToMealPlan(recipeId); break;
+            case 'add-to-cart': addToShoppingList(recipeId); break;
+            case 'share': shareRecipe(recipeId); break;
+            case 'remove': removeFavorite(recipeId); break;
+        }
+    };
+
+    const addToMealPlan = (recipeId) => {
+        const recipe = favorites.find(r => r.id === recipeId);
+        if (recipe) {
+            let mealPlan = JSON.parse(localStorage.getItem('mealPlan')) || [];
+            mealPlan.push({
+                recipeId: recipe.id,
+                title: recipe.title,
+                dateAdded: new Date()
+            });
+            localStorage.setItem('mealPlan', JSON.stringify(mealPlan));
+            showNotification('Recipe added to meal plan', 'success');
+        }
+    };
+
+    const addToShoppingList = (recipeId) => {
+        const recipe = favorites.find(r => r.id === recipeId);
+        if (recipe) {
+            let shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
+            recipe.ingredients.forEach(ingredient => {
+                if (!shoppingList.includes(ingredient)) {
+                    shoppingList.push(ingredient);
+                }
+            });
+            localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+            showNotification('Ingredients added to shopping list', 'success');
+        }
+    };
+
+    const shareRecipe = (recipeId) => {
+        const recipe = favorites.find(r => r.id === recipeId);
+        if (navigator.share) {
+            navigator.share({
+                title: recipe.title,
+                text: `Check out this ${recipe.title} recipe on SpiceTrail!`,
+                url: window.location.href
+            }).catch(err => {
+                console.error('Error sharing:', err);
+            });
+        } else {
+            const shareUrl = `${window.location.origin}/recipe/${recipeId}`;
+            prompt('Copy this link to share:', shareUrl);
+        }
+    };
+
+    const showNotification = (message, type = 'info') => {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type} animate__animated animate__fadeInUp`;
+        notification.innerHTML = `
+            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
+            <span>${message}</span>
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.remove('animate__fadeInUp');
+            notification.classList.add('animate__fadeOutDown');
+            setTimeout(() => {
+                notification.remove();
+            }, 500);
+        }, 3000);
+    };
+
+    const resetFilters = () => {
+        activeFilters = {
+            cuisines: ['indian', 'italian', 'mexican', 'chinese', 'japanese', 'mediterranean'],
+            time: ['quick', 'medium', 'long']
+        };
+        
+        document.querySelectorAll('input[name="cuisine"]').forEach(checkbox => {
+            checkbox.checked = true;
+        });
+        
+        document.querySelectorAll('input[name="time"]').forEach(checkbox => {
+            checkbox.checked = true;
+        });
+    };
+
+    filterBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sortDropdown.style.display = 'none';
+        filterDropdown.style.display = filterDropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    sortBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        filterDropdown.style.display = 'none';
+        sortDropdown.style.display = sortDropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    applyFiltersBtn.addEventListener('click', () => {
+        activeFilters.cuisines = [];
+        document.querySelectorAll('input[name="cuisine"]:checked').forEach(checkbox => {
+            activeFilters.cuisines.push(checkbox.value);
+        });
+        
+        activeFilters.time = [];
+        document.querySelectorAll('input[name="time"]:checked').forEach(checkbox => {
+            activeFilters.time.push(checkbox.value);
+        });
+        
+        filterDropdown.style.display = 'none';
+        displayFavorites();
+    });
+
+    resetFiltersBtn.addEventListener('click', () => {
+        resetFilters();
+        displayFavorites();
+    });
+
+    document.querySelectorAll('.sort-option').forEach(option => {
+        option.addEventListener('click', () => {
+            currentSort = option.getAttribute('data-sort');
+            sortDropdown.style.display = 'none';
+            displayFavorites();
+        });
+    });
+
+    exportBtn.addEventListener('click', () => {
+        exportModal.style.display = 'block';
+        generateExportPreview();
+    });
+
+    closeModal.addEventListener('click', () => {
+        exportModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === exportModal) {
+            exportModal.style.display = 'none';
+        }
+        
+        if (!filterBtn.contains(e.target) && !filterDropdown.contains(e.target)) {
+            filterDropdown.style.display = 'none';
+        }
+        
+        if (!sortBtn.contains(e.target) && !sortDropdown.contains(e.target)) {
+            sortDropdown.style.display = 'none';
+        }
+    });
+
+    const generateExportPreview = () => {
+        exportPreview.innerHTML = `
+            <h4>Your Favorites Collection</h4>
+            <p>${favorites.length} recipes</p>
+            <div class="export-recipes-list">
+                ${favorites.slice(0, 5).map(recipe => `
+                    <div class="export-recipe-item">
+                        <img src="${recipe.image}" alt="${recipe.title}">
+                        <div>
+                            <h5>${recipe.title}</h5>
+                            <p>${formatCuisine(recipe.cuisine)} • ${recipe.time} min • ${recipe.rating} ★</p>
+                        </div>
+                    </div>
+                `).join('')}
+                ${favorites.length > 5 ? `<p>+ ${favorites.length - 5} more recipes...</p>` : ''}
+            </div>
+            <div class="export-format-options">
+                <h5>Select Export Format:</h5>
+                <div class="format-options">
+                    <label><input type="radio" name="export-format" value="pdf" checked> PDF</label>
+                    <label><input type="radio" name="export-format" value="json"> JSON</label>
+                    <label><input type="radio" name="export-format" value="csv"> CSV</label>
+                    <label><input type="radio" name="export-format" value="print"> Print</label>
+                </div>
+            </div>
+            <button class="btn" id="confirm-export">
+                <i class="fas fa-file-export"></i> Export Now
+            </button>
+        `;
+        
+        document.getElementById('confirm-export').addEventListener('click', () => {
+            const format = document.querySelector('input[name="export-format"]:checked').value;
+            exportFavorites(format);
+            exportModal.style.display = 'none';
+        });
+    };
+
+    const exportFavorites = (format) => {
+        switch(format) {
+            case 'pdf': exportToPDF(); break;
+            case 'json': exportToJSON(); break;
+            case 'csv': exportToCSV(); break;
+            case 'print': window.print(); break;
+        }
+    };
+
+    const exportToPDF = () => {
+        showNotification('Preparing PDF export...', 'info');
+        setTimeout(() => {
+            showNotification('PDF export would be generated here in production', 'info');
+        }, 1500);
+    };
+
+    const exportToJSON = () => {
+        const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(favorites, null, 2))}`;
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute('href', dataStr);
+        downloadAnchorNode.setAttribute('download', 'spicetrail-favorites.json');
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+        showNotification('Favorites exported as JSON', 'success');
+    };
+
+    const exportToCSV = () => {
+        const headers = ['Title', 'Cuisine', 'Time (min)', 'Servings', 'Difficulty', 'Rating', 'Ingredients'];
+        const rows = favorites.map(recipe => [
+            `"${recipe.title}"`,
+            `"${formatCuisine(recipe.cuisine)}"`,
+            recipe.time,
+            recipe.servings,
+            `"${formatDifficulty(recipe.difficulty)}"`,
+            recipe.rating,
+            `"${recipe.ingredients.join(', ')}"`
+        ]);
+        
+        const csvContent = [
+            headers.join(','),
+            ...rows.map(row => row.join(','))
+        ].join('\n');
+        
+        const dataStr = `data:text/csv;charset=utf-8,${encodeURIComponent(csvContent)}`;
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute('href', dataStr);
+        downloadAnchorNode.setAttribute('download', 'spicetrail-favorites.csv');
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+        showNotification('Favorites exported as CSV', 'success');
+    };
+
+        burger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mobileNav.classList.toggle('open');
+        overlay.classList.toggle('active');
+        document.body.classList.toggle('no-scroll');
+        burger.classList.toggle('toggle');
+    });
+
+    overlay.addEventListener('click', () => {
+        mobileNav.classList.remove('open');
+        overlay.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+        burger.classList.remove('toggle');
+    });
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileNav.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+            burger.classList.remove('toggle');
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!mobileNav.contains(e.target) && !burger.contains(e.target) && mobileNav.classList.contains('open')) {
+            mobileNav.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+            burger.classList.remove('toggle');
+        }
+    });
+
+    const createBulkActions = () => {
+        const bulkActions = document.createElement('div');
+        bulkActions.id = 'bulk-actions';
+        bulkActions.innerHTML = `
+            <div class="bulk-info">
+                <span id="selected-count">0</span> recipes selected
+            </div>
+            <div class="bulk-buttons">
+                <button class="btn-outline" id="clear-selection">
+                    <i class="fas fa-times"></i> Clear
+                </button>
+                <button class="btn" id="add-selected-to-cart">
+                    <i class="fas fa-cart-plus"></i> Add to Shopping List
+                </button>
+                <button class="btn-outline danger" id="remove-selected">
+                    <i class="fas fa-trash"></i> Remove
+                </button>
+            </div>
+        `;
+        
+        bulkActions.querySelector('#clear-selection').addEventListener('click', () => {
+            selectedRecipes.clear();
+            document.querySelectorAll('.recipe-card').forEach(card => {
+                card.classList.remove('selected');
+                const checkbox = card.querySelector('.select-checkbox input');
+                if (checkbox) checkbox.checked = false;
+            });
+            bulkActions.style.display = 'none';
+        });
+        
+        bulkActions.querySelector('#add-selected-to-cart').addEventListener('click', () => {
+            let shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
+            favorites.forEach(recipe => {
+                if (selectedRecipes.has(recipe.id)) {
+                    recipe.ingredients.forEach(ingredient => {
+                        if (!shoppingList.includes(ingredient)) {
+                            shoppingList.push(ingredient);
+                        }
+                    });
+                }
+            });
+            localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+            selectedRecipes.clear();
+            bulkActions.style.display = 'none';
+            showNotification('Selected recipes added to shopping list', 'success');
+            displayFavorites();
+        });
+        
+        bulkActions.querySelector('#remove-selected').addEventListener('click', () => {
+            favorites = favorites.filter(recipe => !selectedRecipes.has(recipe.id));
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            selectedRecipes.clear();
+            bulkActions.style.display = 'none';
+            showNotification('Selected recipes removed', 'success');
+            displayFavorites();
+        });
+        
+        return bulkActions;
+    };
+
+    const initBulkActions = () => {
+        const existingBulkActions = document.getElementById('bulk-actions');
+        if (existingBulkActions) existingBulkActions.remove();
+        
+        const bulkActions = createBulkActions();
+        document.querySelector('.favorites-section .container').prepend(bulkActions);
+        bulkActions.style.display = 'none';
+    };
+
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    initBulkActions();
+    displayFavorites();
+});
+    </script>
+</body>
+</html>

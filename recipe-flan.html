@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mexican Flan Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Mexican</div>
+                <h1>Mexican Flan</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 1 hr 15 mins</span>
+                    <span><i class="fas fa-clock"></i> 4 hrs chilling</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 8</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (412 reviews)</span>
+                </div>
+                <p class="recipe-description">Silky smooth caramel custard with a rich golden caramel sauce, this classic Mexican dessert is the perfect balance of sweet and creamy. Our authentic recipe uses simple ingredients to create a luxurious texture that melts in your mouth, making it an impressive yet surprisingly easy dessert for any occasion.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/zqWMzOBiWjjIxNyWQr3DZTW73Z_iUgFRl238lOzSw7w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTcx/NTczOTI5L3Bob3Rv/L2ZsYW4uanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPU11anBa/aUlmbHBCZnhVekxf/RnFRdzcyYldoNU0x/WVBZX3RtOHMtaUVa/UW89" alt="Mexican Flan">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Caramel:</h3>
+                <ul>
+                    <li>3/4 cup granulated sugar</li>
+                    <li>1/4 cup water</li>
+                </ul>
+                <h3>For Custard:</h3>
+                <ul>
+                    <li>4 large eggs</li>
+                    <li>1 (14 oz) can sweetened condensed milk</li>
+                    <li>1 (12 oz) can evaporated milk</li>
+                    <li>1 tsp vanilla extract</li>
+                    <li>1/4 tsp salt</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Caramel</h3>
+                    <p>Combine sugar and water in saucepan over medium heat. Cook without stirring until amber-colored (about 10 minutes). Immediately pour into baking dish, swirling to coat bottom evenly. Set aside to harden.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Make Custard</h3>
+                    <p>In blender, combine eggs, milks, vanilla and salt. Blend until smooth (about 30 seconds). Strain through fine mesh sieve into prepared pan with caramel.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Bake in Water Bath</h3>
+                    <p>Place filled pan in larger roasting pan. Pour hot water into roasting pan until halfway up sides of flan dish. Bake at 350°F (175°C) for 50-60 minutes until set but still jiggly in center.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Chill Thoroughly</h3>
+                    <p>Cool to room temperature, then refrigerate at least 4 hours (preferably overnight) to fully set.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Unmold and Serve</h3>
+                    <p>Run knife around edges. Place serving plate upside down over pan and quickly invert. Let caramel sauce flow over flan before removing pan. Serve chilled.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/F3mKooWttpw?si=TjiSPGcWPR_RDp8h" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Caramel Tip:</strong> Watch carefully as sugar can burn quickly once it starts changing color.</p>
+                <p><strong>Smooth Texture:</strong> Straining the custard ensures perfectly smooth flan without bubbles.</p>
+                <p><strong>Flavor Variations:</strong> Add 1 tsp cinnamon or 2 tbsp coffee liqueur to custard for different flavors.</p>
+                <p><strong>Make Ahead:</strong> Flan keeps well refrigerated for up to 3 days - flavors improve over time.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">320</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">9g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">45g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">12g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">0g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Mexican Desserts</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/HSQORknL9QJEEi1nF48q1qFjcazG3-FMYzBkGXO4bu0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9waWVj/ZS10cmVzLWxlY2hl/cy1jYWtlLXByZXBh/cmVkLWhvbWUtbGF0/aW4tYW1lcmljYW4t/ZGVzc2VydC1waWVj/ZS10cmVzLWxlY2hl/cy1jYWtlLXByZXBh/cmVkLWhvbWUtbGF0/aW4tYW1lcmljYW4t/Mjg4NDg5NjMwLmpw/Zw" alt="Tres Leches Cake">
+                    <div class="recipe-card-content">
+                        <h3>Tres Leches Cake</h3>
+                        <a href="recipe-tres-leches.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/khO1oFgvgPc8u7np2ZnzkqYcHcffs3xJd9NheDrPUgA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by92aWJyYW50LXNj/ZW5lLXNwaWN5LXNv/cGFpcGlsbGFzLXNl/cnZlZC13aXRoLXNh/dWNlXzE2Nzg1Ny01/NjgxMC5qcGc_c2Vt/dD1haXNfaHlicmlk/Jnc9NzQw" alt="Sopapillas">
+                    <div class="recipe-card-content">
+                        <h3>Sopapillas</h3>
+                        <a href="recipe-sopapillas.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/oIolucnFEkyqqL8oFPQeGPkYu7ckGPgrm8dQ29MocxI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvOTU5/OTkzMTI0L3Bob3Rv/L3RyYWRpdGlvbmFs/LXNwYW5pc2gtZGVz/c2VydC1jaHVycm9z/LXdpdGgtc3VnYXIt/YW5kLWNob2NvbGF0/ZS5qcGc_cz02MTJ4/NjEyJnc9MCZrPTIw/JmM9YkxIV1FiczNV/RGpJN0VJMEwwNGJp/ZEtfRUtnY051RlVu/YnJXbU9pV1JWYz0" alt="Mexican Churros">
+                    <div class="recipe-card-content">
+                        <h3>Mexican Churros</h3>
+                        <a href="recipe-churros.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

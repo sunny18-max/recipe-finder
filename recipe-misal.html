@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misal Pav Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Maharashtrian</div>
+                <h1>Misal Pav</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 1 hour</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 4</span>
+                    <span><i class="fas fa-pepper-hot"></i> Spicy</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>4.8 (289 reviews)</span>
+                </div>
+                <p class="recipe-description">Pune's signature spicy sprout curry topped with farsan, onions, and cilantro, served with soft pav. This protein-packed breakfast dish comes with a spicy kick and is often customized with varying heat levels at local eateries.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline"><i class="fas fa-share-alt"></i> Share</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/YxbYcXr-cDCU3-vg7FiFKDgqlJE_LfHI9t_gS8fGUrQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9tYWhh/cmFzaHRyaWFuLW1p/c2FsLWZhbW91cy1k/aXNoLW1haGFyYXNo/dHJhLTEzMDQ1NTU4/OC5qcGc" alt="Misal Pav">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Sprouts:</h3>
+                <ul>
+                    <li>1 cup moth beans (matki), sprouted</li>
+                    <li>1/2 cup moong sprouts</li>
+                    <li>1 tsp turmeric</li>
+                    <li>Salt to taste</li>
+                </ul>
+                <h3>For Masala:</h3>
+                <ul>
+                    <li>2 tbsp oil</li>
+                    <li>1 onion, chopped</li>
+                    <li>1 tbsp ginger-garlic paste</li>
+                    <li>2 tomatoes, pureed</li>
+                    <li>2 tbsp goda masala</li>
+                    <li>1 tbsp red chili powder</li>
+                    <li>1 tsp garam masala</li>
+                    <li>1 tbsp jaggery</li>
+                    <li>1/4 cup grated coconut</li>
+                    <li>1/4 cup chopped cilantro</li>
+                </ul>
+                <h3>For Tempering:</h3>
+                <ul>
+                    <li>2 tbsp ghee</li>
+                    <li>1 tsp mustard seeds</li>
+                    <li>1/2 tsp asafoetida</li>
+                    <li>8-10 curry leaves</li>
+                </ul>
+                <h3>For Serving:</h3>
+                <ul>
+                    <li>8 pav (bread rolls)</li>
+                    <li>1 cup farsan (mixed savory snacks)</li>
+                    <li>1 onion, finely chopped</li>
+                    <li>1 lemon, wedged</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Cook Sprouts</h3>
+                    <p>Pressure cook sprouts with turmeric and salt for 3 whistles. Drain excess water.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Prepare Masala</h3>
+                    <p>Heat oil, sauté onions until golden. Add ginger-garlic paste, cook for 1 minute. Add tomato puree and cook until oil separates.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Make Curry</h3>
+                    <p>Add all spices, jaggery and coconut. Mix well, add cooked sprouts and 2 cups water. Simmer for 15 minutes.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Temper</h3>
+                    <p>Heat ghee in small pan, add tempering ingredients. Pour over curry, garnish with cilantro.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Assemble</h3>
+                    <p>In serving bowl: sprouts curry → farsan → onions → cilantro. Serve with pav and lemon wedges.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/kaJzwCD8uvY?si=qv43IwNuBlgDfjtF" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Goda Masala:</strong> Essential for authentic flavor - available at Maharashtrian grocery stores.</p>
+                <p><strong>Spice Level:</strong> Adjust chili powder quantity. Traditional Puneri misal is very spicy.</p>
+                <p><strong>Variations:</strong> Kolhapuri misal uses different spice blend, Nagpuri version is less spicy.</p>
+                <p><strong>Toppings:</strong> Add diced potatoes or poha for different textures.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">320</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">14g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">40g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">12g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">8g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="similar-recipes" data-animate="false">
+            <div class="container">
+                <h2>More Maharashtrian Dishes</h2>
+                <div class="recipe-carousel">
+                    <div class="recipe-card">
+                        <img src="https://imgs.search.brave.com/oam31CSoRdmMdpK5qzvotdMnap42P_Bpu0XhUqxeOmo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNjA0/NTQ1NTU0L3N0b2Nr/LXBob3RvLWhhcml5/YWxpLWdyZWVuLXBh/di1iaGFqaS12YXJp/YXRpb24tdHJhZGl0/aW9uYWwtcGF2LWJo/YWppLW1hZGUtdXNp/bmc" alt="Pav Bhaji">
+                        <div class="recipe-card-content">
+                            <h3>Pav Bhaji</h3>
+                            <a href="recipe-pav-bhaji.html" class="btn btn-small">View Recipe</a>
+                        </div>
+                    </div>
+                    <div class="recipe-card">
+                        <img src="https://imgs.search.brave.com/ltPPg7dfexwnd6CJVyTJvWwRigRpGdItiXZS0-GgWak/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9lZ2ctdmFkYS1w/YXYtYW5kYS13YWRh/LXBhYXYtcGF2LWlz/LW5vbi12ZWdldGFy/aWFuLWZhc3QtZm9v/ZC1kaXNoLWZyb20t/bWFoYXJhc2h0cmEt/aW5kaWFfNDY2Njg5/LTQ4MDYuanBnP3Nl/bXQ9YWlzX2h5YnJp/ZCZ3PTc0MA" alt="Vada Pav">
+                        <div class="recipe-card-content">
+                            <h3>Vada Pav</h3>
+                            <a href="recipe-vada-pav.html" class="btn btn-small">View Recipe</a>
+                        </div>
+                    </div>
+                    <div class="recipe-card">
+                        <img src="https://imgs.search.brave.com/puran-poli-image" alt="Puran Poli">
+                        <div class="recipe-card-content">
+                            <h3>Puran Poli</h3>
+                            <a href="recipe-puran-poli.html" class="btn btn-small">View Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

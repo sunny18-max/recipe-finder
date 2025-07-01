@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhokla Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Gujarati</div>
+                <h1>Dhokla</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 30 mins</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 4</span>
+                    <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>4.7 (342 reviews)</span>
+                </div>
+                <p class="recipe-description">Fluffy, savory steamed cakes made from fermented chickpea flour, tempered with mustard seeds and curry leaves. This iconic Gujarati snack is light, protein-rich, and served with sweet-tangy chutneys.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline"><i class="fas fa-share-alt"></i> Share</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/uWshgdPY1P28rw6ZbKLzOCC3VLlslLoMjLyE1lx1DDM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9ndWph/cmF0aS1pbmRpYW4t/c25hY2stc29mdC1m/bHVmZnkta2hhbWFu/LWRob2tsYS1ib3ds/LWZ1bGwtc3BpY3kt/Z3JlZW4tY2h1dG5l/eS1pbmRpYW4tZm9v/ZC1ndWphcmF0aS1r/aGFtYW4tZGhva2xh/LTk5ODg1MDc4Lmpw/Zw" alt="Dhokla with Chutneys">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Batter:</h3>
+                <ul>
+                    <li>1 cup besan (gram flour)</li>
+                    <li>1 tbsp semolina (sooji)</li>
+                    <li>1 tsp ginger-green chili paste</li>
+                    <li>1 tsp lemon juice</li>
+                    <li>1 tsp sugar</li>
+                    <li>1/2 tsp turmeric powder</li>
+                    <li>1 tsp fruit salt (eno)</li>
+                    <li>Salt to taste</li>
+                    <li>3/4 cup water</li>
+                </ul>
+                <h3>For Tempering:</h3>
+                <ul>
+                    <li>2 tbsp oil</li>
+                    <li>1 tsp mustard seeds</li>
+                    <li>1 tsp sesame seeds</li>
+                    <li>8-10 curry leaves</li>
+                    <li>2 green chilies, slit</li>
+                    <li>1/4 cup water</li>
+                    <li>1 tbsp sugar</li>
+                    <li>2 tbsp chopped cilantro</li>
+                    <li>1/2 cup grated coconut (optional)</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Batter</h3>
+                    <p>Mix besan, semolina, ginger-chili paste, lemon juice, sugar, turmeric, salt and water to smooth batter. Rest for 15 minutes.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Steam</h3>
+                    <p>Grease steaming tray. Add fruit salt to batter, mix gently and pour immediately. Steam for 15-20 minutes.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Temper</h3>
+                    <p>Heat oil, add mustard seeds, sesame seeds, curry leaves and chilies. Pour over steamed dhokla.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Garnish</h3>
+                    <p>Mix sugar in water and sprinkle over dhokla. Garnish with cilantro and coconut.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Serve</h3>
+                    <p>Cut into squares and serve with green chutney and tamarind chutney.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/-Qy4fuNy8kI?si=iUubNXI0tARJ9iTO" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Batter Tip:</strong> For softer dhokla, use 1:1 ratio of besan to yogurt instead of water.</p>
+                <p><strong>Steaming:</strong> Keep water boiling before adding batter. Don't open lid while steaming.</p>
+                <p><strong>Variations:</strong> Khaman dhokla uses split chickpeas (chana dal) instead of besan.</p>
+                <p><strong>Serving:</strong> Best served warm - becomes dense when refrigerated.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">150</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">6g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">20g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">5g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">3g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

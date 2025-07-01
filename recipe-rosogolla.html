@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosogolla Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Bengali</div>
+                <h1>Rosogolla</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 2 hours</span>
+                    <span><i class="fas fa-user-friends"></i> Makes 20 pieces</span>
+                    <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (512 reviews)</span>
+                </div>
+                <p class="recipe-description">Bengal's famous spongy, syrup-soaked cheese balls that are light, delicate and melt-in-your-mouth. These iconic white balls made from chhena (fresh cheese) and semolina are cooked in sugar syrup, absorbing just the right amount of sweetness while maintaining their pillowy texture.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/VdJgSOSG-sqH2Zo5O8scPq4HY1weIzp78hF50dSs8LA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMz/NDQ4NjMwMy9waG90/by9yYXNndWxsYS1y/b3NvZ29sbGEtaW5k/aWFuLWRlc3NlcnQu/anBnP3M9NjEyeDYx/MiZ3PTAmaz0yMCZj/PXV3SnZsUzlZTDJO/MXI4RHcxY2ZrLWpr/WV9yZjk2TXl3LUxG/M2pOLXhlUjQ9" alt="Rosogolla">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Chhena:</h3>
+                <ul>
+                    <li>2 liters full-fat milk</li>
+                    <li>3 tbsp lemon juice or vinegar</li>
+                    <li>1 tbsp semolina (sooji)</li>
+                    <li>1 tsp all-purpose flour</li>
+                </ul>
+                <h3>For Sugar Syrup:</h3>
+                <ul>
+                    <li>2 cups sugar</li>
+                    <li>4 cups water</li>
+                    <li>4 green cardamoms, crushed</li>
+                    <li>1 tsp rose water (optional)</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Make Chhena</h3>
+                    <p>Bring milk to boil. Add lemon juice gradually until milk curdles completely. Strain through muslin cloth and rinse under cold water.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Prepare Cheese Dough</h3>
+                    <p>Hang curdled milk for 30 mins to drain. Then knead with semolina and flour for 15 mins until smooth and non-grainy.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Shape Balls</h3>
+                    <p>Make small smooth balls (about 20g each) without cracks. Keep covered with damp cloth.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Prepare Syrup</h3>
+                    <p>Boil sugar, water and cardamom to make thin syrup (1.5 string consistency).</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Cook Rosogollas</h3>
+                    <p>Gently drop balls into simmering syrup. Cover and cook 15 mins until doubled in size. Turn off heat and let cool in syrup.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/c_ZkvfLuCsE?si=ko4cCLgZzVwi-dZ5" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Milk Tip:</strong> Full-fat cow milk works best for soft texture.</p>
+                <p><strong>Kneading:</strong> Proper kneading prevents bursting during cooking.</p>
+                <p><strong>Storage:</strong> Keep immersed in syrup for up to 5 days refrigerated.</p>
+                <p><strong>Variation:</strong> Add saffron to syrup for kesar rosogolla.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">150</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">5g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">30g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">3g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">0g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Bengali Sweets</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/n09h1imfu8CG0DZ7qoEp2lyKXix46fwTJAJ8dVvFnEw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9oaWdoLWFuZ2xl/LXZpZXctZGVzc2Vy/dC1wbGF0ZS10YWJs/ZV8xMDQ4OTQ0LTE3/Mzc0MDYuanBnP3Nl/bXQ9YWlzX2h5YnJp/ZA" alt="Mishti Doi">
+                    <div class="recipe-card-content">
+                        <h3>Mishti Doi</h3>
+                        <a href="recipe-mishti-doi.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/6RiCEYPY3KHhKuY4otmTvw-lk4C2DPtfxsX9N5Cy0Cw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNjM2/NTc2MzA2L3N0b2Nr/LXBob3RvLXNpdGFi/aG9nLWZhbW91cy1z/d2VldC1iYXJkaGFt/YW4td2VzdC1iZW5n/YWwtaW5kaWE" alt="Sandesh">
+                    <div class="recipe-card-content">
+                        <h3>Sandesh</h3>
+                        <a href="recipe-sandesh.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/chum-chum-image.jpg" alt="Chum Chum">
+                    <div class="recipe-card-content">
+                        <h3>Chum Chum</h3>
+                        <a href="recipe-chum-chum.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

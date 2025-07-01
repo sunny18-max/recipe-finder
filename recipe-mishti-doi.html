@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mishti Doi Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Bengali</div>
+                <h1>Mishti Doi</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 8 hours (includes setting)</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 6</span>
+                    <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (412 reviews)</span>
+                </div>
+                <p class="recipe-description">Bengal's famous sweetened yogurt dessert with caramelized notes, traditionally set in earthen pots. This creamy, slightly tangy delicacy has a distinctive caramel flavor from slow-cooked reduced milk and jaggery, with a texture that's simultaneously dense and velvety smooth.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/n09h1imfu8CG0DZ7qoEp2lyKXix46fwTJAJ8dVvFnEw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9oaWdoLWFuZ2xl/LXZpZXctZGVzc2Vy/dC1wbGF0ZS10YWJs/ZV8xMDQ4OTQ0LTE3/Mzc0MDYuanBnP3Nl/bXQ9YWlzX2h5YnJp/ZA" alt="Mishti Doi">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>Main Ingredients:</h3>
+                <ul>
+                    <li>1 liter full-fat milk</li>
+                    <li>½ cup jaggery (or brown sugar)</li>
+                    <li>2 tbsp yogurt (as starter)</li>
+                    <li>1 tbsp sugar (optional)</li>
+                </ul>
+                <h3>For Flavoring:</h3>
+                <ul>
+                    <li>1 green cardamom, powdered</li>
+                    <li>Pinch of saffron strands (optional)</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Reduce Milk</h3>
+                    <p>Boil milk in heavy-bottomed pan, stirring frequently until reduced to half (about 45 mins). Scrape sides to incorporate cream.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Add Sweetener</h3>
+                    <p>When milk is reduced, add jaggery and stir until completely dissolved. Cook 2-3 minutes more. Let cool to lukewarm.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Add Starter</h3>
+                    <p>Whisk yogurt with 2 tbsp of the warm milk mixture, then stir back into main pot. Add cardamom and saffron if using.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Set</h3>
+                    <p>Pour into earthen pots or glass bowls. Cover and keep in warm place 6-8 hours until set.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Chill</h3>
+                    <p>Refrigerate at least 4 hours before serving. The doi will thicken further when chilled.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/cQdddoWLxDE?si=4L5S_8z_uccUvSR8" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Traditional Method:</strong> Earthen pots impart distinctive earthy flavor.</p>
+                <p><strong>Sweetness:</strong> Adjust jaggery to taste - Bengali version is quite sweet.</p>
+                <p><strong>Texture Tip:</strong> Don't disturb while setting for smooth texture.</p>
+                <p><strong>Serving:</strong> Garnish with chopped nuts or edible rose petals.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">220</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">6g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">30g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">8g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">0g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Bengali Sweets</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/16t8gmqiYN4Cd5xBidA5dJGPOxKAYQPfuyrWOqs3tVw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNTk1/MDQ0ODA4L3N0b2Nr/LXBob3RvLW1hbGFp/LWNob3AtY3JlYW0t/c2FuZHdpY2gtbWFk/ZS11c2luZy1maWxs/aW5nLXJhc2d1bGxh/LWd1bGFiLWphbXVu" alt="Rasgulla">
+                    <div class="recipe-card-content">
+                        <h3>Rasgulla</h3>
+                        <a href="recipe-rasgulla.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/6RiCEYPY3KHhKuY4otmTvw-lk4C2DPtfxsX9N5Cy0Cw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNjM2/NTc2MzA2L3N0b2Nr/LXBob3RvLXNpdGFi/aG9nLWZhbW91cy1z/d2VldC1iYXJkaGFt/YW4td2VzdC1iZW5n/YWwtaW5kaWE" alt="Sandesh">
+                    <div class="recipe-card-content">
+                        <h3>Sandesh</h3>
+                        <a href="recipe-sandesh.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/VdJgSOSG-sqH2Zo5O8scPq4HY1weIzp78hF50dSs8LA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMz/NDQ4NjMwMy9waG90/by9yYXNndWxsYS1y/b3NvZ29sbGEtaW5k/aWFuLWRlc3NlcnQu/anBnP3M9NjEyeDYx/MiZ3PTAmaz0yMCZj/PXV3SnZsUzlZTDJO/MXI4RHcxY2ZrLWpr/WV9yZjk2TXl3LUxG/M2pOLXhlUjQ9" alt="Rosogolla">
+                    <div class="recipe-card-content">
+                        <h3>Rosogolla</h3>
+                        <a href="recipe-rosogolla.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

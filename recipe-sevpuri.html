@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sev Puri Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Street Food</div>
+                <h1>Sev Puri</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 30 mins</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 4</span>
+                    <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (512 reviews)</span>
+                </div>
+                <p class="recipe-description">A popular Mumbai street food, Sev Puri is an explosion of flavors and textures - crispy puris topped with spicy potatoes, tangy chutneys, crunchy sev, and fresh veggies.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline"><i class="fas fa-share-alt"></i> Share</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/lErDKFZi22iyo-Y4-31Zgr2UajLNGfdFWFDnSjsPg-s/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMjc4/MTUyMjY4L3N0b2Nr/LXBob3RvLXNldi1w/dXJpLWluZGlhbi1z/bmFjay10eXBlLWNo/YWF0LXBvcHVsYXIt/bXVtYmFpLXB1bmUt/bWFoYXJhc2h0cmE" alt="Sev Puri">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Base:</h3>
+                <ul>
+                    <li>20-25 flat puris (papdis)</li>
+                    <li>2 medium potatoes, boiled and diced</li>
+                    <li>1/2 cup boiled chickpeas</li>
+                    <li>1/2 cup finely chopped onions</li>
+                    <li>1/4 cup finely chopped tomatoes</li>
+                    <li>1/4 cup finely chopped cilantro</li>
+                </ul>
+                <h3>For Chutneys:</h3>
+                <ul>
+                    <li>1/2 cup tamarind chutney</li>
+                    <li>1/4 cup mint-coriander chutney</li>
+                    <li>1 tbsp garlic chutney (optional)</li>
+                </ul>
+                <h3>For Toppings:</h3>
+                <ul>
+                    <li>1 cup sev (thin gram flour noodles)</li>
+                    <li>1/4 cup nylon sev (for garnish)</li>
+                    <li>2 tbsp pomegranate seeds</li>
+                    <li>1 tsp chaat masala</li>
+                    <li>1/2 tsp red chili powder</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Ingredients</h3>
+                    <p>Boil and dice potatoes. Chop all vegetables finely. Keep chutneys ready.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Assemble Base</h3>
+                    <p>Arrange puris on serving plate. Top each puri with potatoes and chickpeas. Sprinkle onions and tomatoes.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Add Chutneys</h3>
+                    <p>Drizzle tamarind chutney generously over each puri. Add mint-coriander chutney. Add garlic chutney if using.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Add Toppings</h3>
+                    <p>Sprinkle chaat masala and red chili powder. Generously cover with sev. Garnish with nylon sev, pomegranate seeds and cilantro.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Serve Immediately</h3>
+                    <p>Serve immediately before puris get soggy.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/iJKiUvTS_mQ?si=X7OCzPMDCo7cyAQU" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Puris:</strong> Store-bought papdis work fine, but homemade ones taste better.</p>
+                <p><strong>Chutneys:</strong> Adjust sweetness and spice levels according to taste.</p>
+                <p><strong>Variations:</strong> Add sprouts or grated beetroot for healthier version.</p>
+                <p><strong>Serving:</strong> Assemble just before eating to maintain crispness.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">150</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">3g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">22g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">6g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">2g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="similar-recipes" data-animate="false">
+            <div class="container">
+                <h2>More Indian Chaat Recipes</h2>
+                <div class="recipe-carousel">
+                    <div class="recipe-card">
+                        <img src="https://imgs.search.brave.com/z5RXyTIbBL5jw86P5dRoMuJXn5zV8Sc5FTEp5Z3qDkM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAyMS8w/MS8wNi8xNC8wMS9w/YW5pLXB1cmktNTg5/NDQ4Ml8xMjgwLmpw/Zw" alt="Pani Puri">
+                        <div class="recipe-card-content">
+                            <h3>Pani Puri</h3>
+                            <a href="recipe-pani-puri.html" class="btn btn-small">View Recipe</a>
+                        </div>
+                    </div>
+                    <div class="recipe-card">
+                        <img src="https://imgs.search.brave.com/nOZ4NC4qg87PKDm9d992pmew6iqj8_gSLGU_EjBjQtI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cGlrcG5nLmNvbS9w/bmdsL2IvMTQyLTE0/MjYxODJfYmhhbGxh/LXBhcGRpLWRhaGkt/YmhhbGxhLXBhcGRp/LXBuZy1jbGlwYXJ0/LnBuZw" alt="Dahi Bhalla">
+                        <div class="recipe-card-content">
+                            <h3>Dahi Bhalla</h3>
+                            <a href="recipe-dahibhalla.html" class="btn btn-small">View Recipe</a>
+                        </div>
+                    </div>
+                    <div class="recipe-card">
+                        <img src="https://imgs.search.brave.com/PAIZBCKOUMr8o7QFupH3Fmmr90n9CalzXyHiLXHfI68/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMTE4/ODg1NDI0L3N0b2Nr/LXBob3RvLWFsb28t/dGlra2ktb3ItY3V0/bGV0LW9yLWFhbHUt/cGF0dGllcy1hLW5v/cnRoLWluZGlhbi1z/bmFjay1tYWRlLW9m/LWJvaWxlZC1wb3Rh/dG9lcw" alt="Aloo Tikki">
+                        <div class="recipe-card-content">
+                            <h3>Aloo Tikki</h3>
+                            <a href="recipe-alootikki.html" class="btn btn-small">View Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 SpiceTrail. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

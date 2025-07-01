@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vegetable Poha Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Indian</div>
+                <h1>Vegetable Poha</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 30 mins</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 4</span>
+                    <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>4.6 (342 reviews)</span>
+                </div>
+                <p class="recipe-description">Light and fluffy flattened rice cooked with turmeric, peanuts, and fresh vegetables. This popular Indian breakfast dish from Maharashtra is seasoned with mustard seeds, curry leaves, and a hint of lemon for a bright, comforting meal that's both nutritious and delicious.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/vegetable-poha-image.jpg" alt="Vegetable Poha">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>Main Ingredients:</h3>
+                <ul>
+                    <li>2 cups thick poha (flattened rice)</li>
+                    <li>1 onion, finely chopped</li>
+                    <li>1 potato, diced</li>
+                    <li>1/2 cup peanuts</li>
+                    <li>2 green chilies, chopped</li>
+                </ul>
+                <h3>For Tempering:</h3>
+                <ul>
+                    <li>2 tbsp oil</li>
+                    <li>1 tsp mustard seeds</li>
+                    <li>1 tsp cumin seeds</li>
+                    <li>10-12 curry leaves</li>
+                    <li>1/4 tsp turmeric powder</li>
+                </ul>
+                <h3>For Garnish:</h3>
+                <ul>
+                    <li>2 tbsp fresh coriander, chopped</li>
+                    <li>1 tbsp lemon juice</li>
+                    <li>Fresh grated coconut (optional)</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Poha</h3>
+                    <p>Rinse poha in water for 10 seconds and drain completely. Sprinkle turmeric and salt, mix gently and set aside.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Make Tempering</h3>
+                    <p>Heat oil in pan. Add mustard seeds, cumin seeds, and curry leaves. When seeds splutter, add peanuts and sauté until golden.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Cook Vegetables</h3>
+                    <p>Add onions and green chilies, sauté until translucent. Add potatoes and cook covered until tender (5-6 minutes).</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Combine</h3>
+                    <p>Add prepared poha and mix gently. Cover and cook on low heat for 2-3 minutes. Turn off heat.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Garnish & Serve</h3>
+                    <p>Sprinkle lemon juice and coriander leaves. Serve hot with sev and coconut garnish if desired.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/UXaOuBoatUA?si=3q62rtrbePK0CYCm" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Poha Selection:</strong> Use thick poha for best texture - thin variety becomes mushy.</p>
+                <p><strong>Vegetable Variations:</strong> Add peas, carrots or bell peppers for more color.</p>
+                <p><strong>Protein Boost:</strong> Sprinkle roasted chana dal or add paneer cubes.</p>
+                <p><strong>Quick Tip:</strong> Don't over-rinse poha - just a quick wash is enough.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">250</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">6g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">40g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">8g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">4g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Indian Breakfasts</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/cholar-dal-image.jpg" alt="Cholar Dal">
+                    <div class="recipe-card-content">
+                        <h3>Cholar Dal</h3>
+                        <a href="recipe-cholar-dal.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/dal-baati-churma-image.jpg" alt="Dal Baati Churma">
+                    <div class="recipe-card-content">
+                        <h3>Dal Baati Churma</h3>
+                        <a href="recipe-dal-baati-churma.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/mishti-doi-image.jpg" alt="Mishti Doi">
+                    <div class="recipe-card-content">
+                        <h3>Mishti Doi</h3>
+                        <a href="recipe-mishti-doi.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

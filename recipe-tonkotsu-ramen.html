@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tonkotsu Ramen Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Japanese</div>
+                <h1>Tonkotsu Ramen</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 12 hours</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 4</span>
+                    <span><i class="fas fa-pepper-hot"></i> Advanced</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>4.7 (238 reviews)</span>
+                </div>
+                <p class="recipe-description">The ultimate comfort food from Kyushu, Japan featuring a rich, creamy pork bone broth that simmers for hours to extract maximum flavor. Topped with tender chashu pork, marinated eggs, and springy noodles for an unforgettable bowl of umami.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/VdXY7fZtzmJyDbs9G1oX4LUC9IHIl3ALXu7TQBc_Smg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNDkv/Mzk1LzgyOC9zbWFs/bC9kZWxpY2lvdXMt/aGlnaC1yZXNvbHV0/aW9uLXJhbWVuLWJv/d2wtd2l0aC1wZXJm/ZWN0LXRvcHBpbmdz/LWZyZWUtcGhvdG8u/anBn" alt="Tonkotsu Ramen">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Broth:</h3>
+                <ul>
+                    <li>4 lbs pork bones (neck and femur)</li>
+                    <li>1 lb chicken bones</li>
+                    <li>1 onion, halved</li>
+                    <li>1 head garlic, halved</li>
+                    <li>2-inch ginger piece, sliced</li>
+                </ul>
+                <h3>For Tare:</h3>
+                <ul>
+                    <li>1 cup soy sauce</li>
+                    <li>1/2 cup mirin</li>
+                    <li>1/4 cup sake</li>
+                    <li>1/4 cup brown sugar</li>
+                </ul>
+                <h3>For Toppings:</h3>
+                <ul>
+                    <li>4 ramen eggs (ajitsuke tamago)</li>
+                    <li>8 slices chashu pork</li>
+                    <li>4 servings fresh ramen noodles</li>
+                    <li>Menma (bamboo shoots)</li>
+                    <li>Green onions, chopped</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Bones</h3>
+                    <p>Soak pork bones in cold water for 1 hour, then scrub clean. Blanch bones for 15 minutes, then rinse thoroughly.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Make Broth</h3>
+                    <p>Combine bones, chicken bones, and aromatics in large pot. Cover with water and boil vigorously for 12 hours, adding water as needed.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Prepare Tare</h3>
+                    <p>Combine all tare ingredients in saucepan. Simmer for 15 minutes until slightly reduced. Strain and set aside.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Assemble Bowls</h3>
+                    <p>Cook noodles according to package. To each bowl, add 2 tbsp tare, then broth. Add noodles and arrange toppings.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/uPqzY8rZLZM?si=pheoW0KIy1hveaHt" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Shortcut:</strong> Use pre-made tonkotsu broth base if short on time.</p>
+                <p><strong>Traditional Tip:</strong> The broth should be cloudy white from the emulsified fat and marrow.</p>
+                <p><strong>Make Ahead:</strong> Broth can be made 3 days in advance and reheated.</p>
+                <p><strong>Vegetarian Option:</strong> Substitute with mushroom broth and tofu.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">850</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">45g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">90g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">35g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">5g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Japanese Recipes</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/GS9ujlGQ_3fgDrqcRpL2WvWDVQYz8aFHNzJ4Fdpwp2g/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9o/aWdoLWFuZ2xlLWRl/bGljaW91cy1yYW1l/bi1ib3dsXzIzLTIx/NDg2Nzg3NDIuanBn/P3NlbXQ9YWlzX2h5/YnJpZCZ3PTc0MA" alt="Shio Ramen">
+                    <div class="recipe-card-content">
+                        <h3>Shio Ramen</h3>
+                        <a href="recipe-shio-ramen.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/sJ1Vk8FDbPR2KSvzloNrtVXvUcLH4n8AUfiHFC08KcM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9mYXJh/aGplYXRzLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyNC8x/MC9JTUdfMTI4OF9q/cGctMTAyNHgxMDI0/LmpwZw" alt="Tantanmen">
+                    <div class="recipe-card-content">
+                        <h3>Tantanmen</h3>
+                        <a href="recipe-tantanmen.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/-7aymo1v32UohDrlEdghS2n6gXLNw_LkTec7vmRGNyY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAyNC8w/Ni8xOC8wNy8xMy9y/YW1lbi04ODM3MTc0/XzY0MC5wbmc" alt="Miso Ramen">
+                    <div class="recipe-card-content">
+                        <h3>Miso Ramen</h3>
+                        <a href="recipe-miso-ramen.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

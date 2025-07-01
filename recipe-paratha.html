@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aloo Paratha Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Punjabi</div>
+                <h1>Aloo Paratha</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 1 hour</span>
+                    <span><i class="fas fa-user-friends"></i> Makes 6</span>
+                    <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                    <span><i class="fas fa-bread-slice"></i> Stuffed</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (4,215 reviews)</span>
+                </div>
+                <p class="recipe-description">The ultimate North Indian comfort food - whole wheat flatbreads stuffed with spiced mashed potato filling. These hearty, flavorful parathas are crispy on the outside with a soft, spicy potato center, perfect for breakfast or any meal. Traditionally served with butter, yogurt, and pickle, they're a complete meal by themselves.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/xyz123" alt="Aloo Paratha">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Dough:</h3>
+                <ul>
+                    <li>2 cups whole wheat flour</li>
+                    <li>1/2 tsp salt</li>
+                    <li>1 tbsp oil</li>
+                    <li>3/4 cup water (approx)</li>
+                </ul>
+                <h3>For Potato Filling:</h3>
+                <ul>
+                    <li>3 medium potatoes, boiled & mashed</li>
+                    <li>1 small onion, finely chopped</li>
+                    <li>1 green chili, finely chopped</li>
+                    <li>1/2 tsp cumin seeds</li>
+                    <li>1/2 tsp ajwain (carom seeds)</li>
+                    <li>1/2 tsp amchur (dry mango powder)</li>
+                    <li>1/2 tsp garam masala</li>
+                    <li>2 tbsp coriander leaves, chopped</li>
+                    <li>Salt to taste</li>
+                </ul>
+                <h3>For Cooking:</h3>
+                <ul>
+                    <li>1/4 cup ghee or oil</li>
+                    <li>Extra flour for dusting</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Dough</h3>
+                    <p>Mix flour, salt and oil. Add water gradually to make soft dough. Knead 5 mins, cover and rest.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Make Filling</h3>
+                    <p>Mix all filling ingredients. Divide into 6 equal portions.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Stuff Parathas</h3>
+                    <p>Divide dough into 6 balls. Flatten, place filling, seal edges, and roll gently into 7" circles.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Cook Parathas</h3>
+                    <p>Heat tawa, cook paratha on medium heat. Flip when bubbles appear, apply ghee, cook both sides.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Crisp Up</h3>
+                    <p>Press edges gently with spatula to ensure even cooking. Cook until golden brown spots appear.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 6: Serve Hot</h3>
+                    <p>Apply butter if desired. Serve with yogurt, pickle, or chutney.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/dBXiHx11niM?si=WrlYsAsZzLV01OrY" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Masala Tip:</strong> Everest or Badshah pav bhaji masala work best. Adjust quantity to taste.</p>
+                <p><strong>Texture:</strong> Bhaji should be thick but spreadable - add water as needed while cooking.</p>
+                <p><strong>Restaurant Style:</strong> Use extra butter and serve on cast iron tawa for authentic experience.</p>
+                <p><strong>Variations:</strong> Add grated beetroot for color or paneer for protein boost.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">380</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">8g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">45g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">20g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">6g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Stuffed Parathas</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                        <img src="https://imgs.search.brave.com/gwmkPgP3jGEhVTFEYG4nTV9SELq9R6WxdjTBpBGY--c/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTMz/NjUxNzM1My9waG90/by9hLWhpZ2gtcHJv/dGVpbi1pbmRpYW4t/ZmxhdC1icmVhZC13/aXRoLXdob2xlLXdo/ZWF0LWFuZC1sZW50/aWxzLXBvcHVsYXJs/eS1rbm93bi1hcy1t/b29uZy1kYWwuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPW5z/ajM1bFA4dVhrTEhY/YkJ3UkZlZEhuMXli/T1VVUE5FM05kVjBy/cTZPU2c9" alt="Whole Wheat Roti">
+                        <div class="recipe-card-content">
+                            <h3>Whole Wheat Roti</h3>
+                            <a href="recipe-roti.html" class="btn btn-small">View Recipe</a>
+                        </div>
+                    </div>
+                    <div class="recipe-card">
+                        <img src="https://imgs.search.brave.com/aOtu-cjlLnrx7L-VonMFwJRNJqmink9JEg0bY9Zb6WU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9o/aWdoLWFuZ2xlLXBh/a2lzdGFuaS1kaXNo/XzIzLTIxNDg4MjUx/MDQuanBnP3NlbXQ9/YWlzX2h5YnJpZCZ3/PTc0MA" alt="Amritsari Kulcha">
+                        <div class="recipe-card-content">
+                            <h3>Amritsari Kulcha</h3>
+                            <a href="recipe-kulcha.html" class="btn btn-small">View Recipe</a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+     <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+
+        
+   

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Tiramisu Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Italian</div>
+                <h1>Classic Tiramisu</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 6 hours (includes chilling)</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 8</span>
+                    <span><i class="fas fa-egg"></i> Contains Eggs</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (892 reviews)</span>
+                </div>
+                <p class="recipe-description">The iconic Italian dessert made with layers of coffee-soaked ladyfingers and a rich, creamy mascarpone filling, dusted with cocoa powder. This no-bake dessert is light yet indulgent, with the perfect balance of coffee, cream, and sweetness that makes it a crowd favorite.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/lUa8z9IVD2LUYBrrmTGM067tMxhy4Wfe_FmZjoGiINw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvODQz/ODk5NjIvc3RvY2st/cGhvdG8tdGlyYW1p/c3U" alt="Classic Tiramisu">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For the Coffee Mixture:</h3>
+                <ul>
+                    <li>1½ cups strong brewed coffee, cooled</li>
+                    <li>2 tbsp coffee liqueur (optional)</li>
+                    <li>2 tbsp sugar</li>
+                </ul>
+                <h3>For the Cream:</h3>
+                <ul>
+                    <li>4 large egg yolks</li>
+                    <li>½ cup granulated sugar</li>
+                    <li>¾ cup heavy cream</li>
+                    <li>1 cup mascarpone cheese</li>
+                </ul>
+                <h3>For Assembly:</h3>
+                <ul>
+                    <li>24-30 ladyfinger cookies</li>
+                    <li>Cocoa powder for dusting</li>
+                    <li>Dark chocolate shavings (optional)</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Coffee Mixture</h3>
+                    <p>Combine cooled coffee, liqueur (if using), and sugar in shallow dish. Stir until sugar dissolves.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Make Zabaglione</h3>
+                    <p>Whisk egg yolks and sugar in heatproof bowl over simmering water until pale and thick (about 10 mins). Remove from heat.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Whip Cream</h3>
+                    <p>In separate bowl, whip heavy cream to stiff peaks. Fold mascarpone into cooled egg mixture, then gently fold in whipped cream.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Assemble Layers</h3>
+                    <p>Quickly dip ladyfingers in coffee mixture (don't soak) and arrange in single layer in 8x8" dish. Spread half the cream mixture over. Repeat layers.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Chill and Serve</h3>
+                    <p>Cover and refrigerate at least 6 hours or overnight. Before serving, dust with cocoa powder and chocolate shavings.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/87V4nizNJiE?si=ccQYyejqMEsHbljC" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Egg Safety:</strong> Use pasteurized eggs if concerned about raw yolks.</p>
+                <p><strong>Non-Alcoholic:</strong> Omit liqueur and use 2 tsp vanilla extract instead.</p>
+                <p><strong>Make Ahead:</strong> Tastes even better after 24 hours chilling.</p>
+                <p><strong>Presentation:</strong> Serve in individual glasses for elegant plating.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">450</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">8g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">35g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">30g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">1g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Italian Desserts</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/ptognh3MzsAfde5uS2T9a6jNsJOG266vegr1E6IoIhk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvOTUx/NTMwMTY0L3Bob3Rv/L2dsYXNzZXMtb2Yt/cGFubmEtY290dGEt/d2l0aC1yb2FzdGVk/LXJodWJhcmIuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPVpk/bWM2YmF0WXdGWG9V/a0hFalE4QmNiQ2Nh/WDU1c3FwUHQ5bllw/NUJHZFk9" alt="Panna Cotta">
+                    <div class="recipe-card-content">
+                        <h3>Panna Cotta</h3>
+                        <a href="recipe-panna-cotta.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/N3UAvJ50GWRAyqENrNoMEkIsu0eDDxvGlV-W1Q3kpg0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNDY4/NjA2NDEvc3RvY2st/cGhvdG8tc2ljaWxp/YW4tY2Fubm9saS10/eXBpY2FsLXNpY2ls/aWFuLXN3ZWV0" alt="Cannoli">
+                    <div class="recipe-card-content">
+                        <h3>Cannoli</h3>
+                        <a href="recipe-cannoli.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/qlODXNY1cQ_RRAvGgPfIlMwVkpzDDWDv6zjUxSwVShE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTgy/NTEwMTI4Mi9waG90/by9hZmZvZ2F0by5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/dFRPWUFNRUNFSnJu/elppSG51VDdFNVo4/cmktazhqeUdSYW1G/UGl5VXFNVT0" alt="Affogato">
+                    <div class="recipe-card-content">
+                        <h3>Affogato</h3>
+                        <a href="recipe-affogato.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

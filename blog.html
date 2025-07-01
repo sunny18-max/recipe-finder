@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooking Blog | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --primary-dark: #E05D5D;
+            --secondary: #4ECDC4;
+            --dark: #292F36;
+            --light: #F7FFF7;
+            --accent: #FFE66D;
+            --gray: #6C757D;
+            --light-gray: #F8F9FA;
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.2);
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .dancing-script {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            text-align: center;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        /* Blog Section */
+        .blog-section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        /* Blog Card */
+        .blog-card {
+            background-color: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .blog-card.featured {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .blog-image {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .blog-card.featured .blog-image {
+            height: 100%;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .blog-card:hover .blog-image img {
+            transform: scale(1.05);
+        }
+
+        .blog-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-card.featured .blog-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .blog-meta i {
+            margin-right: 5px;
+        }
+
+        .blog-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .blog-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .blog-card.featured h3 {
+            font-size: 1.8rem;
+        }
+
+        .blog-card.featured p {
+            font-size: 1.05rem;
+        }
+
+        /* Pagination */
+        .blog-pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .blog-pagination span {
+            font-weight: 500;
+        }
+
+        /* Categories */
+        .blog-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .category-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            background-color: var(--light-gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Newsletter */
+        .blog-newsletter {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px;
+            border-radius: var(--radius-md);
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .blog-newsletter h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .blog-newsletter p {
+            max-width: 600px;
+            margin: 0 auto 25px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 0 25px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-form button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Popular Tags */
+        .popular-tags {
+            margin: 60px 0;
+        }
+
+        .popular-tags h3 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+
+        .tags-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            padding: 6px 15px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .tag:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Author Section */
+        .author-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-section p {
+            opacity: 0.8;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 12px;
+        }
+
+        .footer-link a {
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .footer-link a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-newsletter {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .footer-newsletter input {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+            font-size: 0.9rem;
+        }
+
+        .footer-newsletter button {
+            padding: 0 15px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .footer-newsletter button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .footer-bottom a {
+            opacity: 0.8;
+            margin: 0 10px;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--primary);
+        }
+
+        /* Animations */
+        .scale-in {
+            animation: scaleIn 0.5s ease forwards;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .text-glow {
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 5px rgba(255,107,107,0.5);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(255,107,107,0.8);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .blog-card.featured {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                margin-bottom: 40px;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .blog-newsletter {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .blog-pagination {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input,
+            .newsletter-form button {
+                width: 100%;
+                border-radius: var(--radius-sm);
+            }
+            
+            .newsletter-form button {
+                margin-top: 10px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="meal-plan.html">Meal Plan</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="blog-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-glow">SpiceTrail Cooking Blog</h2>
+                <p>Discover culinary secrets, expert techniques, and inspiring stories from our global kitchen adventures</p>
+            </div>
+            
+            <!-- Blog Categories -->
+            <div class="blog-categories">
+                <button class="category-btn active">All Articles</button>
+                <button class="category-btn">Techniques</button>
+                <button class="category-btn">Ingredients</button>
+                <button class="category-btn">Regional Cuisines</button>
+                <button class="category-btn">Kitchen Tips</button>
+                <button class="category-btn">Chef Interviews</button>
+            </div>
+            
+            <!-- Page 1 Content (Active by default) -->
+            <div class="blog-page active" id="page-1">    
+                <div class="blog-grid">
+                    <!-- Featured Post -->
+                    <article class="blog-card featured scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Indian Spices">
+                            <div class="blog-badge">Featured</div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> June 15, 2023</span>
+                                <span><i class="far fa-clock"></i> 5 min read</span>
+                                <span><i class="far fa-comment"></i> 24 Comments</span>
+                            </div>
+                            <h3>The Essential Guide to Indian Spices: Unlocking Flavor Secrets</h3>
+                            <p>Discover the foundational spices of Indian cuisine and how to use them to create authentic flavors in your kitchen. This comprehensive guide covers everything from proper storage techniques to blending ratios that will transform your cooking...</p>
+                            <a href="blog-indian-spices.html" class="btn btn-primary">Read More <i class="fas fa-arrow-right"></i></a>
+                            
+                            <div class="author-section">
+                                <div class="author-avatar">
+                                    <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Chef Priya">
+                                </div>
+                                <div class="author-info">
+                                    <h4>Chef Priya Sharma</h4>
+                                    <p>Master Chef & Spice Expert</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Regular Posts -->
+                    <article class="blog-card scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Meal Prep">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> June 10, 2023</span>
+                                <span><i class="far fa-clock"></i> 4 min read</span>
+                            </div>
+                            <h3>Meal Prep Like a Pro: Indian Edition</h3>
+                            <p>Learn how to prepare a week's worth of delicious Indian meals in just a few hours with these time-saving techniques that preserve authentic flavors...</p>
+                            <a href="blog-meal-prep.html" class="btn btn-outline">Read More</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1392&q=80" alt="Regional Cuisines">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> June 5, 2023</span>
+                                <span><i class="far fa-clock"></i> 7 min read</span>
+                            </div>
+                            <h3>Exploring India's Diverse Regional Cuisines</h3>
+                            <p>From the spicy curries of the south to the rich Mughlai dishes of the north, discover the incredible diversity of Indian regional cooking traditions...</p>
+                            <a href="blog-regional-cuisines.html" class="btn btn-outline">Read More</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" alt="Vegetarian Cooking">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> May 28, 2023</span>
+                                <span><i class="far fa-clock"></i> 6 min read</span>
+                            </div>
+                            <h3>Vegetarian Cooking: Beyond the Basics</h3>
+                            <p>Elevate your vegetarian cooking with these pro tips and innovative techniques from India's rich plant-based culinary traditions...</p>
+                            <a href="blog-vegetarian-cooking.html" class="btn btn-outline">Read More</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1605870445919-838d190e8e1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="Spice Blends">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> May 20, 2023</span>
+                                <span><i class="far fa-clock"></i> 5 min read</span>
+                            </div>
+                            <h3>Mastering Indian Spice Blends at Home</h3>
+                            <p>Learn how to create authentic garam masala, chaat masala, and other essential Indian spice blends with our tested recipes and expert advice...</p>
+                            <a href="blog-spice-blends.html" class="btn btn-outline">Read More</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1371&q=80" alt="Street Food">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> May 15, 2023</span>
+                                <span><i class="far fa-clock"></i> 8 min read</span>
+                            </div>
+                            <h3>Recreating Indian Street Food Magic at Home</h3>
+                            <p>Bring the vibrant flavors of Indian street food into your kitchen with these authentic recipes and techniques from local vendors across India...</p>
+                            <a href="blog-street-food.html" class="btn btn-outline">Read More</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Page 2 Content (Hidden by default) -->
+            <div class="blog-page" id="page-2" style="display: none;">
+                <div class="blog-grid">
+                    <!-- Featured Post for Page 2 -->
+                    <article class="blog-card featured scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Healthy Indian Food">
+                            <div class="blog-badge">Featured</div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> May 10, 2023</span>
+                                <span><i class="far fa-clock"></i> 6 min read</span>
+                                <span><i class="far fa-comment"></i> 18 Comments</span>
+                            </div>
+                            <h3>Healthy Twists on Classic Indian Dishes</h3>
+                            <p>Discover how to make your favorite Indian recipes healthier without sacrificing flavor with these simple ingredient substitutions and cooking techniques...</p>
+                            <a href="blog-healthy-indian.html" class="btn btn-primary">Read More <i class="fas fa-arrow-right"></i></a>
+                            
+                            <div class="author-section">
+                                <div class="author-avatar">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Chef Raj">
+                                </div>
+                                <div class="author-info">
+                                    <h4>Chef Raj Patel</h4>
+                                    <p>Nutrition Specialist</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Regular Posts for Page 2 -->
+                    <article class="blog-card scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1398&q=80" alt="Indian Breads">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> May 8, 2023</span>
+                                <span><i class="far fa-clock"></i> 5 min read</span>
+                            </div>
+                            <h3>The Art of Indian Bread Making</h3>
+                            <p>From fluffy naan to crispy papadums, learn the secrets to perfecting various Indian breads in your home kitchen with step-by-step guides...</p>
+                            <a href="blog-indian-breads.html" class="btn btn-outline">Read More</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Indian Desserts">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> May 5, 2023</span>
+                                <span><i class="far fa-clock"></i> 7 min read</span>
+                            </div>
+                            <h3>Sweet Endings: Traditional Indian Desserts</h3>
+                            <p>Explore the world of Indian sweets from creamy kheer to syrup-soaked gulab jamun, with recipes adapted for modern kitchens...</p>
+                            <a href="blog-indian-desserts.html" class="btn btn-outline">Read More</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1635&q=80" alt="Indian Breakfast">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> May 1, 2023</span>
+                                <span><i class="far fa-clock"></i> 6 min read</span>
+                            </div>
+                            <h3>Indian Breakfast Recipes to Start Your Day Right</h3>
+                            <p>Move beyond cereal with these nutritious and flavorful Indian breakfast options that will energize your mornings...</p>
+                            <a href="blog-indian-breakfast.html" class="btn btn-outline">Read More</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1601050690117-94b5b7d50d76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Indian Cooking Tools">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> April 28, 2023</span>
+                                <span><i class="far fa-clock"></i> 4 min read</span>
+                            </div>
+                            <h3>Essential Tools for Indian Cooking</h3>
+                            <p>Discover the must-have kitchen tools and equipment that will make preparing Indian food easier and more authentic...</p>
+                            <a href="blog-indian-tools.html" class="btn btn-outline">Read More</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Page 3 Content (Hidden by default) -->
+            <div class="blog-page" id="page-3" style="display: none;">
+                <div class="blog-grid">
+                    <!-- Featured Post for Page 3 -->
+                    <article class="blog-card featured scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Indian Cooking Techniques">
+                            <div class="blog-badge">Featured</div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> April 25, 2023</span>
+                                <span><i class="far fa-clock"></i> 8 min read</span>
+                                <span><i class="far fa-comment"></i> 22 Comments</span>
+                            </div>
+                            <h3>5 Essential Indian Cooking Techniques Every Home Cook Should Master</h3>
+                            <p>From tempering spices to slow cooking, these fundamental techniques form the foundation of authentic Indian cuisine...</p>
+                            <a href="blog-indian-techniques.html" class="btn btn-primary">Read More <i class="fas fa-arrow-right"></i></a>
+                            
+                            <div class="author-section">
+                                <div class="author-avatar">
+                                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Chef Meera">
+                                </div>
+                                <div class="author-info">
+                                    <h4>Chef Meera Kapoor</h4>
+                                    <p>Culinary Instructor</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Regular Posts for Page 3 -->
+                    <article class="blog-card scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1605870445919-838d190e8e1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="Indian Spices">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> April 20, 2023</span>
+                                <span><i class="far fa-clock"></i> 5 min read</span>
+                            </div>
+                            <h3>Understanding the Heat Levels of Indian Spices</h3>
+                            <p>A guide to navigating the Scoville scale of Indian cooking, from mild Kashmiri chili to fiery ghost pepper...</p>
+                            <a href="blog-spice-heat.html" class="btn btn-outline">Read More</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Indian Drinks">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> April 18, 2023</span>
+                                <span><i class="far fa-clock"></i> 4 min read</span>
+                            </div>
+                            <h3>Refreshing Indian Beverages for Every Season</h3>
+                            <p>Cool down with these traditional Indian drinks, from mango lassi in summer to hot masala chai in winter...</p>
+                            <a href="blog-indian-drinks.html" class="btn btn-outline">Read More</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1606491956743-5e6aad0f8c1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Indian Pickles">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> April 15, 2023</span>
+                                <span><i class="far fa-clock"></i> 6 min read</span>
+                            </div>
+                            <h3>The Ancient Art of Indian Pickling</h3>
+                            <p>Learn how to make authentic Indian pickles (achar) at home with these traditional recipes and fermentation techniques...</p>
+                            <a href="blog-indian-pickles.html" class="btn btn-outline">Read More</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card scale-in">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1605870219910-5b4d5f8a07a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Indian Cooking Classes">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="far fa-calendar"></i> April 12, 2023</span>
+                                <span><i class="far fa-clock"></i> 3 min read</span>
+                            </div>
+                            <h3>Best Online Indian Cooking Classes for 2023</h3>
+                            <p>Our top picks for virtual cooking classes that will teach you authentic Indian techniques from master chefs...</p>
+                            <a href="blog-cooking-classes.html" class="btn btn-outline">Read More</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Blog Newsletter -->
+            <div class="blog-newsletter">
+                <h3>Join Our Culinary Community</h3>
+                <p>Subscribe to our newsletter and receive weekly cooking tips, exclusive recipes, and the latest blog posts delivered straight to your inbox.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+
+            <!-- Popular Tags -->
+            <div class="popular-tags">
+                <h3>Popular Tags</h3>
+                <div class="tags-container">
+                    <a href="#" class="tag">#Spices</a>
+                    <a href="#" class="tag">#Vegetarian</a>
+                    <a href="#" class="tag">#Curry</a>
+                    <a href="#" class="tag">#MealPrep</a>
+                    <a href="#" class="tag">#Regional</a>
+                    <a href="#" class="tag">#Techniques</a>
+                    <a href="#" class="tag">#StreetFood</a>
+                    <a href="#" class="tag">#Healthy</a>
+                    <a href="#" class="tag">#Traditional</a>
+                    <a href="#" class="tag">#QuickMeals</a>
+                </div>
+            </div>
+
+            <div class="blog-pagination">
+                <button class="btn btn-outline"><i class="fas fa-chevron-left"></i> Previous</button>
+                <span>Page 1 of 3</span>
+                <button class="btn btn-primary">Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </main>
+</body>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                    <div class="footer-logo">
+                        <i class="fas fa-utensils"></i>
+                        <span class="dancing-script">SpiceTrail</span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="search.html">Search Recipes</a></li>
+                        <li class="footer-link"><a href="favorites.html">Your Favorites</a></li>
+                        <li class="footer-link"><a href="meal-plan.html">Meal Planner</a></li>
+                        <li class="footer-link"><a href="blog.html">Cooking Blog</a></li>
+                        <li class="footer-link"><a href="indian-recipes.html">Indian Recipes</a></li>
+                        <li class="footer-link"><a href="cooking-classes.html">Online Classes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                    <h3 class="newsletter-title">Newsletter</h3>
+                    <form class="footer-newsletter">
+                        <input type="email" placeholder="Your email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2025</span> SpiceTrail. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | <a href="contact.html">Contact Us</a></p>
+            </div>
+        </div>
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    
+    const prevBtn = document.querySelector('.blog-pagination .btn-outline');
+    const nextBtn = document.querySelector('.blog-pagination .btn-primary');
+    const pageIndicator = document.querySelector('.blog-pagination span');
+    const pages = document.querySelectorAll('.blog-page');
+    const totalPages = pages.length;
+    let currentPage = 1;
+    
+    
+    updatePagination();
+    
+    
+    prevBtn.addEventListener('click', function() {
+        if (currentPage > 1) {
+            currentPage--;
+            updatePagination();
+            scrollToBlogSection();
+        }
+    });
+    
+    
+    nextBtn.addEventListener('click', function() {
+        if (currentPage < totalPages) {
+            currentPage++;
+            updatePagination();
+            scrollToBlogSection();
+        }
+    });
+    
+    function updatePagination() {
+        
+        pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+        
+        
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
+        
+        
+        if (currentPage === 1) {
+            prevBtn.classList.remove('btn-primary');
+            prevBtn.classList.add('btn-outline');
+            nextBtn.classList.remove('btn-outline');
+            nextBtn.classList.add('btn-primary');
+        } else if (currentPage === totalPages) {
+            prevBtn.classList.remove('btn-outline');
+            prevBtn.classList.add('btn-primary');
+            nextBtn.classList.remove('btn-primary');
+            nextBtn.classList.add('btn-outline');
+        } else {
+            prevBtn.classList.remove('btn-outline');
+            prevBtn.classList.add('btn-primary');
+            nextBtn.classList.remove('btn-outline');
+            nextBtn.classList.add('btn-primary');
+        }
+        
+        
+        pages.forEach((page, index) => {
+            if (index + 1 === currentPage) {
+                page.style.display = 'block';
+                page.classList.add('active');
+            } else {
+                page.style.display = 'none';
+                page.classList.remove('active');
+            }
+        });
+    }
+    
+    function scrollToBlogSection() {
+        document.querySelector('.blog-section').scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+    
+    
+    const burger = document.querySelector('.burger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    burger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        burger.classList.toggle('toggle');
+    });
+    
+    
+    const currentYearElement = document.getElementById('current-year');
+    if (currentYearElement) {
+        currentYearElement.textContent = new Date().getFullYear();
+    }
+    
+   
+    const blogCards = document.querySelectorAll('.blog-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+            }
+        });
+    }, {threshold: 0.1});
+    
+    blogCards.forEach(card => {
+        observer.observe(card);
+    });
+    
+    
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            filterBlogPosts(btn.textContent.trim());
+        });
+    });
+    
+   
+    function filterBlogPosts(category) {
+        if (category === 'All Articles') {
+           
+            document.querySelectorAll('.blog-card').forEach(card => {
+                card.style.display = 'block';
+            });
+            return;
+        }
+        
+       
+        console.log(`Filtering by category: ${category}`);
+        
+    }
+    
+   
+    pages.forEach((page, index) => {
+        if (index === 0) {
+            page.style.display = 'block';
+            page.classList.add('active');
+        } else {
+            page.style.display = 'none';
+            page.classList.remove('active');
+        }
+    });
+});
+    </script>
+</body>
+</html>

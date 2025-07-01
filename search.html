@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Recipes | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary-color: #FF6B6B;
+            --primary-light: #FF8E8E;
+            --primary-dark: #E05555;
+            --secondary-color: #4ECDC4;
+            --secondary-light: #6EDDD5;
+            --secondary-dark: #3DBEB6;
+            --dark-color: #292F36;
+            --darker-color: #1E2329;
+            --light-color: #F7FFF7;
+            --lighter-color: #FFFFFF;
+            --accent-color: #FFE66D;
+            --gray-color: #6C757D;
+            --light-gray: #F8F9FA;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-fast: all 0.2s ease;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.16);
+            --shadow-xl: 0 12px 36px rgba(0,0,0,0.2);
+            --border-radius: 16px;
+            --border-radius-sm: 8px;
+            --border-radius-lg: 24px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--lighter-color);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+            transition: var(--transition);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            transition: var(--transition);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .logo:hover {
+            transform: scale(1.02);
+            text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .logo i {
+            font-size: 1.8rem;
+            transition: var(--transition);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+        
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+        
+        .burger {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark-color);
+            margin: 5px;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+        
+        /* Search Section */
+        .search-section {
+            padding: 5rem 0 3rem;
+            background: linear-gradient(135deg, rgba(255,107,107,0.08) 0%, rgba(78,205,196,0.08) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .search-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,107,107,0.05) 0%, rgba(78,205,196,0.05) 100%);
+            z-index: -1;
+            animation: rotateGradient 30s linear infinite;
+        }
+        
+        @keyframes rotateGradient {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .search-container {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .search-container h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+            animation-delay: 0.2s;
+        }
+        
+        .search-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray-color);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+            animation-delay: 0.4s;
+        }
+        
+        .search-box {
+            display: flex;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+            animation-delay: 0.6s;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+        }
+        
+        .search-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        #search-input {
+            flex: 1;
+            padding: 1.2rem 2rem;
+            border: none;
+            font-size: 1.1rem;
+            outline: none;
+            background: transparent;
+            color: var(--dark-color);
+        }
+        
+        #search-input::placeholder {
+            color: var(--gray-color);
+            opacity: 0.7;
+        }
+        
+        #search-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 0 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        #search-btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            transform: scale(1.02);
+        }
+        
+        .search-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+            animation-delay: 0.8s;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(255,255,255,0.8);
+            padding: 0.8rem 1.2rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+        
+        .filter-group:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .filter-group label {
+            font-weight: 500;
+            color: var(--gray-color);
+            white-space: nowrap;
+        }
+        
+        .filter-group select {
+            padding: 0.6rem 1rem;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid #eee;
+            background-color: white;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            min-width: 120px;
+        }
+        
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255,107,107,0.2);
+        }
+        
+        /* Floating decorative elements */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-element.one {
+            width: 150px;
+            height: 150px;
+            background: var(--primary-color);
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .floating-element.two {
+            width: 200px;
+            height: 200px;
+            background: var(--secondary-color);
+            bottom: 15%;
+            right: 8%;
+            animation-delay: 1s;
+        }
+        
+        .floating-element.three {
+            width: 100px;
+            height: 100px;
+            background: var(--accent-color);
+            top: 40%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        /* Results Section */
+        .results-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .results-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .results-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .results-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+        
+        .sort-options {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .sort-options span {
+            font-weight: 500;
+            color: var(--gray-color);
+        }
+        
+        .sort-options select {
+            padding: 0.6rem 1rem;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid #eee;
+            background-color: white;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .sort-options select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255,107,107,0.2);
+        }
+        
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .recipe-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .recipe-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
+            z-index: 1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .recipe-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .recipe-card:hover::before {
+            opacity: 1;
+        }
+        
+        .recipe-card:hover .recipe-info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .recipe-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-top-left-radius: var(--border-radius);
+            border-top-right-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        .recipe-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .recipe-info {
+            padding: 1.8rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+            background: white;
+            transform: translateY(0);
+            transition: var(--transition);
+        }
+        
+        .recipe-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark-color);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .recipe-card:hover .recipe-info h3 {
+            color: var(--primary-color);
+        }
+        
+        .recipe-meta {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            color: var(--gray-color);
+        }
+        
+        .recipe-meta i {
+            margin-right: 0.4rem;
+            color: var(--primary-color);
+        }
+        
+        .recipe-actions {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: auto;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.7rem 1.4rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            text-decoration: none;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-small {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .save-recipe {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .save-recipe::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark));
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .save-recipe.saved {
+            background: var(--secondary-color);
+        }
+        
+        .save-recipe.saved::before {
+            opacity: 1;
+        }
+        
+        .save-recipe.saved:hover {
+            background: var(--secondary-dark);
+        }
+        
+        .save-recipe i {
+            position: relative;
+            z-index: 1;
+            transition: var(--transition);
+        }
+        
+        .save-recipe:hover i {
+            transform: scale(1.2);
+        }
+        
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 4rem 0;
+        }
+        
+        .no-results img {
+            max-width: 180px;
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+            filter: grayscale(100%);
+        }
+        
+        .no-results p {
+            font-size: 1.2rem;
+            color: var(--gray-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .no-results .btn {
+            margin: 0 auto;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .pagination button {
+            padding: 0.8rem 1.6rem;
+            background-color: white;
+            border: 1px solid #eee;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .pagination button:hover:not(:disabled) {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        #page-info {
+            font-weight: 600;
+            color: var(--gray-color);
+            min-width: 100px;
+            text-align: center;
+        }
+        
+        /* Loading Spinner */
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(255,107,107,0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin: 3rem auto;
+            position: relative;
+        }
+        
+        .spinner::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border: 6px solid rgba(78,205,196,0.1);
+            border-radius: 50%;
+            border-top-color: var(--secondary-color);
+            animation: spin 1.5s ease-in-out infinite reverse;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Floating action button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            z-index: 100;
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+        
+        .fab:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: var(--shadow-xl);
+            animation: none;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255,107,107,0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255,107,107,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,107,107,0); }
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius-sm);
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .notification i {
+            font-size: 1.2rem;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--darker-color);
+            color: white;
+            padding: 4rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.8rem;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+        
+        .footer-section p {
+            color: #bbb;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-link {
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+        
+        .footer-link:hover {
+            transform: translateX(5px);
+        }
+        
+        .footer-link a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .footer-link a:hover {
+            color: white;
+        }
+        
+        .footer-link a::before {
+            content: '\f054';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 0.7rem;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .footer-link a:hover::before {
+            transform: translateX(5px);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background-color: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        
+        .social-icons a:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .footer-newsletter {
+            display: flex;
+            margin-top: 1.5rem;
+            border-radius: var(--border-radius-sm);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .footer-newsletter input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .footer-newsletter input::placeholder {
+            color: #bbb;
+        }
+        
+        .footer-newsletter button {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+        
+        .footer-newsletter button:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #777;
+            font-size: 0.95rem;
+        }
+        
+        .footer-bottom a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-bottom a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* Custom Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .animate-delay-1 { animation-delay: 0.2s; }
+        .animate-delay-2 { animation-delay: 0.4s; }
+        .animate-delay-3 { animation-delay: 0.6s; }
+        .animate-delay-4 { animation-delay: 0.8s; }
+        
+        .shake-hover:hover {
+            animation: shake 0.6s ease;
+        }
+        
+        .heartbeat {
+            animation: heartbeat 0.8s ease;
+        }
+        
+        .float-animation {
+            animation: floatUpDown 4s ease-in-out infinite;
+        }
+        
+        /* Recipe card animation delays */
+        .recipe-card:nth-child(1) { animation-delay: 0.1s; }
+        .recipe-card:nth-child(2) { animation-delay: 0.2s; }
+        .recipe-card:nth-child(3) { animation-delay: 0.3s; }
+        .recipe-card:nth-child(4) { animation-delay: 0.4s; }
+        .recipe-card:nth-child(5) { animation-delay: 0.5s; }
+        .recipe-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .recipe-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .search-container h1 {
+                font-size: 2.5rem;
+            }
+            
+            .search-box {
+                max-width: 600px;
+            }
+            
+            .nav-links {
+                gap: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                width: 70%;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transform: translateX(100%);
+                transition: var(--transition);
+                box-shadow: var(--shadow-lg);
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                transform: translateX(0);
+            }
+            
+            .burger {
+                display: block;
+            }
+            
+            .burger.active .line1 {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .burger.active .line2 {
+                opacity: 0;
+            }
+            
+            .burger.active .line3 {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+            
+            .search-filters {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-group {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .results-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+            
+            .sort-options {
+                width: 100%;
+                justify-content: flex-end;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .search-container h1 {
+                font-size: 2rem;
+            }
+            
+            .search-subtitle {
+                font-size: 1rem;
+            }
+            
+            .search-box {
+                flex-direction: column;
+                border-radius: var(--border-radius);
+            }
+            
+            #search-input {
+                padding: 1rem;
+            }
+            
+            #search-btn {
+                padding: 0.8rem;
+                justify-content: center;
+            }
+            
+            .recipe-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .recipe-card img {
+                height: 180px;
+            }
+            
+            .pagination {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .fab {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating decorative elements -->
+    <div class="floating-element one"></div>
+    <div class="floating-element two"></div>
+    <div class="floating-element three"></div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html" class="active">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="meal-plan.html">Meal Plan</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <h1 class="animate__animated animate__fadeInUp">Find Your Perfect Recipe</h1>
+                <p class="search-subtitle animate__animated animate__fadeInUp animate-delay-1">Discover thousands of delicious recipes tailored to your taste</p>
+                <div class="search-box  animate__animated animate__fadeInUp">
+                    <input type="text" id="search-input" placeholder="Search by ingredients, dishes, or keywords...">
+                    <button id="search-btn"><i class="fas fa-search"></i> Search</button>
+                </div>
+                <div class="search-filters animate__animated animate__fadeInUp animate-delay-3">
+                    <div class="filter-group">
+                        <label for="cuisine"><i class="fas fa-globe"></i> Cuisine:</label>
+                        <select id="cuisine">
+                            <option value="">Any</option>
+                            <option value="indian">Indian</option>
+                            <option value="italian">Italian</option>
+                            <option value="mexican">Mexican</option>
+                            <option value="thai">Thai</option>
+                            <option value="chinese">Chinese</option>
+                            <option value="american">American</option>
+                            <option value="mediterranean">Mediterranean</option>
+                            <option value="japanese">Japanese</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="diet"><i class="fas fa-leaf"></i> Diet:</label>
+                        <select id="diet">
+                            <option value="">Any</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="vegan">Vegan</option>
+                            <option value="gluten-free">Gluten Free</option>
+                            <option value="keto">Keto</option>
+                            <option value="paleo">Paleo</option>
+                            <option value="low-carb">Low Carb</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="time"><i class="fas fa-clock"></i> Max Time:</label>
+                        <select id="time">
+                            <option value="">Any</option>
+                            <option value="15">15 mins</option>
+                            <option value="30">30 mins</option>
+                            <option value="45">45 mins</option>
+                            <option value="60">60 mins</option>
+                            <option value="90">90 mins</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <section class="results-section animate__animated animate__fadeIn animate-delay-4">
+                <div class="results-header">
+                    <h2>Search Results</h2>
+                    <div class="sort-options">
+                        <span>Sort by:</span>
+                        <select id="sort-by">
+                            <option value="popularity">Popularity</option>
+                            <option value="time">Cooking Time</option>
+                            <option value="healthiness">Healthiness</option>
+                            <option value="calories">Calories</option>
+                            <option value="newest">Newest</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="recipe-grid" id="recipe-results">
+                    <!-- Results will be populated here by JavaScript -->
+                    <div class="no-results">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4076/4076478.png" alt="No search" class="empty-plate float-animation">
+                        <p>Enter some ingredients to discover delicious recipes!</p>
+                        <button class="btn" id="explore-btn">
+                            <i class="fas fa-compass"></i> Explore Trending Recipes
+                        </button>
+                    </div>
+                </div>
+                <div class="pagination">
+                    <button id="prev-page" disabled><i class="fas fa-chevron-left"></i> Previous</button>
+                    <span id="page-info">Page 1 of 1</span>
+                    <button id="next-page" disabled>Next <i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Floating action button -->
+    <div class="fab" id="scroll-top-btn">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="search.html">Search Recipes</a></li>
+                        <li class="footer-link"><a href="favorites.html">Your Favorites</a></li>
+                        <li class="footer-link"><a href="meal-plan.html">Meal Planner</a></li>
+                        <li class="footer-link"><a href="blog.html">Cooking Blog</a></li>
+                        <li class="footer-link"><a href="indian-recipes.html">Indian Recipes</a></li>
+                        <li class="footer-link"><a href="italian-recipes.html">Italian Recipes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes, cooking tips, and special offers straight to your inbox.</p>
+                    <form class="footer-newsletter">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> SpiceTrail. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+   <script>
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM elements
+    const searchBtn = document.getElementById('search-btn');
+    const searchInput = document.getElementById('search-input');
+    const recipeResults = document.getElementById('recipe-results');
+    const prevPageBtn = document.getElementById('prev-page');
+    const nextPageBtn = document.getElementById('next-page');
+    const pageInfo = document.getElementById('page-info');
+    const scrollTopBtn = document.getElementById('scroll-top-btn');
+    const exploreBtn = document.getElementById('explore-btn');
+    const burger = document.querySelector('.burger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    // State variables
+    let currentPage = 1;
+    let totalPages = 1;
+    let currentQuery = '';
+    
+    // Mobile menu toggle
+    burger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        burger.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            burger.classList.remove('active');
+        });
+    });
+    
+    // Scroll to top button
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Show/hide scroll to top button based on scroll position
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollTopBtn.style.opacity = '1';
+            scrollTopBtn.style.visibility = 'visible';
+        } else {
+            scrollTopBtn.style.opacity = '0';
+            scrollTopBtn.style.visibility = 'hidden';
+        }
+    });
+    
+    // Explore trending recipes button
+    exploreBtn.addEventListener('click', () => {
+        searchInput.value = 'popular recipes';
+        performSearch();
+    });
+    
+    // Enhanced mock data with searchKeywords
+    const mockRecipes = [
+    {
+        id: 1,
+        title: 'Avocado Toast with Poached Eggs',
+        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80',
+        time: 10,
+        servings: 2,
+        missedIngredients: 1,
+        usedIngredients: 3,
+        cuisine: 'american',
+        diet: 'vegetarian',
+        calories: 320,
+        healthScore: 8,
+        isNew: true,
+        searchKeywords: ['avocado', 'toast', 'eggs', 'breakfast', 'healthy', 'avacado']
+    },
+    {
+        id: 2,
+        title: 'Vegetable Stir Fry with Tofu',
+        image: 'https://imgs.search.brave.com/34pKv940MWlvOmck2zy-MNABRD0N_pnBrPgZJJw4h-A/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTIy/NTc5NTMxMi9waG90/by90b2Z1LWN1cnJ5/LXNvdXAtd2l0aC12/ZWdldGFibGVzLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz0x/blN3X19aTVlRUEE4/TEVkQlFraWZwSGRM/SjE3ZjA4eGZOQV9x/UVMzMldvPQ',
+        time: 25,
+        servings: 4,
+        missedIngredients: 2,
+        usedIngredients: 5,
+        cuisine: 'chinese',
+        diet: 'vegan',
+        calories: 280,
+        healthScore: 9,
+        isTrending: true,
+        searchKeywords: ['vegetable', 'stir fry', 'tofu', 'asian', 'quick meal']
+    },
+    {
+        id: 3,
+        title: 'Classic Margherita Pizza',
+        image: 'https://imgs.search.brave.com/hpXRsMTdG7qqdCarYUEEW3bENJbCpAgQVaI_wX40aUQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNDc4/ODU1MjYwL3N0b2Nr/LXBob3RvLXRyYWRp/dGlvbmFsLWl0YWxp/YW4tcGl6emEtbWFy/Z2hlcml0YS13aXRo/LXRvbWF0b2VzLW1v/enphcmVsbGEtYmFz/aWw',
+        time: 45,
+        servings: 3,
+        missedIngredients: 3,
+        usedIngredients: 4,
+        cuisine: 'italian',
+        diet: 'vegetarian',
+        calories: 380,
+        healthScore: 7,
+        searchKeywords: ['pizza', 'margherita', 'italian', 'cheese', 'tomato']
+    },
+    {
+        id: 4,
+        title: 'Chicken Tikka Masala',
+        image: 'https://imgs.search.brave.com/6is8RBBkHX9yagTLhO2jz8CTwmebi3sZuFNRunR3afY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMjc3/NjcxOTI0L3N0b2Nr/LXBob3RvLWNoaWNr/ZW4tdGlra2EtbWFz/YWxhLXdpdGgtcmlj/ZQ',
+        time: 60,
+        servings: 4,
+        missedIngredients: 4,
+        usedIngredients: 6,
+        cuisine: 'indian',
+        diet: '',
+        calories: 420,
+        healthScore: 6,
+        isTrending: true,
+        searchKeywords: ['chicken', 'tikka', 'masala', 'indian', 'curry']
+    },
+    {
+        id: 5,
+        title: 'Quinoa Salad with Roasted Vegetables',
+        image: 'https://imgs.search.brave.com/OoVux2LCZjbqQ6MA6zhWHvg89LOsCe2iOKoP7AOStTw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNjYz/OTc0ODU2L3Bob3Rv/L3F1aW5vYS1zYWxh/ZC13aXRoLXJvYXN0/ZWQtY2F1bGlmbG93/ZXItYnV0dGVybnV0/LXNxdWFzaC5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9ZER6/OUR0ZktZZFh3Sjhn/MHZqaXVWdzN4dHJz/NlhST0tCdS11bVZw/Ny0zND0',
+        time: 35,
+        servings: 2,
+        missedIngredients: 2,
+        usedIngredients: 5,
+        cuisine: 'mediterranean',
+        diet: 'vegan',
+        calories: 250,
+        healthScore: 9,
+        isNew: true,
+        searchKeywords: ['quinoa', 'salad', 'roasted', 'vegetables', 'healthy']
+    },
+    {
+        id: 6,
+        title: 'Beef Tacos with Fresh Salsa',
+        image: 'https://imgs.search.brave.com/7oES3ZXd44_Delgh6jo2z4c0AfnCjAjo5cg7w8X1Pf0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMzI2/MzE4MTEwL3N0b2Nr/LXBob3RvLWZyZXNo/LXRhY29zLW1pbmNl/ZC1tZWF0LXZlZ2V0/YWJsZXMtd29vZGVu/LXRhYmxl',
+        time: 30,
+        servings: 3,
+        missedIngredients: 3,
+        usedIngredients: 4,
+        cuisine: 'mexican',
+        diet: '',
+        calories: 350,
+        healthScore: 7,
+        searchKeywords: ['beef', 'tacos', 'mexican', 'salsa', 'quick dinner']
+    },
+    {
+        id: 7,
+        title: 'Creamy Mushroom Pasta',
+        image: 'https://imgs.search.brave.com/HnGIHeqvvmTpaPdrnIJ1hpSYRPx3YW_mqJUJDuNhTBw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTI2/Njk0OTU1OC9waG90/by9jcmVhbXktZ2Fy/bGljLW11c2hyb29t/cy1jaGFtcGlnbm9u/cy1zYXV0ZWVkLWlu/LXNvdXItY3JlYW0t/c2F1Y2UuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPU05R2NE/Z0RCRU9YWV9rRDNq/ZGhYdW5mX2d1VmZW/elJoY0hxTUJVc0t6/S1E9',
+        time: 25,
+        servings: 2,
+        missedIngredients: 2,
+        usedIngredients: 5,
+        cuisine: 'italian',
+        diet: 'vegetarian',
+        calories: 450,
+        healthScore: 6,
+        isNew: true,
+        searchKeywords: ['pasta', 'mushroom', 'creamy', 'vegetarian', 'comfort food']
+    },
+    {
+        id: 8,
+        title: 'Teriyaki Salmon with Rice',
+        image: 'https://imgs.search.brave.com/DlxV11RyA88UW0eo2o-bSKX45wP9aDNDCwBBcP4-Hjs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9qb3cu/Y29tL19uZXh0L2lt/YWdlP3VybD1odHRw/czovL3N0YXRpYy5q/b3cuZnIvODgweDg4/MC9yZWNpcGVzL0JX/VjZCRHpqUmNkcTdB/LnBuZyZ3PTI1NjAm/cT0xMDA',
+        time: 20,
+        servings: 2,
+        missedIngredients: 3,
+        usedIngredients: 4,
+        cuisine: 'japanese',
+        diet: '',
+        calories: 400,
+        healthScore: 8,
+        isTrending: true,
+        searchKeywords: ['salmon', 'teriyaki', 'rice', 'japanese', 'healthy']
+    },
+    {
+        id: 9,
+        title: 'Greek Salad with Feta',
+        image: 'https://imgs.search.brave.com/4onvtm5wxrCOF-oSENHouBJQADbHD8XOtPbGmadPUOU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTcx/MzIyMzIwL3Bob3Rv/L2ZldGEtY2hlZXNl/LXNhbGFkLmpwZz9z/PTYxMng2MTImdz0w/Jms9MjAmYz05WE9H/WTBEWEFCaGwzYkkt/el9jemNNT09Pby1h/SVNLdVJvRndUaW9o/dUM0PQ',
+        time: 15,
+        servings: 2,
+        missedIngredients: 1,
+        usedIngredients: 6,
+        cuisine: 'mediterranean',
+        diet: 'vegetarian',
+        calories: 280,
+        healthScore: 9,
+        searchKeywords: ['greek', 'salad', 'feta', 'healthy', 'quick']
+    },
+    {
+        id: 10,
+        title: 'Chocolate Lava Cake',
+        image: 'https://imgs.search.brave.com/FWXSFy4uIJlw0Wtik4VfGdF_ADegrx9yqXae-NJ06JM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTQz/NTkyODI2NS9waG90/by9kZWxpY2lvdXMt/Y2hvY29sYXRlLW11/ZmZpbnMtd2l0aC1j/aG9jb2xhdGUtY2hp/cHMuanBnP3M9NjEy/eDYxMiZ3PTAmaz0y/MCZjPVFVWUVUbVdu/RFNUdEx0eExSLW5z/czJJYVBhVFYwN01r/dHpubHlPS1BwSW89',
+        time: 30,
+        servings: 4,
+        missedIngredients: 4,
+        usedIngredients: 5,
+        cuisine: 'french',
+        diet: 'vegetarian',
+        calories: 480,
+        healthScore: 3,
+        searchKeywords: ['chocolate', 'cake', 'dessert', 'sweet', 'baking']
+    },
+    {
+        id: 11,
+        title: 'Masala Dosa',
+        image: 'https://imgs.search.brave.com/Mf5A4RR6WiwnkeurfcoKFaFiLfINbaiUdAn38TTBHSQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNTg4/NzQ5OTg0L3N0b2Nr/LXBob3RvLW15c29y/ZS1tYXNhbGEtZG9z/YS1vcGVuLWRvc2Et/c2VydmVkLXNhbWJh/ci1jaHV0bmV5LXNl/bGVjdGl2ZS1mb2N1/cw',
+        time: 40,
+        servings: 3,
+        missedIngredients: 5,
+        usedIngredients: 3,
+        cuisine: 'south indian',
+        diet: 'vegetarian',
+        calories: 280,
+        healthScore: 7,
+        isNew: true,
+        searchKeywords: ['dosa', 'breakfast', 'crispy', 'fermented', 'coconut chutney']
+    },
+    {
+        id: 12,
+        title: 'Poha',
+        image: 'https://imgs.search.brave.com/HJr8arOR3iaMR_2lcCuOc_6ZtA568pu_hycqG5kzgaY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMjM3/MDQwNDEwL3N0b2Nr/LXBob3RvLWFsb28t/a2FuZGEtcG9oYS10/YXJyaS1wb2hlLXNw/aWN5LWNoYW5hLW1h/c2FsYS1jdXJyeS1z/ZWxlY3RpdmU',
+        time: 20,
+        servings: 2,
+        missedIngredients: 4,
+        usedIngredients: 2,
+        cuisine: 'indian',
+        diet: 'vegetarian',
+        calories: 220,
+        healthScore: 8,
+        isTrending: true,
+        searchKeywords: ['flattened rice', 'quick breakfast', 'maharashtrian', 'onions', 'peanuts']
+    },
+    {
+        id: 13,
+        title: 'Aloo Paratha',
+        image: 'https://imgs.search.brave.com/hJ-6DIwNiwA5RFnJEu680uL89B_gmrTU286DixgbzI8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTc0/MTE0Mzc2Ny9waG90/by9jcm9wcGVkLWhh/bmQtaG9sZGluZy1m/b29kLW9uLXRhYmxl/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz1hNVF3X0pHT3dx/TmZ4cEEtRkkxNHl3/VXB5NlF1QmVaYnds/Y0s5cTVkZjZnPQ',
+        time: 35,
+        servings: 4,
+        missedIngredients: 6,
+        usedIngredients: 3,
+        cuisine: 'north indian',
+        diet: 'vegetarian',
+        calories: 320,
+        healthScore: 6,
+        searchKeywords: ['stuffed paratha', 'potato', 'breakfast', 'ghee', 'punjabi']
+    },
+    {
+        id: 14,
+        title: 'Idli Sambar',
+        image: 'https://imgs.search.brave.com/9FCl6YRG8HGEy9IOgjl-aeTJwy78JEEcggWYisR29ac/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNjcw/OTA4MDU5L3Bob3Rv/L3NvdXRoLWluZGlh/bi1icmVha2Zhc3Qt/aWRsaS13aXRoLXNh/bWJhci1hbmQtY2hh/aS5qcGc_cz02MTJ4/NjEyJnc9MCZrPTIw/JmM9M1gwcXVHdGJ6/YmRGUXdOcjh0SmJq/U0ZQOHBOQU93Q3la/SkUyT3JMaXB2QT0',
+        time: 30,
+        servings: 4,
+        missedIngredients: 7,
+        usedIngredients: 2,
+        cuisine: 'south indian',
+        diet: 'vegetarian',
+        calories: 180,
+        healthScore: 9,
+        searchKeywords: ['steamed', 'healthy', 'breakfast', 'lentil', 'coconut']
+    },
+    {
+        id: 15,
+        title: 'Chole Bhature',
+        image: 'https://imgs.search.brave.com/8GnquUgPFo6VKyCzGUA30vXBw_cWUwT66mL1jptLRnU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMy/ODUyNDIxMi9waG90/by9rYXRsYW1iZS1j/aG9sZS5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9V0ltZjJX/Y1MwOGJscWNpamhM/VzZOUzViYVE2LWhW/V2dEeEVoY2djNjJi/ND0',
+        time: 60,
+        servings: 4,
+        missedIngredients: 8,
+        usedIngredients: 3,
+        cuisine: 'north indian',
+        diet: 'vegetarian',
+        calories: 450,
+        healthScore: 5,
+        isTrending: true,
+        searchKeywords: ['chickpeas', 'fried bread', 'punjabi', 'heavy breakfast', 'spicy']
+    },
+    {
+        id: 16,
+        title: 'Dal Tadka',
+        image: 'https://imgs.search.brave.com/JlyS_r3lHD5VglQZmOdziY3ii3D_dIXzYyTH8WoMdRg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMTU4/NTM4OTYwL3N0b2Nr/LXBob3RvLWluZGlh/bi1wb3B1bGFyLWZv/b2QtZGFsLWZyeS10/cmFkaXRpb25hbC1k/YWwtdGFka2EtY3Vy/cnktc2VydmVk',
+        time: 40,
+        servings: 4,
+        missedIngredients: 5,
+        usedIngredients: 4,
+        cuisine: 'north indian',
+        diet: 'vegetarian',
+        calories: 250,
+        healthScore: 8,
+        searchKeywords: ['lentils', 'comfort food', 'tempered', 'protein', 'homestyle']
+    },
+    {
+        id: 17,
+        title: 'Butter Chicken',
+        image: 'https://imgs.search.brave.com/G60ZpQpuW9yHztjh7neiNInuIiBhWZIIoRAgqJIaskY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNjM5/Mzg5NDA0L3Bob3Rv/L2F1dGhlbnRpYy1p/bmRpYW4tZm9vZC5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/Z2JmQXUxN0wxZ3RI/bXVvNWJpQnloZkNl/ZkF0WVV0R1FweXhN/bWk5X011cz0',
+        time: 50,
+        servings: 4,
+        missedIngredients: 7,
+        usedIngredients: 4,
+        cuisine: 'north indian',
+        diet: 'non-vegetarian',
+        calories: 380,
+        healthScore: 6,
+        searchKeywords: ['murg makhani', 'creamy', 'restaurant style', 'tandoori', 'gravy']
+    },
+    {
+        id: 18,
+        title: 'Biryani',
+        image: 'https://imgs.search.brave.com/orxqwQct7gVAvXiwjUr87-NzVvxKT3kKuwP-vOoU4Bc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMTE0/MzE2MzIwL3N0b2Nr/LXBob3RvLWNoaWNr/ZW4tYmlyeWFuaS13/aXRoLXlvZ3VydC1k/aXAtb24tYmVhdXRp/ZnVsLW1vb2R5LWJh/Y2tncm91bmQtc2Vs/ZWN0aXZlLWZvY3Vz',
+        time: 90,
+        servings: 6,
+        missedIngredients: 10,
+        usedIngredients: 5,
+        cuisine: 'indian',
+        diet: 'non-vegetarian',
+        calories: 520,
+        healthScore: 5,
+        isNew: true,
+        searchKeywords: ['hyderabadi', 'rice dish', 'spiced', 'festive', 'layered']
+    },
+    {
+        id: 19,
+        title: 'Palak Paneer',
+        image: 'https://imgs.search.brave.com/uv0JOhTWy7oKa9-YSJHmpSwAlOJ_J4LX4s9cjcfA4_w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMz/MDk1NDY1MS9waG90/by9oaWdoLWFuZ2xl/LXZpZXctb2YtZm9v/ZC1pbi1ib3dsLW9u/LXRhYmxlLmpwZz9z/PTYxMng2MTImdz0w/Jms9MjAmYz1uMkd6/S2h6clBMb3lyNFh5/eGVpTmJ4V1h2X0U1/dzFNMlgwb1NUX0JH/emVnPQ',
+        time: 35,
+        servings: 4,
+        missedIngredients: 6,
+        usedIngredients: 3,
+        cuisine: 'north indian',
+        diet: 'vegetarian',
+        calories: 280,
+        healthScore: 8,
+        searchKeywords: ['spinach', 'cottage cheese', 'healthy', 'creamy', 'vegetarian']
+    },
+    {
+        id: 20,
+        title: 'Gulab Jamun',
+        image: 'https://imgs.search.brave.com/S733z7E_F4OgpHK5QsT97TNSzUST1DaF2W_esTJk1Pg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvOTg0/OTk1NjgyL3Bob3Rv/L2d1bGFiLWphbXVu/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz1lV19QREZTWi1F/YlRPcVk4cUxkLUxx/X1poRGFhVGFqUzRC/R3NpbTNmOVVRPQ',
+        time: 40,
+        servings: 8,
+        missedIngredients: 6,
+        usedIngredients: 2,
+        cuisine: 'indian',
+        diet: 'vegetarian',
+        calories: 380,
+        healthScore: 2,
+        isTrending: true,
+        searchKeywords: ['indian', 'sweet', 'syrup', 'dessert', 'festive']
+    },
+    {
+        id: 21,
+        title: 'Rasmalai',
+        image: 'https://imgs.search.brave.com/j2UTu_4EVT5fYBrRy_7CbQ_2Qoph0gyCPBbAZhvB1mQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMy/OTM3MzU4MS9waG90/by9yYXMtbWFsYWkt/ZGVzc2VydC5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9UHVG/RnlXUm0tbVZzeS1j/cFdwM0xEX3lCaVZu/MmktbzM3dDBHUzV3/bktiQT0',
+        time: 90,
+        servings: 8,
+        missedIngredients: 7,
+        usedIngredients: 2,
+        cuisine: 'indian',
+        diet: 'vegetarian',
+        calories: 350,
+        healthScore: 4,
+        searchKeywords: ['indian', 'dessert', 'milk', 'sweet', 'festive']
+    },
+    {
+        id: 22,
+        title: 'Pav Bhaji',
+        image: 'https://imgs.search.brave.com/luEdE8pXg6sOOvWYA3r5dTpUqn7-GxTFl8rioHk9jr4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNDA4/MjExNzc2L3N0b2Nr/LXBob3RvLXBhdi1i/aGFqaS1pbmRpYW4t/dHJhZGl0aW9uYWwt/cG9wdWxhci1zdHJl/ZXQtZmFzdC1mb29k/LXRoaWNrLXNwaWN5',
+        time: 45,
+        servings: 4,
+        missedIngredients: 6,
+        usedIngredients: 4,
+        cuisine: 'indian',
+        diet: 'vegetarian',
+        calories: 420,
+        healthScore: 5,
+        isNew: true,
+        searchKeywords: ['street food', 'mumbai', 'vegetable mash', 'buttered buns', 'spicy']
+    },
+    {
+        id: 23,
+        title: 'Vada Pav',
+        image: 'https://imgs.search.brave.com/e290Q26VTUiClQqEpVdx8mG47A8GhJ5isIcWxegrhTE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9taW5p/c3RyeW9mY3Vycnku/Y29tL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDI0LzA2L3ZhZGEt/cGF2LTMtMS5qcGc',
+        time: 35,
+        servings: 4,
+        missedIngredients: 5,
+        usedIngredients: 3,
+        cuisine: 'indian',
+        diet: 'vegetarian',
+        calories: 320,
+        healthScore: 4,
+        searchKeywords: ['mumbai', 'street food', 'potato', 'burger', 'spicy']
+    },
+    {
+        id: 24,
+        title: 'Rajma Chawal',
+        image: 'https://imgs.search.brave.com/5_kxbtZYrIZ2-Jb_U6P3lfSbQY5gZjAGYNRBxjCIWio/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMTE0/OTA4MzI2L3N0b2Nr/LXBob3RvLWNvb2tl/ZC1yZWQta2lkbmV5/LWJlYW5zLWN1cnJ5/LWFuZC1jb29rZWQt/YmFzbWF0aS1yaWNl/LXJham1hLWNoYXdh/bC1vci1yYWptYS1y/aWNlLXRyYWRpdGlv/bmFs',
+        time: 50,
+        servings: 4,
+        missedIngredients: 5,
+        usedIngredients: 3,
+        cuisine: 'north indian',
+        diet: 'vegetarian',
+        calories: 380,
+        healthScore: 7,
+        isTrending: true,
+        searchKeywords: ['kidney beans', 'rice', 'comfort food', 'homely', 'protein']
+    },
+    {
+        id: 25,
+        title: 'Dhokla',
+        image: 'https://imgs.search.brave.com/QErzc2xg7C8dijwTZyQ4evwejCFVv33rCi4WOWYjXpE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNjcw/OTA3NTU5L3Bob3Rv/L3RyYWRpdGlvbmFs/LWd1amFyYXRpLXNu/YWNrcy5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9NVdRc19H/dGE4LTlJVUdiMm1m/bng2RXFtZmxPYms1/TWxVMTRWWC10N3dh/cz0',
+        time: 30,
+        servings: 4,
+        missedIngredients: 5,
+        usedIngredients: 3,
+        cuisine: 'gujarati',
+        diet: 'vegetarian',
+        calories: 180,
+        healthScore: 8,
+        searchKeywords: ['steamed', 'snack', 'fermented', 'light', 'healthy']
+    },
+    {
+        id: 26,
+        title: 'Mysore Masala Dosa',
+        image: 'https://imgs.search.brave.com/7F7oEzbePrCOm8tD5TQ2lIBCJzsKu_LFPV4FFc8qac8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNjEv/MDYxLzE1Ny9zbWFs/bC9nb2xkZW4tbWFz/YWxhLWRvc2Etc2F2/b3J5LXBvdGF0by1j/cmVwZS1zb3V0aC1p/bmRpYW4tc3RyZWV0/LWZvb2QtaW4td2Fy/bS1oaWdoLXJlc29s/dXRpb24tcGhvdG8u/anBn',
+        time: 45,
+        servings: 3,
+        missedIngredients: 6,
+        usedIngredients: 4,
+        cuisine: 'south indian',
+        diet: 'vegetarian',
+        calories: 300,
+        healthScore: 6,
+        searchKeywords: ['spicy', 'red chutney', 'crispy', 'breakfast', 'karnataka']
+    },
+    {
+        id: 27,
+        title: 'Kathi Roll',
+        image: 'https://imgs.search.brave.com/c_6BwbIMsFZsoFzkLDbewpRLkrMUCp0AWR7BVCtoK7o/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/c2h1dHRlcnN0b2Nr/LmNvbS9pbWFnZS1w/aG90by9sYW1iLWth/dGhpLXJvbGxzLXNl/bGVjdGl2ZS1mb2N1/cy0yNjBudy0xNjIz/MDM3MDE1LmpwZw',
+        time: 25,
+        servings: 2,
+        missedIngredients: 4,
+        usedIngredients: 5,
+        cuisine: 'bengali',
+        diet: '',
+        calories: 350,
+        healthScore: 5,
+        isNew: true,
+        searchKeywords: ['wrap', 'street food', 'kolkata', 'quick meal', 'eggs']
+    },
+    {
+        id: 28,
+        title: 'Malai Kofta',
+        image: 'https://imgs.search.brave.com/vg6CnN6jYjiPBOA490sksrD0q2Ty6Zv1ovhZWuLKGe0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/Nzc1NzUyMi9waG90/by9tYWxhaS1rb2Z0/YS1jdXJyeS5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9SUxf/dGtDRFU5N2p5ZXV2/ZkdDWHI4a0t0ZjY0/RG9Eb05JZk1kaE9X/NHdFST0',
+        time: 60,
+        servings: 4,
+        missedIngredients: 7,
+        usedIngredients: 4,
+        cuisine: 'north indian',
+        diet: 'vegetarian',
+        calories: 420,
+        healthScore: 5,
+        searchKeywords: ['dumplings', 'creamy gravy', 'restaurant style', 'rich', 'special occasion']
+    },
+    {
+        id: 29,
+        title: 'Mutton Rogan Josh',
+        image: 'https://imgs.search.brave.com/KlyneZHsw_dgd0qz26wvuDevhMvgGU-hiJULfAs2rx8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNjI5/NDUyMDI0L3N0b2Nr/LXBob3RvLWluZGlh/bi1zdHlsZS1tdXR0/b24tZ29zaHQtbWFz/YWxhLWluZGlhbi1s/YW1iLW1lYXQtcm9n/YW4tam9zaA',
+        time: 120,
+        servings: 6,
+        missedIngredients: 8,
+        usedIngredients: 5,
+        cuisine: 'kashmiri',
+        diet: 'non-vegetarian',
+        calories: 480,
+        healthScore: 4,
+        isTrending: true,
+        searchKeywords: ['lamb', 'slow cooked', 'aromatic', 'special dish', 'kashmiri']
+    },
+    {
+        id: 30,
+        title: 'Jalebi',
+        image: 'https://imgs.search.brave.com/iftohSxVm-BwMqV1ei3IuTz1WnaFy393iaiFTCoB59Y/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxNS8w/Ni8yMy8wNS8yMy9m/cmVzaC1qYWxlYmkt/ODE4MzE2XzY0MC5q/cGc',
+        time: 40,
+        servings: 6,
+        missedIngredients: 5,
+        usedIngredients: 3,
+        cuisine: 'indian',
+        diet: 'vegetarian',
+        calories: 400,
+        healthScore: 2,
+        searchKeywords: ['sweet', 'crispy', 'syrup', 'festive', 'street food']
+    }
+];
+
+    // Enhanced search function
+    const searchRecipes = async (query, page = 1, cuisine = '', diet = '', time = '') => {
+        // Show loading spinner
+        recipeResults.innerHTML = '<div class="spinner"></div>';
+        
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 800));
+        
+        const searchTerm = query.toLowerCase().trim();
+        
+        // Enhanced filtering with keyword search
+        let filteredRecipes = mockRecipes.filter(recipe => {
+            // Check title match
+            const titleMatch = recipe.title.toLowerCase().includes(searchTerm);
+            
+            // Check keyword match if keywords exist
+            const keywordMatch = recipe.searchKeywords ? 
+                recipe.searchKeywords.some(kw => kw.includes(searchTerm)) : 
+                false;
+            
+            // Check cuisine filter
+            const cuisineMatch = cuisine ? recipe.cuisine === cuisine : true;
+            
+            // Check diet filter
+            const dietMatch = diet ? 
+                (recipe.diet && recipe.diet.includes(diet.toLowerCase())) : 
+                true;
+            
+            // Check time filter
+            const timeMatch = time ? recipe.time <= parseInt(time) : true;
+            
+            return (titleMatch || keywordMatch) && cuisineMatch && dietMatch && timeMatch;
+        });
+
+        // Sort recipes
+        const sortBy = document.getElementById('sort-by').value;
+        filteredRecipes.sort((a, b) => {
+            switch(sortBy) {
+                case 'time':
+                    return a.time - b.time;
+                case 'healthiness':
+                    return b.healthScore - a.healthScore;
+                case 'calories':
+                    return a.calories - b.calories;
+                case 'newest':
+                    return (b.isNew || false) - (a.isNew || false);
+                default: // popularity
+                    return (b.isTrending || false) - (a.isTrending || false) || 
+                           b.usedIngredients - a.usedIngredients;
+            }
+        });
+        
+        // Pagination logic
+        totalPages = Math.ceil(filteredRecipes.length / 6);
+        const startIdx = (page - 1) * 6;
+        const paginatedRecipes = filteredRecipes.slice(startIdx, startIdx + 6);
+        
+        return {
+            recipes: paginatedRecipes,
+            totalResults: filteredRecipes.length,
+            totalPages
+        };
+    };
+
+    // Display recipes
+    const displayRecipes = (recipes) => {
+        if (recipes.length === 0) {
+            recipeResults.innerHTML = `
+                <div class="no-results">
+                    <img src="https://cdn-icons-png.flaticon.com/512/7486/7486747.png" alt="No results" class="empty-plate float-animation">
+                    <p>No recipes found. Try adjusting your search filters!</p>
+                    <button class="btn" id="reset-filters-btn">
+                        <i class="fas fa-filter"></i> Reset Filters
+                    </button>
+                </div>
+            `;
+            
+            // Add event listener to reset filters button
+            document.getElementById('reset-filters-btn').addEventListener('click', () => {
+                document.getElementById('cuisine').value = '';
+                document.getElementById('diet').value = '';
+                document.getElementById('time').value = '';
+                performSearch();
+            });
+            
+            return;
+        }
+        
+        recipeResults.innerHTML = recipes.map(recipe => `
+            <div class="recipe-card">
+                ${recipe.isNew ? '<span class="recipe-badge new">New</span>' : ''}
+                ${recipe.isTrending ? '<span class="recipe-badge trending">Trending</span>' : ''}
+                <img src="${recipe.image}" alt="${recipe.title}">
+                <div class="recipe-info">
+                    <h3>${recipe.title}</h3>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-clock"></i> ${recipe.time} mins</span>
+                        <span><i class="fas fa-user"></i> ${recipe.servings} ${recipe.servings > 1 ? 'servings' : 'serving'}</span>
+                    </div>
+                    <div class="recipe-meta">
+                        <span><i class="fas fa-check-circle"></i> ${recipe.usedIngredients} ingredients</span>
+                        <span><i class="fas fa-shopping-basket"></i> ${recipe.missedIngredients} to buy</span>
+                    </div>
+                    <div class="recipe-actions">
+                        <button class="btn btn-small save-recipe" data-id="${recipe.id}">
+                            <i class="far fa-heart"></i> Save
+                        </button>
+                        <a href="recipe-${recipe.id}.html" class="btn btn-small btn-outline">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        
+        // Add event listeners to save buttons
+        document.querySelectorAll('.save-recipe').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const recipeId = btn.getAttribute('data-id');
+                saveRecipe(recipeId, btn);
+            });
+        });
+    };
+    
+    // Save recipe to favorites
+    const saveRecipe = (recipeId, btn) => {
+        // In a real app, you would save to localStorage or a backend
+        btn.innerHTML = '<i class="fas fa-heart"></i> Saved';
+        btn.classList.add('saved');
+        
+        // Show confirmation animation
+        const heart = btn.querySelector('i');
+        heart.classList.add('heartbeat');
+        
+        setTimeout(() => {
+            heart.classList.remove('heartbeat');
+        }, 1000);
+        
+        // Show notification
+        showNotification('Recipe saved to your favorites!');
+    };
+    
+    // Show notification
+    const showNotification = (message) => {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    };
+    
+    // Perform search
+    const performSearch = async () => {
+        const query = searchInput.value.trim();
+        const cuisine = document.getElementById('cuisine').value;
+        const diet = document.getElementById('diet').value;
+        const time = document.getElementById('time').value;
+        
+        if (!query) {
+            recipeResults.innerHTML = `
+                <div class="no-results">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4076/4076478.png" alt="No search" class="empty-plate float-animation">
+                    <p>Enter ingredients or keywords to discover delicious recipes!</p>
+                    <button class="btn" id="explore-btn">
+                        <i class="fas fa-compass"></i> Explore Trending Recipes
+                    </button>
+                </div>
+            `;
+            
+            // Re-add event listener to explore button
+            document.getElementById('explore-btn').addEventListener('click', () => {
+                searchInput.value = 'popular recipes';
+                performSearch();
+            });
+            
+            return;
+        }
+        
+        currentQuery = query;
+        currentPage = 1;
+        
+        const { recipes, totalPages: pages } = await searchRecipes(query, currentPage, cuisine, diet, time);
+        totalPages = pages;
+        
+        displayRecipes(recipes);
+        updatePagination();
+        
+        // Smooth scroll to results
+        setTimeout(() => {
+            document.querySelector('.results-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }, 100);
+    };
+    
+    // Update pagination controls
+    const updatePagination = () => {
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        prevPageBtn.disabled = currentPage === 1;
+        nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
+    };
+    
+    // Event listeners
+    searchBtn.addEventListener('click', performSearch);
+    
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+    
+    prevPageBtn.addEventListener('click', async () => {
+        if (currentPage > 1) {
+            currentPage--;
+            const cuisine = document.getElementById('cuisine').value;
+            const diet = document.getElementById('diet').value;
+            const time = document.getElementById('time').value;
+            const { recipes } = await searchRecipes(currentQuery, currentPage, cuisine, diet, time);
+            displayRecipes(recipes);
+            updatePagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+    
+    nextPageBtn.addEventListener('click', async () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            const cuisine = document.getElementById('cuisine').value;
+            const diet = document.getElementById('diet').value;
+            const time = document.getElementById('time').value;
+            const { recipes } = await searchRecipes(currentQuery, currentPage, cuisine, diet, time);
+            displayRecipes(recipes);
+            updatePagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+    
+    // Sort recipes
+    document.getElementById('sort-by').addEventListener('change', async (e) => {
+        if (currentQuery) {
+            const cuisine = document.getElementById('cuisine').value;
+            const diet = document.getElementById('diet').value;
+            const time = document.getElementById('time').value;
+            const { recipes } = await searchRecipes(currentQuery, currentPage, cuisine, diet, time);
+            displayRecipes(recipes);
+        }
+    });
+    
+    // Set current year in footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    
+    // Add recipe badge styles
+    const badgeStyle = document.createElement('style');
+    badgeStyle.textContent = `
+        .recipe-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 0.3rem 0.8rem;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            z-index: 2;
+            box-shadow: var(--shadow-sm);
+            animation: pulse 2s infinite;
+        }
+        
+        .recipe-badge.new {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        }
+        
+        .recipe-badge.trending {
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark));
+            top: 50px;
+        }
+    `;
+    document.head.appendChild(badgeStyle);
+});
+</script>
+</body>
+</html>

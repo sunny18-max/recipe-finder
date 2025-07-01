@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risotto alla Zucca Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Italian</div>
+                <h1>Risotto alla Zucca</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 45 mins</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 4</span>
+                    <span><i class="fas fa-pepper-hot"></i> Medium</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (243 reviews)</span>
+                </div>
+                <p class="recipe-description">Creamy Italian risotto with sweet roasted pumpkin, aromatic sage, and nutty Parmesan cheese. This autumn favorite combines seasonal flavors with the perfect al dente texture of Carnaroli rice.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/55p5okl47lMTjB60nqzpFj07KkNTyHS9pwknMdP9FRc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9pdGFs/aWFuLXJpc290dG8t/cGFuY2V0dGEtcGFy/bWVzYW4tcGFyc2xl/eS1wYW4tMzQwMzM2/MDMzLmpwZw" alt="Risotto alla Zucca">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>Main Ingredients:</h3>
+                <ul>
+                    <li>1.5 cups Carnaroli or Arborio rice</li>
+                    <li>500g pumpkin, peeled and cubed</li>
+                    <li>1 medium onion, finely chopped</li>
+                    <li>4 cups vegetable or chicken stock</li>
+                    <li>1/2 cup dry white wine</li>
+                    <li>1/2 cup grated Parmesan cheese</li>
+                    <li>3 tbsp butter</li>
+                    <li>2 tbsp olive oil</li>
+                </ul>
+                <h3>Seasonings:</h3>
+                <ul>
+                    <li>6 fresh sage leaves</li>
+                    <li>Salt and pepper to taste</li>
+                    <li>Pinch of nutmeg (optional)</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Pumpkin</h3>
+                    <p>Roast pumpkin cubes at 200°C (400°F) for 20 minutes until tender. Mash half and keep half as cubes.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Sauté Aromatics</h3>
+                    <p>In a large pan, sauté onion in butter and olive oil until translucent. Add sage leaves and cook for 1 minute.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Toast Rice</h3>
+                    <p>Add rice and toast for 2 minutes until slightly translucent at edges. Deglaze with white wine.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Cook Risotto</h3>
+                    <p>Add warm stock one ladle at a time, stirring constantly. After 15 minutes, add mashed pumpkin.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Finish</h3>
+                    <p>When rice is al dente (about 18-20 minutes total), stir in pumpkin cubes, Parmesan, and adjust seasoning.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/7PLwI0WZPp8?si=rINk9d_XM171idfx" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Rice Choice:</strong> Carnaroli is ideal, but Arborio works well too. Never rinse risotto rice.</p>
+                <p><strong>Stock Temperature:</strong> Keep stock simmering nearby to maintain cooking temperature.</p>
+                <p><strong>Texture Tip:</strong> Risotto should flow like lava (all'onda) when plated.</p>
+                <p><strong>Variations:</strong> Add crispy pancetta or substitute butternut squash for pumpkin.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">380</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">9g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">58g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">12g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">3g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Italian Recipes</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/UFQ3AjmcM0PsTczlbRM94uP6GcAUvZJSFOBUOw9Nesg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMudG1lY29zeXMu/Y29tL2ltYWdlL3Vw/bG9hZC90X3dlYl9y/ZHBfcmVjaXBlXzU4/NHg0ODAvaW1nL3Jl/Y2lwZS9yYXMvQXNz/ZXRzLzRFNzAyOTFB/LTE5MzEtNDg1Ny05/NTA5LTNBNUNFMzg1/RjNERi9EZXJpdmF0/ZXMvOEY0NjkxOUEt/RTc5OS00MDI5LTgy/QjgtRTUwOTE1RTk3/MzFFLmpwZw" alt="Risotto al Nero di Seppia">
+                    <div class="recipe-card-content">
+                        <h3>Risotto al Nero di Seppia</h3>
+                        <a href="recipe-risotto-nero-seppia.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/oLjVEYK1mICwnBKjXksw62kYPSATZ8PVXS3_jISQKGs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvODcx/MjQwMDEwL3Bob3Rv/L3Jpc290dG8tZnVu/Z2ktcG9yY2luaS1v/bi1ydXN0aWMtd29v/ZGVuLXRhYmxlLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz1m/Q0RNWUlqaTA1VUxZ/MXZWRTRlWGxtNFIy/UnRGUDJ6ZjVPakFk/WklCdHBBPQ" alt="Mushroom Risotto">
+                    <div class="recipe-card-content">
+                        <h3>Mushroom Risotto</h3>
+                        <a href="recipe-risotto.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/lUa8z9IVD2LUYBrrmTGM067tMxhy4Wfe_FmZjoGiINw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvODQz/ODk5NjIvc3RvY2st/cGhvdG8tdGlyYW1p/c3U" alt="Tiramisu">
+                    <div class="recipe-card-content">
+                        <h3>Classic Tiramisu</h3>
+                        <a href="recipe-tiramisu.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

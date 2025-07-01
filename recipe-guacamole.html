@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentic Guacamole Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Mexican</div>
+                <h1>Authentic Guacamole</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 15 mins</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 4-6</span>
+                    <span><i class="fas fa-leaf"></i> Vegan</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (512 reviews)</span>
+                </div>
+                <p class="recipe-description">Creamy, perfectly seasoned avocado dip made with just a few fresh ingredients. This traditional Mexican guacamole recipe highlights the natural flavor of ripe avocados with the perfect balance of lime, cilantro, and a touch of heat.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/WCDpkA1gnnD6ccSolfEEceiADAcMfzzwklJFjsuc7HE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTI0/NTA3NDk5My9waG90/by9ndWFjYW1vbGUt/YW5kLWNoaXBzLW9u/LXJ1c3RpYy13b29k/ZW4tdGFibGUuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPVNB/RFBtdTFNSHpvWGU1/a0RjNHNZa2p2bWxv/REtDR3ZLSldITmRs/aGlBams9" alt="Authentic Guacamole">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>Main Ingredients:</h3>
+                <ul>
+                    <li>3 ripe Hass avocados</li>
+                    <li>1 lime, juiced</li>
+                    <li>1/2 tsp salt</li>
+                    <li>1/2 medium onion, finely diced</li>
+                    <li>2 Roma tomatoes, seeded and diced</li>
+                    <li>3 tbsp fresh cilantro, chopped</li>
+                </ul>
+                <h3>For Heat (Optional):</h3>
+                <ul>
+                    <li>1 jalapeño or serrano pepper, minced</li>
+                    <li>1/4 tsp ground cumin</li>
+                </ul>
+                <h3>For Serving:</h3>
+                <ul>
+                    <li>Tortilla chips</li>
+                    <li>Radish slices</li>
+                    <li>Extra lime wedges</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Avocados</h3>
+                    <p>Cut avocados in half, remove pits, and scoop flesh into molcajete (or bowl). Add lime juice and salt. Mash with pestle or fork to desired consistency.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Add Aromatics</h3>
+                    <p>In separate bowl, mix onion, cilantro, and chili pepper. Let sit for 5 minutes to mellow onion flavor.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Combine Ingredients</h3>
+                    <p>Gently fold onion mixture into mashed avocado. Add diced tomatoes and cumin. Taste and adjust seasoning.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Serve Immediately</h3>
+                    <p>Transfer to serving dish. Place avocado pit in center to help prevent browning. Serve with chips.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/23tGra9KBa0?si=XcV9lfVvhc7a6ndT" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Avocado Selection:</strong> Choose avocados that yield slightly to gentle pressure at stem end.</p>
+                <p><strong>Traditional Method:</strong> For authentic texture, use molcajete (lava stone mortar and pestle).</p>
+                <p><strong>Variations:</strong> Add diced mango or pomegranate seeds for sweet twist.</p>
+                <p><strong>No Browning Trick:</strong> Keep pit in guacamole and cover surface with lime juice before refrigerating.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">160</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">2g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">9g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">15g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">7g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Mexican Favorites</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/2TsA696fRS3xq2G1wui7RdjQZS376y6cku6tlfl8bc8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMTE5/NDk3MDg0L3N0b2Nr/LXBob3RvLWNoaWNr/ZW4tZW5jaGlsYWRh/cy13aXRoLXNwaWN5/LXRvbWF0by1zYXVj/ZS1jb3JuLWJlYW5z/LWFuZC1jaGVlc2U" alt="Chicken Enchiladas">
+                    <div class="recipe-card-content">
+                        <h3>Chicken Enchiladas</h3>
+                        <a href="recipe-enchiladas.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/ynM4dU7HL-QSiVOkfdom6nkA8BWRpmhRO4JEGVd1WaI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAyMC8w/My8xNi8wMy8zNC9j/aGlsZS1yZWxsZW5v/LTQ5MzU1ODBfMTI4/MC5qcGc" alt="Chiles Rellenos">
+                    <div class="recipe-card-content">
+                        <h3>Chiles Rellenos</h3>
+                        <a href="recipe-chiles-rellenos.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/oIolucnFEkyqqL8oFPQeGPkYu7ckGPgrm8dQ29MocxI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvOTU5/OTkzMTI0L3Bob3Rv/L3RyYWRpdGlvbmFs/LXNwYW5pc2gtZGVz/c2VydC1jaHVycm9z/LXdpdGgtc3VnYXIt/YW5kLWNob2NvbGF0/ZS5qcGc_cz02MTJ4/NjEyJnc9MCZrPTIw/JmM9YkxIV1FiczNV/RGpJN0VJMEwwNGJp/ZEtfRUtnY051RlVu/YnJXbU9pV1JWYz0" alt="Mexican Churros">
+                    <div class="recipe-card-content">
+                        <h3>Mexican Churros</h3>
+                        <a href="recipe-churros.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>East Indian Cuisine | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #e67e22;
+            --primary-dark: #d35400;
+            --secondary: #2c3e50;
+            --light: #f9f9f9;
+            --dark: #333;
+            --gray: #95a5a6;
+            --light-gray: #ecf0f1;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(230, 126, 34, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header.cuisine-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1592&q=80') no-repeat center center/cover;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: 0;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .header-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 200px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease;
+        }
+
+        .header-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+       /* Cuisine Intro */
+.cuisine-intro {
+    padding: 100px 20px;
+    text-align: center;
+    background: var(--light);
+    position: relative;
+}
+
+.cuisine-intro h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+    color: var(--secondary);
+}
+
+.cuisine-intro h2:after {
+    content: '';
+    position: absolute;
+    width: 80px; 
+    height: 4px; 
+    background: var(--primary);
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px; 
+}
+
+.cuisine-intro p {
+    max-width: 800px;
+    margin: 0 auto 30px; 
+    font-size: 1.1rem;
+    line-height: 1.8; 
+    color: var(--dark);
+    padding: 0 20px;
+}
+
+.cuisine-intro .button-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px; 
+    flex-wrap: wrap; 
+}
+
+/* Popular Dishes */
+.popular-dishes {
+    padding: 80px 0;
+    background: white;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background: var(--primary);
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dishes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.dish-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    position: relative;
+}
+
+.dish-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.dish-img {
+    height: 200px;
+    overflow: hidden;
+}
+
+.dish-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.dish-card:hover .dish-img img {
+    transform: scale(1.1);
+}
+
+.dish-info {
+    padding: 20px;
+}
+
+.dish-info h3 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.dish-info p {
+    color: var(--gray);
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.dish-info a {
+    color: var(--primary);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+}
+
+.dish-info a i {
+    margin-left: 5px;
+    transition: var(--transition);
+}
+
+.dish-info a:hover i {
+    transform: translateX(5px);
+}
+
+/* Signature Recipes */
+.signature-recipes {
+    padding: 80px 0;
+    background: var(--light);
+}
+
+.recipe {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 60px;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.recipe:nth-child(even) .recipe-img {
+    order: 2;
+}
+
+.recipe-img {
+    height: 400px;
+}
+
+.recipe-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.recipe-content {
+    padding: 30px;
+}
+
+.recipe-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--primary-dark);
+}
+
+.recipe-content p {
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+}
+
+.recipe-content h4 {
+    margin: 25px 0 15px;
+    font-size: 1.2rem;
+    color: var(--secondary);
+}
+
+.recipe-content ul {
+    margin-bottom: 25px;
+    padding-left: 20px;
+}
+
+.recipe-content li {
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.recipe-content li:before {
+    content: '•';
+    color: var(--primary);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+/* Spice Meter */
+.spice-meter {
+    margin: 25px 0;
+}
+
+.spice-meter h4 {
+    margin-bottom: 10px;
+}
+
+.meter-bar {
+    height: 10px;
+    background: var(--light-gray);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.meter-level {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 5px;
+    width: 70%;
+}
+
+.meter-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+/* Cooking Time */
+.recipe-meta {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--secondary);
+}
+
+.meta-item i {
+    color: var(--primary);
+}
+
+/* Video Modal */
+.video-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.video-btn i {
+    font-size: 1.2rem;
+}
+
+/* Regional Specialties */
+.regional-specialties {
+    padding: 80px 0;
+    background: white;
+}
+
+.regions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.region-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.region-card:hover {
+    transform: translateY(-10px);
+}
+
+.region-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: white;
+    font-size: 1.8rem;
+}
+
+.region-card h3 {
+    margin-bottom: 15px;
+}
+
+.region-card p {
+    color: var(--gray);
+    font-size: 0.95rem;
+}
+
+/* Newsletter */
+.newsletter {
+    padding: 80px 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+}
+
+.newsletter h2 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.newsletter p {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.newsletter-form {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 30px 0 0 30px;
+    font-size: 1rem;
+}
+
+.newsletter-form button {
+    border-radius: 0 30px 30px 0;
+    padding: 0 25px;
+}
+
+/* Footer */
+footer {
+    background: var(--secondary);
+    color: white;
+    padding: 60px 0 0;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-section h3 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.footer-section p {
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.social-icons a:hover {
+    background: var(--primary);
+    transform: translateY(-3px);
+}
+
+.footer-section a {
+    display: block;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: var(--transition);
+}
+
+.footer-section a:hover {
+    color: var(--primary);
+    padding-left: 5px;
+}
+
+.copyright {
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    z-index: 99;
+}
+
+.back-to-top.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: var(--primary-dark);
+    transform: translateY(-5px);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .header-content h1 {
+        font-size: 3rem;
+    }
+
+    .recipe {
+        grid-template-columns: 1fr;
+    }
+
+    .recipe:nth-child(even) .recipe-img {
+        order: 0;
+    }
+
+    .recipe-img {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        padding: 15px 0;
+    }
+
+    .nav-links {
+        margin-top: 15px;
+    }
+
+    .nav-links li {
+        margin: 0 10px;
+    }
+
+    .header-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .header-content p {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+
+    .newsletter-form input {
+        border-radius: 30px;
+        margin-bottom: 10px;
+    }
+
+    .newsletter-form button {
+        border-radius: 30px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .dishes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header-content h1 {
+        font-size: 2rem;
+    }
+
+    .recipe-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-delay-1 {
+    animation-delay: 0.2s;
+}
+
+.animate-delay-2 {
+    animation-delay: 0.4s;
+}
+    </style>
+</head>
+<body>
+    <header class="cuisine-header">
+        <nav>
+            <div class="container">
+                <div class="logo">
+                    <i class="fas fa-utensils"></i>
+                    <span>SpiceTrail</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cuisines.html">Cuisines</a></li>
+                    <li><a href="recipes.html">Recipes</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="header-content">
+                <h1>East Indian Cuisine</h1>
+                <p>Discover the delicate flavors of East India, from Bengali sweets to Odia seafood and Assamese bamboo shoot delicacies.</p>
+                <div class="header-buttons">
+                    <a href="#recipes" class="btn">Explore Recipes</a>
+                    <a href="https://youtu.be/2-5du2oVM5g?si=SpFFF5W_1mmJWiZ3" class="btn btn-outline ml-3"><i class="fas fa-play"></i> Watch Video</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="cuisine-intro">
+        <div class="container">
+            <h2>The Essence of East Indian Flavors</h2>
+            <p>East Indian cuisine is characterized by its subtle yet complex flavors, with an emphasis on fish, rice, and mustard oil. The region's riverine geography and tropical climate have shaped a culinary tradition that's both light and deeply flavorful.</p>
+            <p>From the sweet delights of Bengal to the fiery curries of Assam and the temple cuisine of Odisha, East Indian food offers a diverse palette of tastes that reflects the region's rich cultural heritage.</p>
+        </div>
+    </section>
+
+    <section class="popular-dishes">
+        <div class="container">
+            <h2 class="section-title">Iconic East Indian Dishes</h2>
+            <p class="section-subtitle">Explore the most beloved dishes that define East Indian culinary tradition</p>
+            
+            <div class="dishes-grid">
+                <div class="dish-card animate__animated animate__fadeInUp animate-delay-1">
+                    <div class="dish-img">
+                        <img src="https://imgs.search.brave.com/16t8gmqiYN4Cd5xBidA5dJGPOxKAYQPfuyrWOqs3tVw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNTk1/MDQ0ODA4L3N0b2Nr/LXBob3RvLW1hbGFp/LWNob3AtY3JlYW0t/c2FuZHdpY2gtbWFk/ZS11c2luZy1maWxs/aW5nLXJhc2d1bGxh/LWd1bGFiLWphbXVu" alt="Rasgulla">
+                    </div>
+                    <div class="dish-info">
+                        <h3>Rasgulla</h3>
+                        <p>Spongy cottage cheese balls soaked in light sugar syrup, a Bengali sweet delight.</p>
+                        <div class="recipe-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>1 hr 30 mins</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-fire"></i>
+                                <span>Medium</span>
+                            </div>
+                        </div>
+                        <a href="./recipe-rasgulla.html">View Recipe <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="dish-card animate__animated animate__fadeInUp animate-delay-1">
+                    <div class="dish-img">
+                        <img src="https://imgs.search.brave.com/OhC3eTZQ8DU7kxR9iZD6OggFVfqDIGIocvL1ZpKa1Cg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hczIu/ZnRjZG4ubmV0L3Yy/L2pwZy8wNi81NS8w/OC80Ny8xMDAwX0Zf/NjU1MDg0NzcyX0FB/d3hhM1o0NEZ0QUFn/M3VrVFNNU1pOcTg4/c2hZMkdkLmpwZw" alt="Machher Jhol">
+                    </div>
+                    <div class="dish-info">
+                        <h3>Machher Jhol</h3>
+                        <p>Bengali fish curry with potatoes in a light gravy flavored with mustard oil and spices.</p>
+                        <div class="recipe-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>45 mins</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-fire"></i>
+                                <span>Medium</span>
+                            </div>
+                        </div>
+                        <a href="./recipe-machher-jhol.html">View Recipe <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="dish-card animate__animated animate__fadeInUp animate-delay-2">
+                    <div class="dish-img">
+                        <img src="https://imgs.search.brave.com/MrlKKBnggSlPbFKLsYlsUf7ocmyQIbvjuCBvvc1Txww/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by92/aWV3LXBha2lzdGFu/aS1mb29kLWFycmFu/Z2VtZW50XzIzLTIx/NDg4MjUxMTEuanBn/P3NlbXQ9YWlzX2h5/YnJpZCZ3PTc0MA" alt="Pakhala Bhata">
+                    </div>
+                    <div class="dish-info">
+                        <h3>Pakhala Bhata</h3>
+                        <p>Fermented rice dish from Odisha, served with fried fish, curd, and green chilies.</p>
+                        <div class="recipe-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>8 hrs</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-fire"></i>
+                                <span>Easy</span>
+                            </div>
+                        </div>
+                        <a href="./recipe-pakhala.html">View Recipe <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="dish-card animate__animated animate__fadeInUp animate-delay-2">
+                    <div class="dish-img">
+                        <img src="https://imgs.search.brave.com/5669RLz663K8j7fT09pBHnT2n_tVl4UxbsFkQaWg8QM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMx/MTM4OTkxNC9waG90/by9saXR0aS1jaG9r/aGEtb3ItbGl0aS1j/aG9rYS1mcm9tLWJp/aGFyLWpoYXJraGFu/ZC1hbmQtdXR0YXIt/cHJhZGVzaC1pcy1z/dHVmZmVkLXdpdGgt/Y2hhbmEtc2F0dHUu/anBnP2I9MSZzPTYx/Mng2MTImdz0wJms9/MjAmYz1SLVdTRkVu/cWF1VUVObzNaV1VC/WXFoS2gyRkphLXc2/Vmhtc053NTg5cGpV/PQ" alt="Litti Chokha">
+                    </div>
+                    <div class="dish-info">
+                        <h3>Litti Chokha</h3>
+                        <p>Bihar's signature dish - wheat balls stuffed with sattu, served with mashed vegetables.</p>
+                        <div class="recipe-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>1 hr 15 mins</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-fire"></i>
+                                <span>Medium</span>
+                            </div>
+                        </div>
+                        <a href="./recipe-litti.html">View Recipe <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="dish-card animate__animated animate__fadeInUp">
+                    <div class="dish-img">
+                        <img src="https://imgs.search.brave.com/ukeYdv8i_kK3WFCh_3xW2TF9gsxA2Noq-SfCfydsA88/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA3LzI4LzMwLzQ3/LzM2MF9GXzcyODMw/NDc5MV9yZWdQczFR/bzNxcGtiNmZXamFk/c1JJREZKN1dvUDNm/Vi5qcGc" alt="Aloo Posto">
+                    </div>
+                    <div class="dish-info">
+                        <h3>Aloo Posto</h3>
+                        <p>Bengali-style potatoes cooked with poppy seed paste, a delicate and flavorful dish.</p>
+                        <div class="recipe-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>30 mins</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-fire"></i>
+                                <span>Easy</span>
+                            </div>
+                        </div>
+                        <a href="./recipe-aloo.html">View Recipe <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="dish-card animate__animated animate__fadeInUp">
+                    <div class="dish-img">
+                        <img src="https://imgs.search.brave.com/Yrx3mJg-QwxGtq9tmpd_-tNfurhyvCYm5c8KbpfbgIA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9hc3Nh/bWVzZS10YW5neS1m/aXNoLWN1cnJ5LWNh/bGxlZC1tYXNvci10/ZW5nYS1hc3NhbWVz/ZS10YW5neS1maXNo/LWN1cnJ5LWNhbGxl/ZC1tYXNvci10ZW5n/YS0yNjI5Mjg1Mjcu/anBn" alt="Masor Tenga">
+                    </div>
+                    <div class="dish-info">
+                        <h3>Masor Tenga</h3>
+                        <p>Assamese sour fish curry made with tomatoes and lemon, a refreshing summer dish.</p>
+                        <div class="recipe-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>40 mins</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-fire"></i>
+                                <span>Medium</span>
+                            </div>
+                        </div>
+                        <a href="./recipe-masor.html">View Recipe <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="signature-recipes" id="recipes">
+        <div class="container">
+            <h2 class="section-title">Signature Recipes</h2>
+            <p class="section-subtitle">Master these classic East Indian dishes in your own kitchen</p>
+            
+            <div class="recipe animate__animated animate__fadeInUp">
+                <div class="recipe-img">
+                    <img src="https://imgs.search.brave.com/16t8gmqiYN4Cd5xBidA5dJGPOxKAYQPfuyrWOqs3tVw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNTk1/MDQ0ODA4L3N0b2Nr/LXBob3RvLW1hbGFp/LWNob3AtY3JlYW0t/c2FuZHdpY2gtbWFk/ZS11c2luZy1maWxs/aW5nLXJhc2d1bGxh/LWd1bGFiLWphbXVu" alt="Rasgulla">
+                </div>
+                <div class="recipe-content">
+                    <h3>Perfect Rasgulla</h3>
+                    <p>The quintessential Bengali sweet - spongy cottage cheese balls soaked in light sugar syrup, known for their melt-in-the-mouth texture and delicate sweetness.</p>
+                    
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Prep: 1 hr | Cook: 30 mins</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-user-friends"></i>
+                            <span>Serves: 6</span>
+                        </div>
+                    </div>
+                    
+                    <div class="spice-meter">
+                        <h4>Sweetness Level</h4>
+                        <div class="meter-bar">
+                            <div class="meter-level" style="width: 80%"></div>
+                        </div>
+                        <div class="meter-labels">
+                            <span>Mild</span>
+                            <span>Medium</span>
+                            <span>Sweet</span>
+                            <span>Very Sweet</span>
+                        </div>
+                    </div>
+                    
+                    <h4>Key Ingredients:</h4>
+                    <ul>
+                        <li>Fresh cow milk (for chenna)</li>
+                        <li>Lemon juice (for curdling)</li>
+                        <li>Semolina (for binding)</li>
+                        <li>Sugar (for syrup)</li>
+                        <li>Rose water (for flavor)</li>
+                    </ul>
+                    <a href="./recipe-rasgulla.html" class="btn">View Full Recipe</a>
+                    <a href="https://youtu.be/SGnqJ5K-bh4?si=iEmgGi_poiIJrvKj" class="video-btn"><i class="fas fa-play-circle"></i> Watch Video Tutorial</a>
+                </div>
+            </div>
+            
+            <div class="recipe animate__animated animate__fadeInUp">
+                <div class="recipe-img">
+                    <img src="https://imgs.search.brave.com/OhC3eTZQ8DU7kxR9iZD6OggFVfqDIGIocvL1ZpKa1Cg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hczIu/ZnRjZG4ubmV0L3Yy/L2pwZy8wNi81NS8w/OC80Ny8xMDAwX0Zf/NjU1MDg0NzcyX0FB/d3hhM1o0NEZ0QUFn/M3VrVFNNU1pOcTg4/c2hZMkdkLmpwZw" alt="Machher Jhol">
+                </div>
+                <div class="recipe-content">
+                    <h3>Bengali Machher Jhol</h3>
+                    <p>Traditional Bengali fish curry with potatoes in a light gravy flavored with mustard oil and a blend of spices that gives it a distinctive flavor profile.</p>
+                    
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Prep: 20 mins | Cook: 40 mins</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-user-friends"></i>
+                            <span>Serves: 4</span>
+                        </div>
+                    </div>
+                    
+                    <div class="spice-meter">
+                        <h4>Spice Level</h4>
+                        <div class="meter-bar">
+                            <div class="meter-level" style="width: 60%"></div>
+                        </div>
+                        <div class="meter-labels">
+                            <span>Mild</span>
+                            <span>Medium</span>
+                            <span>Hot</span>
+                            <span>Extra Hot</span>
+                        </div>
+                    </div>
+                    
+                    <h4>Key Ingredients:</h4>
+                    <ul>
+                        <li>Rohu or Katla fish</li>
+                        <li>Mustard oil</li>
+                        <li>Turmeric and cumin powder</li>
+                        <li>Potatoes</li>
+                        <li>Green chilies and coriander</li>
+                    </ul>
+                    <a href="./recipe-machher-jhol.html" class="btn">View Full Recipe</a>
+                    <a href="https://youtube.com/shorts/0FXpx1zpaLM?si=qKwOhvs4qvYm01dq" class="video-btn"><i class="fas fa-play-circle"></i> Watch Video Tutorial</a>
+                </div>
+            </div>
+            
+            <div class="recipe animate__animated animate__fadeInUp">
+                <div class="recipe-img">
+                    <img src="https://imgs.search.brave.com/MrlKKBnggSlPbFKLsYlsUf7ocmyQIbvjuCBvvc1Txww/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by92/aWV3LXBha2lzdGFu/aS1mb29kLWFycmFu/Z2VtZW50XzIzLTIx/NDg4MjUxMTEuanBn/P3NlbXQ9YWlzX2h5/YnJpZCZ3PTc0MA" alt="Pakhala Bhata">
+                </div>
+                <div class="recipe-content">
+                    <h3>Odia Pakhala Bhata</h3>
+                    <p>A traditional fermented rice dish from Odisha, perfect for hot summers, served with fried fish, curd, and green chilies.</p>
+                    
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Prep: 5 mins | Ferment: 8 hrs</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-user-friends"></i>
+                            <span>Serves: 4</span>
+                        </div>
+                    </div>
+                    
+                    <div class="spice-meter">
+                        <h4>Spice Level</h4>
+                        <div class="meter-bar">
+                            <div class="meter-level" style="width: 40%"></div>
+                        </div>
+                        <div class="meter-labels">
+                            <span>Mild</span>
+                            <span>Medium</span>
+                            <span>Hot</span>
+                            <span>Extra Hot</span>
+                        </div>
+                    </div>
+                    
+                    <h4>Key Ingredients:</h4>
+                    <ul>
+                        <li>Cooked rice</li>
+                        <li>Water (for fermentation)</li>
+                        <li>Curd (optional)</li>
+                        <li>Fried fish or vegetables</li>
+                        <li>Green chilies and lemon</li>
+                    </ul>
+                    <a href="./recipe-pakhala.html" class="btn">View Full Recipe</a>
+                    <a href="https://youtu.be/lqJEaM1ltpc?si=Zj0g7a0o6D14OWEw" class="video-btn"><i class="fas fa-play-circle"></i> Watch Video Tutorial</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="regional-specialties">
+        <div class="container">
+            <h2 class="section-title">Regional Specialties</h2>
+            <p class="section-subtitle">Discover the diverse culinary traditions across East India</p>
+            
+            <div class="regions-grid">
+                <div class="region-card animate__animated animate__fadeInUp">
+                    <div class="region-icon">
+                        <i class="fas fa-fish"></i>
+                    </div>
+                    <h3>West Bengal</h3>
+                    <p>Land of fish curries, sweets like rasgulla and sandesh, and mustard-based flavors.</p>
+                </div>
+                
+                <div class="region-card animate__animated animate__fadeInUp animate-delay-1">
+                    <div class="region-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Odisha</h3>
+                    <p>Known for its temple cuisine, pakhala bhata, and chhena-based sweets.</p>
+                </div>
+                
+                <div class="region-card animate__animated animate__fadeInUp animate-delay-2">
+                    <div class="region-icon">
+                        <i class="fas fa-pepper-hot"></i>
+                    </div>
+                    <h3>Assam</h3>
+                    <p>Famous for bamboo shoot dishes, fish tenga, and khar - an alkaline preparation.</p>
+                </div>
+                
+                <div class="region-card animate__animated animate__fadeInUp">
+                    <div class="region-icon">
+                        <i class="fas fa-bread-slice"></i>
+                    </div>
+                    <h3>Bihar & Jharkhand</h3>
+                    <p>Home to litti chokha, sattu preparations, and thekua sweets.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="container">
+            <h2>Join Our Culinary Journey</h2>
+            <p>Subscribe to our newsletter for weekly recipes, cooking tips, and exclusive content about East Indian cuisine.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your Email Address" required>
+                <button type="submit" class="btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-utensils"></i>
+                        <span>SpiceTrail</span>
+                    </div>
+                    <p>Exploring the diverse culinary traditions of India, one recipe at a time.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="cuisines.html">Cuisines</a>
+                    <a href="recipes.html">Recipes</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Popular Recipes</h3>
+                    <a href="./recipe-rasgulla.html">Rasgulla</a>
+                    <a href="./recipe-machher-jhol.html">Machher Jhol</a>
+                    <a href="./recipe-pakhala-bhata.html">Pakhala Bhata</a>
+                    <a href="./recipe-litti-chokha.html">Litti Chokha</a>
+                    <a href="./recipe-aloo-posto.html">Aloo Posto</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Spice Street, Foodville</p>
+                    <p><i class="fas fa-phone"></i> +91 9908179816</p>
+                    <p><i class="fas fa-envelope"></i> hello@spicetrail.com</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 SpiceTrail. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        
+        const animateElements = document.querySelectorAll('.animate__animated');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add(entry.target.dataset.animation);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>

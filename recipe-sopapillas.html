@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sopapillas Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Mexican</div>
+                <h1>Sopapillas</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 45 mins</span>
+                    <span><i class="fas fa-user-friends"></i> Makes 24</span>
+                    <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>4.6 (274 reviews)</span>
+                </div>
+                <p class="recipe-description">Light, puffy fried pastries dusted with cinnamon sugar and drizzled with honey. These traditional Mexican treats are crisp on the outside, soft and airy inside, and perfect for breakfast, dessert, or as a sweet snack. Our authentic recipe creates perfectly puffed sopapillas every time.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/khO1oFgvgPc8u7np2ZnzkqYcHcffs3xJd9NheDrPUgA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by92aWJyYW50LXNj/ZW5lLXNwaWN5LXNv/cGFpcGlsbGFzLXNl/cnZlZC13aXRoLXNh/dWNlXzE2Nzg1Ny01/NjgxMC5qcGc_c2Vt/dD1haXNfaHlicmlk/Jnc9NzQw" alt="Sopapillas">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Dough:</h3>
+                <ul>
+                    <li>4 cups all-purpose flour</li>
+                    <li>2 tsp baking powder</li>
+                    <li>1 tsp salt</li>
+                    <li>4 tbsp shortening or lard</li>
+                    <li>1 1/2 cups warm water</li>
+                </ul>
+                <h3>For Frying:</h3>
+                <ul>
+                    <li>Vegetable oil for deep frying</li>
+                </ul>
+                <h3>For Coating:</h3>
+                <ul>
+                    <li>1/2 cup granulated sugar</li>
+                    <li>1 tbsp ground cinnamon</li>
+                    <li>Honey for drizzling</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Make Dough</h3>
+                    <p>Whisk flour, baking powder and salt. Cut in shortening until mixture resembles coarse crumbs. Gradually add warm water until dough comes together. Knead 5 minutes until smooth. Cover and rest 20 minutes.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Roll and Cut</h3>
+                    <p>Divide dough into 4 portions. Roll each into 1/8-inch thick rectangle. Cut into 3-inch squares or triangles.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Fry Sopapillas</h3>
+                    <p>Heat 2 inches oil to 375°F (190°C). Fry 2-3 pieces at a time for 1-2 minutes per side until golden and puffed. Drain on paper towels.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Coat and Serve</h3>
+                    <p>Mix sugar and cinnamon. While still warm, toss sopapillas in mixture. Drizzle with honey and serve immediately.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/HiAVolz-1hs?si=wjK0hhvEl3B1gJ1I" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Perfect Puff:</strong> Ensure oil is at correct temperature - too cool makes them greasy, too hot prevents puffing.</p>
+                <p><strong>Dough Tip:</strong> Resting dough ensures gluten relaxes for maximum puff during frying.</p>
+                <p><strong>Flavor Variations:</strong> Add 1 tsp cinnamon or 1/2 tsp anise seeds to dough for extra flavor.</p>
+                <p><strong>Make Ahead:</strong> Dough can be refrigerated overnight. Bring to room temperature before rolling.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">150</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">2g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">20g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">7g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">1g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Mexican Desserts</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/zqWMzOBiWjjIxNyWQr3DZTW73Z_iUgFRl238lOzSw7w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTcx/NTczOTI5L3Bob3Rv/L2ZsYW4uanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPU11anBa/aUlmbHBCZnhVekxf/RnFRdzcyYldoNU0x/WVBZX3RtOHMtaUVa/UW89" alt="Mexican Flan">
+                    <div class="recipe-card-content">
+                        <h3>Mexican Flan</h3>
+                        <a href="recipe-flan.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/HSQORknL9QJEEi1nF48q1qFjcazG3-FMYzBkGXO4bu0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9waWVj/ZS10cmVzLWxlY2hl/cy1jYWtlLXByZXBh/cmVkLWhvbWUtbGF0/aW4tYW1lcmljYW4t/ZGVzc2VydC1waWVj/ZS10cmVzLWxlY2hl/cy1jYWtlLXByZXBh/cmVkLWhvbWUtbGF0/aW4tYW1lcmljYW4t/Mjg4NDg5NjMwLmpw/Zw" alt="Tres Leches Cake">
+                    <div class="recipe-card-content">
+                        <h3>Tres Leches Cake</h3>
+                        <a href="recipe-tres-leches.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/oIolucnFEkyqqL8oFPQeGPkYu7ckGPgrm8dQ29MocxI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvOTU5/OTkzMTI0L3Bob3Rv/L3RyYWRpdGlvbmFs/LXNwYW5pc2gtZGVz/c2VydC1jaHVycm9z/LXdpdGgtc3VnYXIt/YW5kLWNob2NvbGF0/ZS5qcGc_cz02MTJ4/NjEyJnc9MCZrPTIw/JmM9YkxIV1FiczNV/RGpJN0VJMEwwNGJp/ZEtfRUtnY051RlVu/YnJXbU9pV1JWYz0" alt="Mexican Churros">
+                    <div class="recipe-card-content">
+                        <h3>Mexican Churros</h3>
+                        <a href="recipe-churros.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

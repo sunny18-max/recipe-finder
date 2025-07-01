@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About SpiceTrail | Exploring Global Flavors</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #e67e22;
+            --primary-dark: #d35400;
+            --secondary: #2c3e50;
+            --light: #f9f9f9;
+            --dark: #333;
+            --gray: #95a5a6;
+            --light-gray: #ecf0f1;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(230, 126, 34, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header.about-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            color: white;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: 0;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .header-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 150px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease;
+        }
+
+        .header-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-img {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .mission-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .mission-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .mission-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .mission-card h3 {
+            margin-bottom: 15px;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-img {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .member-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .team-member:hover .member-img img {
+            transform: scale(1.05);
+        }
+
+        .member-info {
+            padding: 20px;
+        }
+
+        .member-info h3 {
+            margin-bottom: 5px;
+        }
+
+        .member-info p {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 35px;
+            height: 35px;
+            background: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 80px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            border-radius: 0 30px 30px 0;
+            padding: 0 25px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p {
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-section a {
+            display: block;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.7);
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 99;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-img {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+
+            .nav-links {
+                margin-top: 15px;
+            }
+
+            .nav-links li {
+                margin: 0 10px;
+            }
+
+            .header-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .header-content p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-radius: 30px;
+                margin-bottom: 10px;
+            }
+
+            .newsletter-form button {
+                border-radius: 30px;
+                width: 100%;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .animate-delay-2 {
+            animation-delay: 0.4s;
+        }
+    </style>
+</head>
+<body>
+    <header class="about-header">
+        <nav>
+            <div class="container">
+                <div class="logo">
+                    <i class="fas fa-utensils"></i>
+                    <span>SpiceTrail</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cuisines.html">Cuisines</a></li>
+                    <li><a href="favorites.html">Favorites</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="header-content">
+                <h1>Our Spice Journey</h1>
+                <p>Discover the story behind SpiceTrail and our passion for bringing authentic global flavors to your kitchen</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="about-section">
+        <div class="container">
+            <h2 class="section-title">About SpiceTrail</h2>
+            <div class="about-content">
+                <div class="about-img animate__animated animate__fadeInLeft">
+                    <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="SpiceTrail Team">
+                </div>
+                <div class="about-text animate__animated animate__fadeInRight">
+                    <h3>From Passion to Plate</h3>
+                    <p>Founded in 2025, SpiceTrail began as a culinary passion project between three food enthusiasts who shared a common love for authentic global flavors and the stories behind them. What started as a small blog documenting our kitchen experiments has grown into a trusted resource for home cooks worldwide.</p>
+                    <p>Our mission is simple: to preserve culinary traditions while making them accessible to modern home cooks. We believe that food is more than sustenance - it's a connection to culture, history, and shared human experience.</p>
+                    <p>Every recipe on SpiceTrail is meticulously researched, tested, and presented with both authenticity and practicality in mind. We bridge the gap between traditional cooking methods and contemporary kitchens without compromising on flavor.</p>
+                    <a href="index.html" class="btn">Explore Our Recipes</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mission-section">
+        <div class="container">
+            <h2 class="section-title">Our Mission</h2>
+            <div class="mission-cards">
+                <div class="mission-card animate__animated animate__fadeInUp">
+                    <div class="mission-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Cultural Preservation</h3>
+                    <p>Document and preserve authentic cooking techniques and recipes from around the world before they're lost to modernization.</p>
+                </div>
+                
+                <div class="mission-card animate__animated animate__fadeInUp animate-delay-1">
+                    <div class="mission-icon">
+                        <i class="fas fa-mortar-pestle"></i>
+                    </div>
+                    <h3>Accessible Education</h3>
+                    <p>Make global cuisine approachable with step-by-step guides, video tutorials, and adapted techniques for home kitchens.</p>
+                </div>
+                
+                <div class="mission-card animate__animated animate__fadeInUp animate-delay-2">
+                    <div class="mission-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Community Building</h3>
+                    <p>Create a space where food lovers can share, learn, and celebrate culinary diversity together.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="container">
+            <h2>Join Our Culinary Community</h2>
+            <p>Subscribe to receive weekly recipes, cooking tips, and stories from kitchens around the world.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your Email Address" required>
+                <button type="submit" class="btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-utensils"></i>
+                        <span>SpiceTrail</span>
+                    </div>
+                    <p>Exploring the diverse culinary traditions of the world, one recipe at a time.</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/saathvik.k.56/" ><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/ifcsunny/" ><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@saathvikkalepu4512"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="cuisines.html">Cuisines</a>
+                    <a href="recipes.html">Recipes</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Popular Recipes</h3>
+                    <a href="./recipe-butter-chicken.html">Butter Chicken</a>
+                    <a href="./recipe-paneer-tikka.html">Paneer Tikka Masala</a>
+                    <a href="./recipe-dal-makhani.html">Dal Makhani</a>
+                    <a href="./recipe-pad-thai.html">Pad Thai</a>
+                    <a href="./recipe-paella.html">Spanish Paella</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Spice Street, Hyderabad</p>
+                    <p><i class="fas fa-phone"></i> +91 9908179816</p>
+                    <p><i class="fas fa-envelope"></i> saathvikk202@gmail.com</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 SpiceTrail. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Back to Top Button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animation on scroll
+        const animateElements = document.querySelectorAll('.animate__animated');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add(entry.target.dataset.animation);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>

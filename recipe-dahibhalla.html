@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dahi Bhalla Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Punjabi Special</div>
+                <h1>Dahi Bhalla</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 5 hours (includes soaking)</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 8</span>
+                    <span><i class="fas fa-pepper-hot"></i> Medium</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (124 reviews)</span>
+                </div>
+                <p class="recipe-description">The Punjabi version of dahi vada with larger, softer bhallas soaked in sweetened yogurt and loaded with chutneys, spices, and crunchy toppings. A must-have at weddings and festive gatherings in North India.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline"><i class="fas fa-share-alt"></i> Share</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/nOZ4NC4qg87PKDm9d992pmew6iqj8_gSLGU_EjBjQtI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/cGlrcG5nLmNvbS9w/bmdsL2IvMTQyLTE0/MjYxODJfYmhhbGxh/LXBhcGRpLWRhaGkt/YmhhbGxhLXBhcGRp/LXBuZy1jbGlwYXJ0/LnBuZw" alt="Dahi Bhalla">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Bhalla:</h3>
+                <ul>
+                    <li>1 cup urad dal</li>
+                    <li>2 tbsp moong dal (optional for softness)</li>
+                    <li>1 tsp crushed black pepper</li>
+                    <li>1/2 tsp baking soda</li>
+                    <li>Oil for deep frying</li>
+                </ul>
+                <h3>For Yogurt Mix:</h3>
+                <ul>
+                    <li>4 cups hung curd (thick yogurt)</li>
+                    <li>1/2 cup powdered sugar</li>
+                    <li>1 tbsp chaat masala</li>
+                    <li>1/2 cup milk (to adjust consistency)</li>
+                </ul>
+                <h3>For Layering:</h3>
+                <ul>
+                    <li>1 cup boiled potato cubes</li>
+                    <li>1/2 cup boiled chickpeas</li>
+                    <li>1/2 cup sweet tamarind chutney</li>
+                    <li>1/4 cup green chutney</li>
+                    <li>1/2 cup nylon sev</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Batter</h3>
+                    <p>Soak dals together for 6 hours. Grind to smooth batter with minimal water. Add baking soda and black pepper, whisk until fluffy.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Fry Bhallas</h3>
+                    <p>Heat oil to medium. Drop lemon-sized batter portions into oil. Fry on medium-low until golden brown (5-6 minutes each).</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Soak Bhallas</h3>
+                    <p>Soak fried bhallas in lukewarm water for 30 minutes. Gently press between palms to remove excess water.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Assemble</h3>
+                    <p>Layer in dish: bhallas → potatoes → chickpeas → whipped sweet yogurt → chutneys → sev. Repeat layers. Chill for 1 hour before serving.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/Jhmjty652Uc?si=eJdvfn23Q-rIYC0h" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Texture Secret:</strong> Adding moong dal makes bhallas extra soft and porous to absorb more yogurt.</p>
+                <p><strong>Festive Version:</strong> For weddings, add pomegranate seeds and silver leaf (varak) garnish.</p>
+                <p><strong>Yogurt Tip:</strong> Hung curd works best - tie regular yogurt in muslin for 2 hours to drain whey.</p>
+                <p><strong>Serving Style:</strong> In Punjab, often served in individual clay pots (kullads) for earthy flavor.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts (per serving)</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">320</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">10g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">45g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">12g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">4g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="similar-recipes" data-animate="false">
+            <div class="container">
+                <h2>More Punjabi Delicacies</h2>
+                <div class="recipe-carousel">
+                    <div class="recipe-card">
+                         <img src="https://imgs.search.brave.com/eubUXpv5YpHakoryJaQ-oyQazHBk0WsCryZKgnmksyA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9kYWhpLXdhZGEt/ZGFoaS1iaGFsbGEt/ZGVsaWNpb3VzLWlu/ZGlhbi1zdHlsZS1k/aXNoLXdoaXRlLWJh/Y2tncm91bmRfMTE1/NjA5MC0zOTg0Lmpw/Zz9zZW10PWFpc19o/eWJyaWQmdz03NDA" alt="Dahi Vada">
+                        <div class="recipe-card-content">
+                            <h3>Dahi Vada</h3>
+                            <a href="recipe-dahivada.html" class="btn btn-small">View Recipe</a>
+                        </div>
+                    </div>
+                    <div class="recipe-card">
+                         <img src="https://imgs.search.brave.com/lErDKFZi22iyo-Y4-31Zgr2UajLNGfdFWFDnSjsPg-s/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMjc4/MTUyMjY4L3N0b2Nr/LXBob3RvLXNldi1w/dXJpLWluZGlhbi1z/bmFjay10eXBlLWNo/YWF0LXBvcHVsYXIt/bXVtYmFpLXB1bmUt/bWFoYXJhc2h0cmE" alt="Sev Puri">
+                        <div class="recipe-card-content">
+                            <h3>Sev Puri</h3>
+                            <a href="recipe-sevpuri.html" class="btn btn-small">View Recipe</a>
+                        </div>
+                    </div>
+                    <div class="recipe-card">
+                        <img src="https://imgs.search.brave.com/PAIZBCKOUMr8o7QFupH3Fmmr90n9CalzXyHiLXHfI68/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMTE4/ODg1NDI0L3N0b2Nr/LXBob3RvLWFsb28t/dGlra2ktb3ItY3V0/bGV0LW9yLWFhbHUt/cGF0dGllcy1hLW5v/cnRoLWluZGlhbi1z/bmFjay1tYWRlLW9m/LWJvaWxlZC1wb3Rh/dG9lcw" alt="Aloo Tikki">
+                        <div class="recipe-card-content">
+                            <h3>Aloo Tikki</h3>
+                            <a href="recipe-alootikki.html" class="btn btn-small">View Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

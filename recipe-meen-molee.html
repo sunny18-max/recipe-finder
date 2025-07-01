@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meen Molee Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Kerala</div>
+                <h1>Meen Molee</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 40 mins</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 4</span>
+                    <span><i class="fas fa-pepper-hot"></i> Mild</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (187 reviews)</span>
+                </div>
+                <p class="recipe-description">A delicate coconut milk-based fish stew from Kerala, flavored with ginger, garlic, and curry leaves. This mild yet flavorful dish is traditionally served with appam or bread, showcasing the Syrian Christian culinary heritage of Kerala.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline"><i class="fas fa-share-alt"></i> Share</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://www.shutterstock.com/shutterstock/photos/1900100935/display_1500/stock-photo-top-view-spicy-kerala-style-fish-stew-and-appam-fish-molee-or-meen-moilee-indian-food-fish-curry-1900100935.jpg" alt="Meen Molee">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>Main Ingredients:</h3>
+                <ul>
+                    <li>500g firm white fish (seer fish/pomfret)</li>
+                    <li>1 cup thick coconut milk</li>
+                    <li>1 cup thin coconut milk</li>
+                    <li>2 tbsp coconut oil</li>
+                    <li>1 tbsp ginger, julienned</li>
+                    <li>1 tbsp garlic, sliced</li>
+                    <li>2 green chilies, slit</li>
+                    <li>1 sprig curry leaves</li>
+                    <li>1/2 tsp turmeric powder</li>
+                    <li>1 tbsp lemon juice</li>
+                    <li>Salt to taste</li>
+                </ul>
+                <h3>For Tempering:</h3>
+                <ul>
+                    <li>1 tbsp coconut oil</li>
+                    <li>1/2 tsp mustard seeds</li>
+                    <li>1 small onion, thinly sliced</li>
+                    <li>1/2 tsp black pepper powder</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Marinate Fish</h3>
+                    <p>Clean and cut fish into steaks. Marinate with turmeric, lemon juice, and salt for 15 minutes.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Prepare Base</h3>
+                    <p>Heat coconut oil in clay pot. Sauté ginger, garlic, green chilies, and curry leaves until fragrant.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Cook Fish</h3>
+                    <p>Add thin coconut milk and bring to gentle simmer. Add fish pieces and cook covered for 5-6 minutes.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Add Thick Milk</h3>
+                    <p>Pour thick coconut milk and heat gently without boiling (2-3 minutes). Remove from heat.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Temper</h3>
+                    <p>Heat oil in small pan. Splutter mustard seeds, sauté onions until golden. Pour over stew with black pepper.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/6I7dAoEcoOw?si=LrsvmvNYN_co8E50" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Fish Selection:</strong> Seer fish (Neymeen) is traditional, but any firm white fish works.</p>
+                <p><strong>Coconut Milk:</strong> Freshly extracted gives best flavor - first press (thick) and second press (thin).</p>
+                <p><strong>Traditional Touch:</strong> Use mann chatti (clay pot) for authentic earthy flavor.</p>
+                <p><strong>Serving:</strong> Always serve in same clay pot with appam or crusty bread.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">280</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">25g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">8g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">18g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">2g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="similar-recipes" data-animate="false">
+            <div class="container">
+                <h2>More Kerala Seafood</h2>
+                <div class="recipe-carousel">
+                    <div class="recipe-card">
+                        <img src="https://www.shutterstock.com/shutterstock/photos/2314315977/display_1500/stock-photo-kerala-fish-curry-karimeen-pollichathu-a-popular-hot-and-spicy-baked-fish-in-banana-leaves-alleppey-2314315977.jpg" alt="Karimeen Pollichathu">
+                        <div class="recipe-card-content">
+                            <h3>Karimeen Pollichathu</h3>
+                            <a href="recipe-karimeen-pollichathu.html" class="btn btn-small">View Recipe</a>
+                        </div>
+                    </div>
+                    <div class="recipe-card">
+                        <img src="https://imgs.search.brave.com/PixAaLaSoMVyIp1Rul6Pzz8ImRksNYqLT5QeESJF9HI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNTQx/MDI3NzY4L3N0b2Nr/LXBob3RvLW1lZW4t/cG9sbGljaGF0aHUt/ZmlzaC1wb2xsaWNo/YXRodS10YXN0eS1r/ZXJhbGEtZGlzaC1m/aXNoLW1hc2FsYS1j/b29rZWQ" alt="Kerala Fish Curry">
+                        <div class="recipe-card-content">
+                            <h3>Kerala Fish Curry</h3>
+                            <a href="recipe-kerala.html" class="btn btn-small">View Recipe</a>
+                        </div>
+                    </div>
+                    <div class="recipe-card">
+                        <img src="https://imgs.search.brave.com/KXtba9_PFHO5UvNrmoC9w3oNhs2Owb1P-G10q2LYRKc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMTE5/MjI0MzY2L3N0b2Nr/LXBob3RvLXNvdXRo/LWluZGlhbi1wb3B1/bGFyLWZvb2QtYXBw/ZS1vci1hcHBhbS1v/ci1yYXZhLWFwcGU" alt="Prawn Moilee">
+                        <div class="recipe-card-content">
+                            <h3>Appam</h3>
+                            <a href="recipe-appam.html" class="btn btn-small">View Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 SpiceTrail. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

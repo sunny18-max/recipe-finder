@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idli Sambar Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">South Indian</div>
+                <h1>Idli Sambar</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 40 mins</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 4</span>
+                    <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>4.7 (287 reviews)</span>
+                </div>
+                <p class="recipe-description">Soft, fluffy steamed rice cakes served with aromatic lentil stew and coconut chutney. A healthy and comforting breakfast that's perfect for starting your day with authentic South Indian flavors!</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/1lfjt9h0ShIOHjie_R-mN9vlUE7j2uVtAM4B3Iso6ZI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM2/OTYzMjc3Mi9waG90/by9pZGxpLXdpdGgt/c2FtYmFyLWFuZC1j/b2NvbnV0LWNodXRu/ZXktb24tdmlvbGV0/LWJhY2tncm91bmQu/anBnP3M9NjEyeDYx/MiZ3PTAmaz0yMCZj/PUFnNHRBcldpNUs5/RW1zWERobDdXMjFS/eFpqeFNSdVIyWV9H/b3Vid3Y5bms9" alt="Idli Sambar">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Idli:</h3>
+                <ul>
+                    <li>2 cups idli rice</li>
+                    <li>1 cup urad dal</li>
+                    <li>1/2 teaspoon fenugreek seeds</li>
+                    <li>Salt to taste</li>
+                    <li>Water as needed</li>
+                </ul>
+                <h3>For Sambar:</h3>
+                <ul>
+                    <li>1/2 cup toor dal</li>
+                    <li>1 cup mixed vegetables (drumsticks, carrot, pumpkin)</li>
+                    <li>1 tablespoon sambar powder</li>
+                    <li>1/2 teaspoon turmeric</li>
+                    <li>1 tablespoon tamarind paste</li>
+                    <li>1 teaspoon mustard seeds</li>
+                    <li>2 dried red chilies</li>
+                    <li>Few curry leaves</li>
+                    <li>2 tablespoons oil</li>
+                    <li>Salt to taste</li>
+                </ul>
+                <h3>For Coconut Chutney:</h3>
+                <ul>
+                    <li>1 cup grated coconut</li>
+                    <li>2 green chilies</li>
+                    <li>1/2 inch ginger</li>
+                    <li>1/2 teaspoon mustard seeds</li>
+                    <li>Few curry leaves</li>
+                    <li>1 tablespoon oil</li>
+                    <li>Salt to taste</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Idli Batter</h3>
+                    <p>Soak rice and urad dal separately for 4-6 hours with fenugreek seeds. Grind urad dal to a smooth fluffy batter and rice to a slightly coarse consistency. Mix together with salt and ferment overnight (8-12 hours) in a warm place until the batter doubles in volume.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Make Sambar</h3>
+                    <p>Pressure cook toor dal with turmeric until completely soft. In a separate pot, cook the vegetables until tender. Mix the cooked dal with vegetables, sambar powder, tamarind water, and salt. Bring to a boil. Temper with mustard seeds, dried red chilies, and curry leaves in hot oil.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Prepare Chutney</h3>
+                    <p>Grind coconut with green chilies, ginger, salt and enough water to make a smooth paste. Heat oil in a small pan, add mustard seeds and curry leaves. When they splutter, pour this tempering over the chutney and mix well.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Steam Idlis</h3>
+                    <p>Grease idli molds lightly with oil. Pour the fermented batter into each mold, filling about 3/4 full. Steam in a pressure cooker (without whistle) or idli steamer for 10-12 minutes until a toothpick inserted comes out clean. Let rest for 2 minutes before removing from molds.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Serve</h3>
+                    <p>Serve hot idlis with warm sambar and coconut chutney. For authentic experience, place 2-3 idlis in a bowl, pour sambar over them, and enjoy with chutney on the side.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/Ayo80PIb-Qg?si=_UI5FwNvRei_H4Wt" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Fermentation Tip:</strong> Keep batter in oven with light on for consistent warmth. In cold climates, extend fermentation time up to 24 hours.</p>
+                <p><strong>Batter Consistency:</strong> The ideal batter should be thick but pourable, similar to pancake batter.</p>
+                <p><strong>Sambar Variations:</strong> Add a pinch of asafoetida (hing) to the tempering for authentic flavor. You can also include pearl onions for extra sweetness.</p>
+                <p><strong>Storage:</strong> Leftover batter can be refrigerated for 2-3 days. Bring to room temperature before use.</p>
+                <p><strong>Quick Version:</strong> For instant idlis, use ready-made idli rava or semolina (sooji) mixed with yogurt.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">320</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">12g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">55g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">8g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">6g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">3g</span>
+                    <span class="nutrition-label">Sugar</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More South Indian Breakfast Recipes</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/0RgFun0y6Z2YFBfRTBKL4UqJ0AvwiuY_rfEeGsA1BIg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTA5/NTU4NTU4Ni9waG90/by90aGlzLWltYWdl/LXNob3dzLW15c29y/ZS1tYXNhbGEtZG9z/YS1rYWRhaS1wYW5l/ZXItcGFuamFiaS1t/dXNocm9vbS1yb2dh/bmpvc2gtYW5kLWdo/ZWUtcm9hc3QuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPXhE/czlydTUyTkVnUzIw/NXNDY252cmVTOUpF/Vi1VVDhHYzljbG1J/aEVrdGc9" alt="Masala Dosa">
+                    <div class="recipe-card-content">
+                        <h3>Masala Dosa</h3>
+                        <a href="recipe-masala-dosa.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/9CeDTYgCARhkm2Z9p-EtFTTM6JGbtgIYHM7egagGqwo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTE4/NjMzMDE0MS9waG90/by9wb25nYWwuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPTN2/N3hoRkc2aXk3TWZ5/Y21hVHpJdlRGanhX/Q1ViVkpMSzlFUnlF/UFd1WjA9" alt="Ven Pongal">
+                    <div class="recipe-card-content">
+                        <h3>Ven Pongal</h3>
+                        <a href="recipe-pongal.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/iVT63ohC9ynraZpGAQ9lrXuyWlxIM7LcvLABkHBXy54/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMjM5/ODQ4MTU0L3N0b2Nr/LXBob3RvLXJhdmEt/dXBtYS11cHB1bWEt/c291dGgtaW5kaWFu/LWJyZWFrZmFzdC1z/ZXJ2ZWQtYm93bC1z/ZWxlY3RpdmUtZm9j/dXM" alt="Rava Upma">
+                    <div class="recipe-card-content">
+                        <h3>Rava Upma</h3>
+                        <a href="recipe-upma.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Litti Chokha Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Bihari</div>
+                <h1>Litti Chokha</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 2 hours</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 4</span>
+                    <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                    <span><i class="fas fa-fire"></i> Wood-fired</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>4.7 (1,856 reviews)</span>
+                </div>
+                <p class="recipe-description">Bihar's iconic rustic meal - whole wheat balls stuffed with spiced sattu (roasted gram flour) and roasted over cow dung cakes or charcoal, served with smoky mashed vegetable chokha. This wholesome peasant food is packed with protein and earthy flavors, traditionally eaten with hands for the complete experience.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/5669RLz663K8j7fT09pBHnT2n_tVl4UxbsFkQaWg8QM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMx/MTM4OTkxNC9waG90/by9saXR0aS1jaG9r/aGEtb3ItbGl0aS1j/aG9rYS1mcm9tLWJp/aGFyLWpoYXJraGFu/ZC1hbmQtdXR0YXIt/cHJhZGVzaC1pcy1z/dHVmZmVkLXdpdGgt/Y2hhbmEtc2F0dHUu/anBnP2I9MSZzPTYx/Mng2MTImdz0wJms9/MjAmYz1SLVdTRkVu/cWF1VUVObzNaV1VC/WXFoS2gyRkphLXc2/Vmhtc053NTg5cGpV/PQ" alt="Litti Chokha with accompaniments">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Litti Dough:</h3>
+                <ul>
+                    <li>2 cups whole wheat flour</li>
+                    <li>1/4 cup ghee</li>
+                    <li>1/2 tsp carom seeds (ajwain)</li>
+                    <li>1/2 tsp salt</li>
+                    <li>Water as needed</li>
+                </ul>
+                <h3>For Sattu Filling:</h3>
+                <ul>
+                    <li>1 cup sattu (roasted gram flour)</li>
+                    <li>1 tbsp mustard oil</li>
+                    <li>1 tsp nigella seeds (kalonji)</li>
+                    <li>1 tsp ajwain</li>
+                    <li>1 tsp mango powder (amchur)</li>
+                    <li>2 green chilies, finely chopped</li>
+                    <li>1 tbsp lemon juice</li>
+                    <li>Salt to taste</li>
+                </ul>
+                <h3>For Baingan Chokha:</h3>
+                <ul>
+                    <li>2 large eggplants</li>
+                    <li>2 tomatoes</li>
+                    <li>1 onion, finely chopped</li>
+                    <li>2 green chilies</li>
+                    <li>1 tbsp mustard oil</li>
+                    <li>1/4 cup coriander leaves</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Dough</h3>
+                    <p>Mix flour, ghee, ajwain and salt. Add water gradually to make stiff dough. Cover and rest for 30 mins.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Make Filling</h3>
+                    <p>Combine all sattu filling ingredients with enough water to make crumbly mixture that holds shape.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Shape Littis</h3>
+                    <p>Divide dough into lemon-sized balls. Flatten, add 1 tbsp filling, seal tightly and shape into rounds.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Roast</h3>
+                    <p>Traditionally roast on cow dung cakes or charcoal. At home, bake at 180°C for 25 mins or until golden.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Prepare Chokha</h3>
+                    <p>Roast eggplant and tomatoes directly on flame. Peel, mash with other ingredients. Season with mustard oil.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 6: Serve</h3>
+                    <p>Dip hot littis in ghee, serve with chokha, raw onion and green chili. Break open litti to eat.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtube.com/shorts/r9hT3BfN420?si=k6YcZekP8gMGts9s" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Sattu Tip:</strong> Authentic Bihari sattu has distinctive nutty flavor from specific roasting technique.</p>
+                <p><strong>Smoky Flavor:</strong> For authentic taste, char eggplant directly on gas flame until skin blackens.</p>
+                <p><strong>Alternative Cooking:</strong> Can shallow fry littis if baking/roasting not possible.</p>
+                <p><strong>Serving Style:</strong> Traditionally eaten by breaking litti and mixing with chokha.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">380</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">14g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">58g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">12g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">9g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

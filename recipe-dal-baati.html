@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dal Baati Churma Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Rajasthani</div>
+                <h1>Dal Baati Churma</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 2.5 hours</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 6</span>
+                    <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>4.7 (389 reviews)</span>
+                </div>
+                <p class="recipe-description">Rajasthan's iconic trio of flavors - crispy whole wheat baatis (dough balls) served with a mix of five lentil dal and sweet crumbled churma. This hearty meal combines textures and tastes perfectly, with the baatis' crusty exterior giving way to a soft interior that soaks up the spicy dal, balanced by the sweet churma.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/thf8M8_CNJfKNfNcQpIS7J3hCsjBpI4hvkRFgmj_q98/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9kYWwtcGFsYWst/bGVudGlsLXNwaW5h/Y2gtY3VycnktcG9w/dWxhci1pbmRpYW4t/bWFpbi1jb3Vyc2Ut/aGVhbHRoeS1yZWNp/cGUtc2VydmVkLWth/cmFoaS1wYW4tYm93/bC1zZWxlY3RpdmUt/Zm9jdXNfNDY2Njg5/LTU1NTQyLmpwZz9z/ZW10PWFpc19oeWJy/aWQmdz03NDA" alt="Dal Baati Churma">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Baati:</h3>
+                <ul>
+                    <li>3 cups whole wheat flour</li>
+                    <li>1 cup semolina (sooji)</li>
+                    <li>1 cup ghee</li>
+                    <li>1 tsp carom seeds (ajwain)</li>
+                    <li>Water as needed</li>
+                </ul>
+                <h3>For Panchmel Dal:</h3>
+                <ul>
+                    <li>¼ cup each: toor dal, chana dal, urad dal, moong dal, masoor dal</li>
+                    <li>1 tsp turmeric</li>
+                    <li>2 tbsp ghee</li>
+                    <li>1 tsp cumin seeds</li>
+                    <li>2 dried red chilies</li>
+                </ul>
+                <h3>For Churma:</h3>
+                <ul>
+                    <li>6 cooked baatis</li>
+                    <li>1 cup powdered sugar</li>
+                    <li>½ cup ghee</li>
+                    <li>1 tsp cardamom powder</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Make Baati Dough</h3>
+                    <p>Mix flour, semolina, ¼ cup ghee, ajwain and salt. Add water to make stiff dough. Rest for 30 mins.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Shape and Bake</h3>
+                    <p>Make lemon-sized balls, flatten slightly. Bake at 180°C for 30 mins until golden, brushing with ghee halfway.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Cook Dal</h3>
+                    <p>Pressure cook washed dals with turmeric and salt (3 whistles). Temper with ghee, cumin, garlic, ginger, and spices.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Prepare Churma</h3>
+                    <p>Crumble baked baatis, fry in ghee until crisp. Powder with sugar and cardamom when cooled.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Serve</h3>
+                    <p>Break hot baatis, pour ghee over. Serve with dal and churma on the side.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/mZ4xTelTAGk?si=xSxfj5ohnTjWd-Hc" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Traditional Method:</strong> Baatis were originally cooked in desert sand!</p>
+                <p><strong>Ghee Tip:</strong> Use homemade ghee for authentic flavor.</p>
+                <p><strong>Serving Suggestion:</strong> Accompany with garlic chutney and onion salad.</p>
+                <p><strong>Shortcut:</strong> Use pre-mixed panchmel dal if available.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">580</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">18g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">75g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">25g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">10g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Rajasthani Specialties</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/bVBKcYJzxfGxC6Cc5AR5aq9Ce7dOoS_uZONfYCJfRGI/rs:fit:860:0:0:0/g:ce/aHR0cDovL2Zhcm05/LnN0YXRpY2ZsaWNr/ci5jb20vODA3NS84/NDQ0MzgyOTkzXzY5/YjNlNmE1MDlfei5q/cGc" alt="Gatte Ki Sabzi">
+                    <div class="recipe-card-content">
+                        <h3>Gatte Ki Sabzi</h3>
+                        <a href="recipe-gatte-ki-sabzi.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/fneZDtHnzGQulyk9uw8eP7oee4LyA07xrWI-VgPV8RQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Zm9vZGllLXRyYWls/LmNvbS93cC1jb250/ZW50L3VwbG9hZHMv/MjAyMS8xMS8yMDIx/MTEwM18xNDQ1NDI3/NDZfaU9TLXNjYWxl/ZC5qcGc" alt="Ker Sangri">
+                    <div class="recipe-card-content">
+                        <h3>Ker Sangri</h3>
+                        <a href="recipe-ker-sangri.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/34JqXH2n80pb_Aw1X8TpYdOkCmnRPqDtYRRsQWrwL2k/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/c2x1cnJwLmNvbS93/ZWIvX25leHQvaW1h/Z2U_dXJsPWh0dHBz/Oi8vaW1hZ2VzLnNs/dXJycC5jb20vcHJv/ZC9hcnRpY2xlcy90/Yjc3MjVpMDloLndl/YnA_aW1wb2xpY3k9/c2x1cnJwLTIwMjEw/NjAxJndpZHRoPTEy/MDAmaGVpZ2h0PTkw/MCZxPTc1Jnc9Mzg0/MCZxPTc1" alt="Laal Maas">
+                    <div class="recipe-card-content">
+                        <h3>Laal Maas</h3>
+                        <a href="recipe-laal-maas.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paneer Tikka Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Indian</div>
+                <h1>Paneer Tikka</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 45 mins</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 4</span>
+                    <span><i class="fas fa-pepper-hot"></i> Medium</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (287 reviews)</span>
+                </div>
+                <p class="recipe-description">Cubes of paneer (Indian cottage cheese) marinated in spiced yogurt and grilled to perfection. This vegetarian version of chicken tikka makes a fantastic appetizer or main course, bursting with smoky flavors from the tandoor.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/WS_yavCaB0C26zvstB6bmVFJTBpSi3twrVakRLpYOm4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNjEv/MDYwLzU1Ni9zbWFs/bC9wYW5lZXItdGlr/a2EtcGVyZmVjdGlv/bi1zbW9reS1ncmls/bC1tYXJrcy1hbmQt/c3BpY2VzLWluZGlh/bi1hcHBldGl6ZXIt/aW4tYXJ0aXN0aWMt/aGlnaC1yZXNvbHV0/aW9uLXBob3RvLmpw/Zw" alt="Paneer Tikka">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Marinade:</h3>
+                <ul>
+                    <li>400g paneer, cubed</li>
+                    <li>1/2 cup thick yogurt</li>
+                    <li>1 tbsp ginger-garlic paste</li>
+                    <li>1 tbsp lemon juice</li>
+                    <li>1 tsp garam masala</li>
+                    <li>1 tsp coriander powder</li>
+                    <li>1/2 tsp turmeric</li>
+                    <li>1 tsp chili powder</li>
+                    <li>1 tsp kasuri methi</li>
+                    <li>1 tbsp mustard oil</li>
+                </ul>
+                <h3>For Vegetables:</h3>
+                <ul>
+                    <li>1 bell pepper, cubed</li>
+                    <li>1 onion, cubed</li>
+                    <li>1 tomato, deseeded</li>
+                </ul>
+                <h3>For Serving:</h3>
+                <ul>
+                    <li>Lemon wedges</li>
+                    <li>Mint chutney</li>
+                    <li>Onion rings</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Marinade</h3>
+                    <p>Whisk yogurt until smooth. Add all spices, ginger-garlic paste, lemon juice and oil. Mix well.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Marinate</h3>
+                    <p>Add paneer and vegetables to marinade. Gently mix. Refrigerate at least 2 hours, preferably overnight.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Skewer</h3>
+                    <p>Thread paneer and vegetables alternately on skewers. Reserve leftover marinade.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Grill</h3>
+                    <p>Grill on high heat 3-4 minutes per side, basting with reserved marinade, until charred.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Serve</h3>
+                    <p>Sprinkle chaat masala. Serve hot with mint chutney and lemon wedges.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/hsR0JaD1TyA?si=ixZzdZEhQSz0uHWf" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Paneer Tip:</strong> Use firm, fresh paneer. Soak in warm water 10 minutes to prevent drying.</p>
+                <p><strong>No Grill Option:</strong> Bake at 200°C (400°F) for 15-20 minutes or pan-fry.</p>
+                <p><strong>Flavor Boost:</strong> Add 1 tbsp besan (gram flour) to marinade for extra texture.</p>
+                <p><strong>Vegan Option:</strong> Substitute paneer with tofu and use dairy-free yogurt.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">280</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">18g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">12g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">18g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">3g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Indian Recipes</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/G60ZpQpuW9yHztjh7neiNInuIiBhWZIIoRAgqJIaskY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNjM5/Mzg5NDA0L3Bob3Rv/L2F1dGhlbnRpYy1p/bmRpYW4tZm9vZC5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/Z2JmQXUxN0wxZ3RI/bXVvNWJpQnloZkNl/ZkF0WVV0R1FweXhN/bWk5X011cz0" alt="Butter Chicken">
+                    <div class="recipe-card-content">
+                        <h3>Butter Chicken</h3>
+                        <a href="recipe-butter-chicken.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/eZ45DGZ_S_9e65TpFMfTeU5_Wq5cxvDSFIObH-W1cos/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMjUx/MzA1OTYyL3N0b2Nr/LXBob3RvLWluZGlh/bi1uYWFuLWJyZWFk/LXdpdGgtZ2FybGlj/LWJ1dHRlci1vbi13/b29kZW4tdGFibGU" alt="Naan Bread">
+                    <div class="recipe-card-content">
+                        <h3>Garlic Naan</h3>
+                        <a href="recipe-naan.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1488&q=80" alt="Biryani">
+                    <div class="recipe-card-content">
+                        <h3>Chicken Biryani</h3>
+                        <a href="recipe-biryani.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

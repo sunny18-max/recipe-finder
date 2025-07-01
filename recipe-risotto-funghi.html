@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risotto ai Funghi Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+        const shareButton = document.querySelector('.btn.share');
+        const printButton = document.querySelector('.btn.print');
+        const recipeTitle = document.querySelector('h1').innerText;
+        
+        saveButton.addEventListener('click', () => {
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            if (!savedRecipes.includes(recipeTitle)) {
+                savedRecipes.push(recipeTitle);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                alert('Recipe saved to favorites!');
+            } else {
+                alert('Recipe already in favorites.');
+            }
+        });
+
+        shareButton.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Masala Dosa Recipe | SpiceTrail',
+                    text: 'Check out this delicious Masala Dosa recipe!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((err) => console.error('Sharing failed', err));
+            } else {
+                alert('Sharing not supported on this browser.');
+            }
+        });
+
+         printButton.addEventListener('click', () => {
+            window.print();
+        });
+       }); 
+       
+        document.addEventListener('DOMContentLoaded', () => {
+        const favoritesList = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        const container = document.querySelector('.favorites-container');
+        if (favoritesList.length === 0) {
+            container.innerHTML = '<p>No recipes saved yet.</p>';
+        } else {
+            container.innerHTML = '<ul>' + favoritesList.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        }
+    });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Italian</div>
+                <h1>Risotto ai Funghi</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 45 mins</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 4</span>
+                    <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (421 reviews)</span>
+                </div>
+                <p class="recipe-description">A luxurious mushroom risotto featuring a mix of wild and cultivated mushrooms, with their deep umami flavors infusing every grain of rice. This earthy, comforting dish gets its rich flavor from porcini mushrooms and a finishing touch of truffle oil for extra decadence.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/ZzpWc_WWue4hVpzSeFYTOMnMkFTxkd7HhRxWQPl0q08/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jNy5h/bGFteS5jb20vY29t/cC8ySDJCQ0IwL3Jp/c290dG8tYWktZnVu/Z2hpLW11c2hyb29t/LXJpY2Utd2l0aC1p/bmdyZWRpZW50cy1v/bi1hLWJsYWNrLWJh/Y2tncm91bmQtMkgy/QkNCMC5qcGc" alt="Risotto ai Funghi">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>Main Ingredients:</h3>
+                <ul>
+                    <li>320g carnaroli or arborio rice</li>
+                    <li>1.5 liters mushroom or vegetable stock</li>
+                    <li>1 small onion, finely chopped</li>
+                    <li>120ml dry white wine</li>
+                </ul>
+                <h3>Mushrooms:</h3>
+                <ul>
+                    <li>30g dried porcini mushrooms</li>
+                    <li>300g mixed fresh mushrooms (cremini, shiitake, oyster)</li>
+                    <li>2 garlic cloves, minced</li>
+                    <li>2 tbsp fresh thyme leaves</li>
+                </ul>
+                <h3>For Finishing:</h3>
+                <ul>
+                    <li>60g butter</li>
+                    <li>60g parmesan, grated</li>
+                    <li>2 tbsp truffle oil (optional)</li>
+                    <li>2 tbsp fresh parsley, chopped</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Prepare Mushrooms</h3>
+                    <p>Soak porcini in 1 cup hot water for 20 mins. Strain, reserving liquid. Slice fresh mushrooms.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Cook Mushrooms</h3>
+                    <p>Sauté fresh mushrooms in butter until golden. Add garlic, thyme, and soaked porcini. Cook 2 mins.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Sauté Onion</h3>
+                    <p>In separate pan, cook onion in butter until soft. Add rice and toast 2 minutes.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Deglaze</h3>
+                    <p>Pour in wine and stir until absorbed. Begin adding hot stock and porcini soaking liquid (strained).</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Finish</h3>
+                    <p>When rice is almost done (15 mins), stir in cooked mushrooms. Off heat, stir in remaining butter, parmesan and truffle oil. Garnish with parsley.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://youtu.be/NKtR3KpS83w?si=AoZxZk03czVsgTRq" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Mushroom Tip:</strong> Use at least 3 varieties for complex flavor.</p>
+                <p><strong>Vegetarian Option:</strong> Use vegetable stock and vegetarian parmesan.</p>
+                <p><strong>Luxury Version:</strong> Add fresh black truffle shavings before serving.</p>
+                <p><strong>Stock Note:</strong> Mushroom stock enhances the umami flavor.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">420</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">14g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">58g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">16g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">4g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="similar-recipes" data-animate="false">
+        <div class="container">
+            <h2>More Mushroom Dishes</h2>
+            <div class="recipe-carousel">
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/FFu4g1z0Ip11vQDQiQVzyflP3g-WfpbFEE2fqmwSdCY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTIw/MjA4NzA1Ni9waG90/by9pdGFsaWFuLXJp/c2ktZS1iaXNpLXJp/Y2Utd2l0aC1wZWFz/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz1KZVVJNll2SmVM/bkxFcDctLU5XRXAx/QTlZTjZCaGZyNHNu/azNvMVllSzNvPQ" alt="Risotto Milanese">
+                    <div class="recipe-card-content">
+                        <h3>Risotto Milanese</h3>
+                        <a href="recipe-risotto-milanese.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/9A5Vkb-PlRYXVbLs4tsyeOTTx7IvKsasgZH7EdYbYy4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMTI5/Njc4NjMwL3N0b2Nr/LXBob3RvLXJpc290/dG8td2l0aC12ZWdl/dGFibGVz" alt="Risotto Primavera">
+                    <div class="recipe-card-content">
+                        <h3>Risotto Primavera</h3>
+                        <a href="recipe-risotto-primavera.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <img src="https://imgs.search.brave.com/QwTQR1k5qi5lx_G-cHbHDQO7VMV8YnHvKvOMshV8kQg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTQ3/NzI2MDk4NS9waG90/by9jcmVhbXktd2ls/ZC1tdXNocm9vbS1z/b3VwLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1kRWFkakc0/cUIwcW1XQ1FlUDdO/S0NRTXE2WG9IaHFI/T2lpSnRUdDRIVHRz/PQ" alt="Creamy Mushroom Soup">
+                    <div class="recipe-card-content">
+                        <h3>Creamy Mushroom Soup</h3>
+                        <a href="recipe-mushroom-soup.html" class="btn btn-small">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive weekly recipes and cooking tips straight to your inbox.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
