@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chicken Biryani Recipe | SpiceTrail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recipe.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.setAttribute('data-animate', 'true');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Save/share functionality
+            const saveButton = document.querySelector('.btn .fa-heart').parentElement;
+            const shareButton = document.querySelector('.btn.share');
+            const printButton = document.querySelector('.btn.print');
+            const recipeTitle = document.querySelector('h1').innerText;
+            
+            saveButton.addEventListener('click', () => {
+                let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+                if (!savedRecipes.includes(recipeTitle)) {
+                    savedRecipes.push(recipeTitle);
+                    localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                    alert('Recipe saved to favorites!');
+                } else {
+                    alert('Recipe already in favorites.');
+                }
+            });
+
+            shareButton.addEventListener('click', () => {
+                if (navigator.share) {
+                    navigator.share({
+                        title: document.title,
+                        text: 'Check out this delicious Chicken Biryani recipe!',
+                        url: window.location.href
+                    });
+                } else {
+                    alert('Web Share API not supported in your browser.');
+                }
+            });
+
+            printButton.addEventListener('click', () => {
+                window.print();
+            });
+        });
+    </script>
+</head>
+<body>
+    <header class="recipe-header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>SpiceTrail</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+                <li><a href="cuisines.html">Cuisines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="recipe-container">
+        <section class="recipe-hero" data-animate="false">
+            <div class="recipe-hero-content">
+                <div class="recipe-badge">Indian</div>
+                <h1>Chicken Biryani</h1>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 1 hour 30 mins</span>
+                    <span><i class="fas fa-user-friends"></i> Serves 6</span>
+                    <span><i class="fas fa-utensils"></i> Main Course</span>
+                    <span><i class="fas fa-pepper-hot"></i> Medium Spice</span>
+                </div>
+                <div class="recipe-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>4.7 (8,921 reviews)</span>
+                </div>
+                <p class="recipe-description">Fragrant basmati rice layered with succulent marinated chicken, caramelized onions, and aromatic spices. This Hyderabadi-style biryani features the perfect dum cooking technique for maximum flavor infusion.</p>
+                <div class="recipe-actions">
+                    <button class="btn"><i class="fas fa-heart"></i> Save Recipe</button>
+                    <button class="btn btn-outline share"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="btn btn-outline print"><i class="fas fa-print"></i> Print</button>
+                </div>
+            </div>
+            <div class="recipe-hero-image">
+                <img src="https://imgs.search.brave.com/orxqwQct7gVAvXiwjUr87-NzVvxKT3kKuwP-vOoU4Bc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMTE0/MzE2MzIwL3N0b2Nr/LXBob3RvLWNoaWNr/ZW4tYmlyeWFuaS13/aXRoLXlvZ3VydC1k/aXAtb24tYmVhdXRp/ZnVsLW1vb2R5LWJh/Y2tncm91bmQtc2Vs/ZWN0aXZlLWZvY3Vz" alt="Chicken Biryani">
+            </div>
+        </section>
+
+        <section class="recipe-details" data-animate="false">
+            <div class="recipe-ingredients">
+                <h2><i class="fas fa-list-ul"></i> Ingredients</h2>
+                <h3>For Chicken Marinade:</h3>
+                <ul>
+                    <li>1.5 lbs chicken (thighs & drumsticks)</li>
+                    <li>1 cup yogurt</li>
+                    <li>2 tbsp ginger-garlic paste</li>
+                    <li>1 tsp turmeric</li>
+                    <li>2 tbsp biryani masala</li>
+                    <li>1 tsp red chili powder</li>
+                    <li>Juice of 1 lemon</li>
+                    <li>Salt to taste</li>
+                </ul>
+                <h3>For Rice:</h3>
+                <ul>
+                    <li>2 cups basmati rice (soaked 30 mins)</li>
+                    <li>4 cups water</li>
+                    <li>1 bay leaf</li>
+                    <li>4 green cardamoms</li>
+                    <li>1 inch cinnamon stick</li>
+                    <li>1 tsp salt</li>
+                </ul>
+                <h3>For Layering:</h3>
+                <ul>
+                    <li>2 large onions (sliced & fried)</li>
+                    <li>1/4 cup chopped mint</li>
+                    <li>1/4 cup chopped cilantro</li>
+                    <li>2 tbsp ghee</li>
+                    <li>1/2 tsp saffron (soaked in 2 tbsp warm milk)</li>
+                    <li>2 tbsp fried cashews (garnish)</li>
+                </ul>
+            </div>
+
+            <div class="recipe-instructions">
+                <h2><i class="fas fa-mortar-pestle"></i> Instructions</h2>
+                <div class="instruction-step">
+                    <h3>Step 1: Marinate Chicken</h3>
+                    <p>Mix all marinade ingredients with chicken. Refrigerate for at least 2 hours (overnight preferred).</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 2: Prepare Rice</h3>
+                    <p>Boil rice with whole spices until 70% cooked (about 5-6 mins). Drain and set aside.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 3: Cook Chicken</h3>
+                    <p>In a heavy pot, cook marinated chicken for 15 mins until partially done. Remove chicken, reserve gravy.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 4: Layering</h3>
+                    <p>In same pot: Layer half rice → chicken & gravy → herbs → fried onions → remaining rice → saffron milk → ghee. Cover tightly.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3>Step 5: Dum Cooking</h3>
+                    <p>Cook on low heat for 25 mins (place tawa below to prevent burning). Let rest 10 mins before serving with raita.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recipe-video" data-animate="false">
+            <h2><i class="fas fa-video"></i> Video Tutorial</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/biryani-tutorial" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="recipe-notes" data-animate="false">
+            <h2><i class="fas fa-lightbulb"></i> Chef's Notes</h2>
+            <div class="notes-content">
+                <p><strong>Rice Tip:</strong> Soaking basmati rice prevents breakage and ensures long grains.</p>
+                <p><strong>Marination Time:</strong> Overnight marination yields more flavorful chicken.</p>
+                <p><strong>Dum Technique:</strong> Seal pot lid with dough for authentic steam cooking.</p>
+                <p><strong>Serving:</strong> Best paired with mirchi ka salan and onion raita.</p>
+            </div>
+        </section>
+
+        <section class="nutrition-facts" data-animate="false">
+            <h2><i class="fas fa-clipboard-list"></i> Nutrition Facts (per serving)</h2>
+            <div class="nutrition-grid">
+                <div class="nutrition-item">
+                    <span class="nutrition-value">580</span>
+                    <span class="nutrition-label">Calories</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">38g</span>
+                    <span class="nutrition-label">Protein</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">62g</span>
+                    <span class="nutrition-label">Carbs</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">22g</span>
+                    <span class="nutrition-label">Fat</span>
+                </div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value">4g</span>
+                    <span class="nutrition-label">Fiber</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer data-animate="false">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SpiceTrail</h3>
+                    <p>Bringing authentic global recipes to your kitchen since 2023. Our mission is to preserve culinary traditions while making them accessible to home cooks worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search Recipes</a></li>
+                        <li><a href="cuisines.html">Cuisines</a></li>
+                        <li><a href="blog.html">Cooking Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SpiceTrail. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

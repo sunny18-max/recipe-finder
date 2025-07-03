@@ -1203,7 +1203,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // DOM elements
+            
             const filterBtn = document.getElementById('filter-btn');
             const sortBtn = document.getElementById('sort-btn');
             const exportBtn = document.getElementById('export-btn');
@@ -1214,13 +1214,13 @@
             const burger = document.querySelector('.burger');
             const navLinks = document.querySelector('.nav-links');
             
-            // Mobile menu toggle
+            
             burger.addEventListener('click', () => {
                 navLinks.classList.toggle('active');
                 burger.classList.toggle('active');
             });
             
-            // Close mobile menu when clicking on a link
+            
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.addEventListener('click', () => {
                     navLinks.classList.remove('active');
@@ -1228,31 +1228,31 @@
                 });
             });
             
-            // Toggle filter dropdown
+            
             filterBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 filterDropdown.style.display = filterDropdown.style.display === 'block' ? 'none' : 'block';
                 sortDropdown.style.display = 'none';
             });
             
-            // Toggle sort dropdown
+            
             sortBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 sortDropdown.style.display = sortDropdown.style.display === 'block' ? 'none' : 'block';
                 filterDropdown.style.display = 'none';
             });
             
-            // Show export modal
+            
             exportBtn.addEventListener('click', () => {
                 exportModal.style.display = 'flex';
             });
             
-            // Close export modal
+            
             closeModal.addEventListener('click', () => {
                 exportModal.style.display = 'none';
             });
             
-            // Close dropdowns when clicking outside
+            
             document.addEventListener('click', (e) => {
                 if (!filterDropdown.contains(e.target)) {
                     filterDropdown.style.display = 'none';
@@ -1262,23 +1262,23 @@
                 }
             });
             
-            // Sort option selection
+            
             document.querySelectorAll('.sort-option').forEach(option => {
                 option.addEventListener('click', () => {
                     const sortMethod = option.getAttribute('data-sort');
-                    // In a real app, you would sort the recipes here
+                    
                     sortDropdown.style.display = 'none';
                     showNotification(`Sorted by ${option.textContent.trim()}`);
                 });
             });
             
-            // Apply filters
+            
             document.getElementById('apply-filters').addEventListener('click', () => {
                 filterDropdown.style.display = 'none';
                 showNotification('Filters applied successfully');
             });
             
-            // Reset filters
+            
             document.getElementById('reset-filters').addEventListener('click', () => {
                 document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(checkbox => {
                     checkbox.checked = true;
@@ -1286,7 +1286,7 @@
                 showNotification('Filters reset to default');
             });
             
-            // Export option selection
+            
             document.querySelectorAll('.export-option').forEach(option => {
                 option.addEventListener('click', () => {
                     const format = option.getAttribute('data-format');
@@ -1295,7 +1295,7 @@
                 });
             });
             
-            // Remove recipe from favorites
+            
             document.querySelectorAll('.remove-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -1309,7 +1309,7 @@
                 });
             });
             
-            // Show notification
+            
             const showNotification = (message) => {
                 const notification = document.createElement('div');
                 notification.className = 'notification';
@@ -1328,7 +1328,7 @@
                 }, 3000);
             };
             
-            // Update stats (would be dynamic in a real app)
+            
             const updateStats = () => {
                 const recipeCount = document.querySelectorAll('.recipe-card').length;
                 document.getElementById('total-favorites').textContent = recipeCount;
@@ -1348,7 +1348,7 @@
                     `;
                 }
             };
-            // Load favorites from localStorage and render
+            
             const renderFavoritesFromStorage = () => {
                 const container = document.getElementById('favorites-container');
                 const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
@@ -1367,16 +1367,16 @@
                     return;
                 }
 
-                // Clear container before adding
+                
                 container.innerHTML = '';
 
-                savedRecipes.forEach(recipeTitle => {
+                savedRecipes.forEach(recipe => {
                     const card = document.createElement('div');
                     card.className = 'recipe-card';
                     card.innerHTML = `
-            <img src="images/default-recipe.jpg" alt="${recipeTitle}">
+            <img src="${recipe.image}" alt="${recipe.title}">
             <div class="recipe-info">
-                <h3>${recipeTitle}</h3>
+                <h3>${recipe.title}</h3>
                 <div class="recipe-meta">
                     <span><i class="fas fa-clock"></i> 45 mins</span>
                     <span><i class="fas fa-user"></i> 3 servings</span>
@@ -1386,15 +1386,15 @@
                     <span><i class="fas fa-pepper-hot"></i> Medium</span>
                 </div>
                 <div class="recipe-actions">
-                    <button class="btn btn-small remove-btn"><i class="fas fa-trash"></i> Remove</button>
-                    <a href="recipe-${recipeTitle.toLowerCase().replace(/\s+/g, '-')}.html" class="btn btn-small btn-outline">View Recipe</a>
+                    <button class="btn btn-small remove-btn" data-id="${recipe.id}"><i class="fas fa-trash"></i> Remove</button>
+                    <a href="recipe-${recipe.id}.html" class="btn btn-small btn-outline">View Recipe</a>
                 </div>
             </div>
         `;
                     container.appendChild(card);
                 });
 
-                updateStats(); // update counts
+                updateStats(); 
             };
 
 
@@ -1402,22 +1402,34 @@
             document.getElementById('favorites-container').addEventListener('click', function (e) {
                 if (e.target.closest('.remove-btn')) {
                     const card = e.target.closest('.recipe-card');
-                    const title = card.querySelector('h3').textContent.trim();
+                    const recipeId = e.target.closest('.remove-btn').getAttribute('data-id');
+
+                    
                     let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-                    savedRecipes = savedRecipes.filter(r => r !== title);
+
+                    
+                    savedRecipes = savedRecipes.filter(r => r.id !== recipeId);
+
+                    
                     localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
-                    card.remove();
-                    updateStats();
+
+                    
+                    card.style.animation = 'fadeOut 0.4s ease forwards';
+                    setTimeout(() => {
+                        card.remove();
+                        updateStats();
+                    }, 400);
+
                     showNotification('Recipe removed from favorites');
                 }
             });
 
             renderFavoritesFromStorage();
 
-            // Set current year in footer
+            
             document.getElementById('current-year').textContent = new Date().getFullYear();
             
-            // Add fadeOut animation for removing recipes
+            
             const fadeOutStyle = document.createElement('style');
             fadeOutStyle.textContent = `
                 @keyframes fadeOut {

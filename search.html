@@ -1318,6 +1318,8 @@
 
    <script>
 document.addEventListener('DOMContentLoaded', () => {
+    const API_KEY = 'd7fb552280414e099d7445b5dd5ee9b0';
+    
     // DOM elements
     const searchBtn = document.getElementById('search-btn');
     const searchInput = document.getElementById('search-input');
@@ -1334,6 +1336,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPage = 1;
     let totalPages = 1;
     let currentQuery = '';
+    let totalResults = 0;
     
     // Mobile menu toggle
     burger.addEventListener('click', () => {
@@ -1370,514 +1373,103 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Explore trending recipes button
     exploreBtn.addEventListener('click', () => {
-        searchInput.value = 'popular recipes';
-        performSearch();
+        searchInput.value = '';
+        currentQuery = '';
+        performSearch(true); // true indicates trending recipes
     });
     
-    // Enhanced mock data with searchKeywords
-    const mockRecipes = [
-    {
-        id: 1,
-        title: 'Avocado Toast with Poached Eggs',
-        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80',
-        time: 10,
-        servings: 2,
-        missedIngredients: 1,
-        usedIngredients: 3,
-        cuisine: 'american',
-        diet: 'vegetarian',
-        calories: 320,
-        healthScore: 8,
-        isNew: true,
-        searchKeywords: ['avocado', 'toast', 'eggs', 'breakfast', 'healthy', 'avacado']
-    },
-    {
-        id: 2,
-        title: 'Vegetable Stir Fry with Tofu',
-        image: 'https://imgs.search.brave.com/34pKv940MWlvOmck2zy-MNABRD0N_pnBrPgZJJw4h-A/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTIy/NTc5NTMxMi9waG90/by90b2Z1LWN1cnJ5/LXNvdXAtd2l0aC12/ZWdldGFibGVzLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz0x/blN3X19aTVlRUEE4/TEVkQlFraWZwSGRM/SjE3ZjA4eGZOQV9x/UVMzMldvPQ',
-        time: 25,
-        servings: 4,
-        missedIngredients: 2,
-        usedIngredients: 5,
-        cuisine: 'chinese',
-        diet: 'vegan',
-        calories: 280,
-        healthScore: 9,
-        isTrending: true,
-        searchKeywords: ['vegetable', 'stir fry', 'tofu', 'asian', 'quick meal']
-    },
-    {
-        id: 3,
-        title: 'Classic Margherita Pizza',
-        image: 'https://imgs.search.brave.com/hpXRsMTdG7qqdCarYUEEW3bENJbCpAgQVaI_wX40aUQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNDc4/ODU1MjYwL3N0b2Nr/LXBob3RvLXRyYWRp/dGlvbmFsLWl0YWxp/YW4tcGl6emEtbWFy/Z2hlcml0YS13aXRo/LXRvbWF0b2VzLW1v/enphcmVsbGEtYmFz/aWw',
-        time: 45,
-        servings: 3,
-        missedIngredients: 3,
-        usedIngredients: 4,
-        cuisine: 'italian',
-        diet: 'vegetarian',
-        calories: 380,
-        healthScore: 7,
-        searchKeywords: ['pizza', 'margherita', 'italian', 'cheese', 'tomato']
-    },
-    {
-        id: 4,
-        title: 'Chicken Tikka Masala',
-        image: 'https://imgs.search.brave.com/6is8RBBkHX9yagTLhO2jz8CTwmebi3sZuFNRunR3afY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMjc3/NjcxOTI0L3N0b2Nr/LXBob3RvLWNoaWNr/ZW4tdGlra2EtbWFz/YWxhLXdpdGgtcmlj/ZQ',
-        time: 60,
-        servings: 4,
-        missedIngredients: 4,
-        usedIngredients: 6,
-        cuisine: 'indian',
-        diet: '',
-        calories: 420,
-        healthScore: 6,
-        isTrending: true,
-        searchKeywords: ['chicken', 'tikka', 'masala', 'indian', 'curry']
-    },
-    {
-        id: 5,
-        title: 'Quinoa Salad with Roasted Vegetables',
-        image: 'https://imgs.search.brave.com/OoVux2LCZjbqQ6MA6zhWHvg89LOsCe2iOKoP7AOStTw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNjYz/OTc0ODU2L3Bob3Rv/L3F1aW5vYS1zYWxh/ZC13aXRoLXJvYXN0/ZWQtY2F1bGlmbG93/ZXItYnV0dGVybnV0/LXNxdWFzaC5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9ZER6/OUR0ZktZZFh3Sjhn/MHZqaXVWdzN4dHJz/NlhST0tCdS11bVZw/Ny0zND0',
-        time: 35,
-        servings: 2,
-        missedIngredients: 2,
-        usedIngredients: 5,
-        cuisine: 'mediterranean',
-        diet: 'vegan',
-        calories: 250,
-        healthScore: 9,
-        isNew: true,
-        searchKeywords: ['quinoa', 'salad', 'roasted', 'vegetables', 'healthy']
-    },
-    {
-        id: 6,
-        title: 'Beef Tacos with Fresh Salsa',
-        image: 'https://imgs.search.brave.com/7oES3ZXd44_Delgh6jo2z4c0AfnCjAjo5cg7w8X1Pf0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMzI2/MzE4MTEwL3N0b2Nr/LXBob3RvLWZyZXNo/LXRhY29zLW1pbmNl/ZC1tZWF0LXZlZ2V0/YWJsZXMtd29vZGVu/LXRhYmxl',
-        time: 30,
-        servings: 3,
-        missedIngredients: 3,
-        usedIngredients: 4,
-        cuisine: 'mexican',
-        diet: '',
-        calories: 350,
-        healthScore: 7,
-        searchKeywords: ['beef', 'tacos', 'mexican', 'salsa', 'quick dinner']
-    },
-    {
-        id: 7,
-        title: 'Creamy Mushroom Pasta',
-        image: 'https://imgs.search.brave.com/HnGIHeqvvmTpaPdrnIJ1hpSYRPx3YW_mqJUJDuNhTBw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTI2/Njk0OTU1OC9waG90/by9jcmVhbXktZ2Fy/bGljLW11c2hyb29t/cy1jaGFtcGlnbm9u/cy1zYXV0ZWVkLWlu/LXNvdXItY3JlYW0t/c2F1Y2UuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPU05R2NE/Z0RCRU9YWV9rRDNq/ZGhYdW5mX2d1VmZW/elJoY0hxTUJVc0t6/S1E9',
-        time: 25,
-        servings: 2,
-        missedIngredients: 2,
-        usedIngredients: 5,
-        cuisine: 'italian',
-        diet: 'vegetarian',
-        calories: 450,
-        healthScore: 6,
-        isNew: true,
-        searchKeywords: ['pasta', 'mushroom', 'creamy', 'vegetarian', 'comfort food']
-    },
-    {
-        id: 8,
-        title: 'Teriyaki Salmon with Rice',
-        image: 'https://imgs.search.brave.com/DlxV11RyA88UW0eo2o-bSKX45wP9aDNDCwBBcP4-Hjs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9qb3cu/Y29tL19uZXh0L2lt/YWdlP3VybD1odHRw/czovL3N0YXRpYy5q/b3cuZnIvODgweDg4/MC9yZWNpcGVzL0JX/VjZCRHpqUmNkcTdB/LnBuZyZ3PTI1NjAm/cT0xMDA',
-        time: 20,
-        servings: 2,
-        missedIngredients: 3,
-        usedIngredients: 4,
-        cuisine: 'japanese',
-        diet: '',
-        calories: 400,
-        healthScore: 8,
-        isTrending: true,
-        searchKeywords: ['salmon', 'teriyaki', 'rice', 'japanese', 'healthy']
-    },
-    {
-        id: 9,
-        title: 'Greek Salad with Feta',
-        image: 'https://imgs.search.brave.com/4onvtm5wxrCOF-oSENHouBJQADbHD8XOtPbGmadPUOU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTcx/MzIyMzIwL3Bob3Rv/L2ZldGEtY2hlZXNl/LXNhbGFkLmpwZz9z/PTYxMng2MTImdz0w/Jms9MjAmYz05WE9H/WTBEWEFCaGwzYkkt/el9jemNNT09Pby1h/SVNLdVJvRndUaW9o/dUM0PQ',
-        time: 15,
-        servings: 2,
-        missedIngredients: 1,
-        usedIngredients: 6,
-        cuisine: 'mediterranean',
-        diet: 'vegetarian',
-        calories: 280,
-        healthScore: 9,
-        searchKeywords: ['greek', 'salad', 'feta', 'healthy', 'quick']
-    },
-    {
-        id: 10,
-        title: 'Chocolate Lava Cake',
-        image: 'https://imgs.search.brave.com/FWXSFy4uIJlw0Wtik4VfGdF_ADegrx9yqXae-NJ06JM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTQz/NTkyODI2NS9waG90/by9kZWxpY2lvdXMt/Y2hvY29sYXRlLW11/ZmZpbnMtd2l0aC1j/aG9jb2xhdGUtY2hp/cHMuanBnP3M9NjEy/eDYxMiZ3PTAmaz0y/MCZjPVFVWUVUbVdu/RFNUdEx0eExSLW5z/czJJYVBhVFYwN01r/dHpubHlPS1BwSW89',
-        time: 30,
-        servings: 4,
-        missedIngredients: 4,
-        usedIngredients: 5,
-        cuisine: 'french',
-        diet: 'vegetarian',
-        calories: 480,
-        healthScore: 3,
-        searchKeywords: ['chocolate', 'cake', 'dessert', 'sweet', 'baking']
-    },
-    {
-        id: 11,
-        title: 'Masala Dosa',
-        image: 'https://imgs.search.brave.com/Mf5A4RR6WiwnkeurfcoKFaFiLfINbaiUdAn38TTBHSQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNTg4/NzQ5OTg0L3N0b2Nr/LXBob3RvLW15c29y/ZS1tYXNhbGEtZG9z/YS1vcGVuLWRvc2Et/c2VydmVkLXNhbWJh/ci1jaHV0bmV5LXNl/bGVjdGl2ZS1mb2N1/cw',
-        time: 40,
-        servings: 3,
-        missedIngredients: 5,
-        usedIngredients: 3,
-        cuisine: 'south indian',
-        diet: 'vegetarian',
-        calories: 280,
-        healthScore: 7,
-        isNew: true,
-        searchKeywords: ['dosa', 'breakfast', 'crispy', 'fermented', 'coconut chutney']
-    },
-    {
-        id: 12,
-        title: 'Poha',
-        image: 'https://imgs.search.brave.com/HJr8arOR3iaMR_2lcCuOc_6ZtA568pu_hycqG5kzgaY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMjM3/MDQwNDEwL3N0b2Nr/LXBob3RvLWFsb28t/a2FuZGEtcG9oYS10/YXJyaS1wb2hlLXNw/aWN5LWNoYW5hLW1h/c2FsYS1jdXJyeS1z/ZWxlY3RpdmU',
-        time: 20,
-        servings: 2,
-        missedIngredients: 4,
-        usedIngredients: 2,
-        cuisine: 'indian',
-        diet: 'vegetarian',
-        calories: 220,
-        healthScore: 8,
-        isTrending: true,
-        searchKeywords: ['flattened rice', 'quick breakfast', 'maharashtrian', 'onions', 'peanuts']
-    },
-    {
-        id: 13,
-        title: 'Aloo Paratha',
-        image: 'https://imgs.search.brave.com/hJ-6DIwNiwA5RFnJEu680uL89B_gmrTU286DixgbzI8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTc0/MTE0Mzc2Ny9waG90/by9jcm9wcGVkLWhh/bmQtaG9sZGluZy1m/b29kLW9uLXRhYmxl/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz1hNVF3X0pHT3dx/TmZ4cEEtRkkxNHl3/VXB5NlF1QmVaYnds/Y0s5cTVkZjZnPQ',
-        time: 35,
-        servings: 4,
-        missedIngredients: 6,
-        usedIngredients: 3,
-        cuisine: 'north indian',
-        diet: 'vegetarian',
-        calories: 320,
-        healthScore: 6,
-        searchKeywords: ['stuffed paratha', 'potato', 'breakfast', 'ghee', 'punjabi']
-    },
-    {
-        id: 14,
-        title: 'Idli Sambar',
-        image: 'https://imgs.search.brave.com/9FCl6YRG8HGEy9IOgjl-aeTJwy78JEEcggWYisR29ac/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNjcw/OTA4MDU5L3Bob3Rv/L3NvdXRoLWluZGlh/bi1icmVha2Zhc3Qt/aWRsaS13aXRoLXNh/bWJhci1hbmQtY2hh/aS5qcGc_cz02MTJ4/NjEyJnc9MCZrPTIw/JmM9M1gwcXVHdGJ6/YmRGUXdOcjh0SmJq/U0ZQOHBOQU93Q3la/SkUyT3JMaXB2QT0',
-        time: 30,
-        servings: 4,
-        missedIngredients: 7,
-        usedIngredients: 2,
-        cuisine: 'south indian',
-        diet: 'vegetarian',
-        calories: 180,
-        healthScore: 9,
-        searchKeywords: ['steamed', 'healthy', 'breakfast', 'lentil', 'coconut']
-    },
-    {
-        id: 15,
-        title: 'Chole Bhature',
-        image: 'https://imgs.search.brave.com/8GnquUgPFo6VKyCzGUA30vXBw_cWUwT66mL1jptLRnU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMy/ODUyNDIxMi9waG90/by9rYXRsYW1iZS1j/aG9sZS5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9V0ltZjJX/Y1MwOGJscWNpamhM/VzZOUzViYVE2LWhW/V2dEeEVoY2djNjJi/ND0',
-        time: 60,
-        servings: 4,
-        missedIngredients: 8,
-        usedIngredients: 3,
-        cuisine: 'north indian',
-        diet: 'vegetarian',
-        calories: 450,
-        healthScore: 5,
-        isTrending: true,
-        searchKeywords: ['chickpeas', 'fried bread', 'punjabi', 'heavy breakfast', 'spicy']
-    },
-    {
-        id: 16,
-        title: 'Dal Tadka',
-        image: 'https://imgs.search.brave.com/JlyS_r3lHD5VglQZmOdziY3ii3D_dIXzYyTH8WoMdRg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMTU4/NTM4OTYwL3N0b2Nr/LXBob3RvLWluZGlh/bi1wb3B1bGFyLWZv/b2QtZGFsLWZyeS10/cmFkaXRpb25hbC1k/YWwtdGFka2EtY3Vy/cnktc2VydmVk',
-        time: 40,
-        servings: 4,
-        missedIngredients: 5,
-        usedIngredients: 4,
-        cuisine: 'north indian',
-        diet: 'vegetarian',
-        calories: 250,
-        healthScore: 8,
-        searchKeywords: ['lentils', 'comfort food', 'tempered', 'protein', 'homestyle']
-    },
-    {
-        id: 17,
-        title: 'Butter Chicken',
-        image: 'https://imgs.search.brave.com/G60ZpQpuW9yHztjh7neiNInuIiBhWZIIoRAgqJIaskY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNjM5/Mzg5NDA0L3Bob3Rv/L2F1dGhlbnRpYy1p/bmRpYW4tZm9vZC5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/Z2JmQXUxN0wxZ3RI/bXVvNWJpQnloZkNl/ZkF0WVV0R1FweXhN/bWk5X011cz0',
-        time: 50,
-        servings: 4,
-        missedIngredients: 7,
-        usedIngredients: 4,
-        cuisine: 'north indian',
-        diet: 'non-vegetarian',
-        calories: 380,
-        healthScore: 6,
-        searchKeywords: ['murg makhani', 'creamy', 'restaurant style', 'tandoori', 'gravy']
-    },
-    {
-        id: 18,
-        title: 'Biryani',
-        image: 'https://imgs.search.brave.com/orxqwQct7gVAvXiwjUr87-NzVvxKT3kKuwP-vOoU4Bc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMTE0/MzE2MzIwL3N0b2Nr/LXBob3RvLWNoaWNr/ZW4tYmlyeWFuaS13/aXRoLXlvZ3VydC1k/aXAtb24tYmVhdXRp/ZnVsLW1vb2R5LWJh/Y2tncm91bmQtc2Vs/ZWN0aXZlLWZvY3Vz',
-        time: 90,
-        servings: 6,
-        missedIngredients: 10,
-        usedIngredients: 5,
-        cuisine: 'indian',
-        diet: 'non-vegetarian',
-        calories: 520,
-        healthScore: 5,
-        isNew: true,
-        searchKeywords: ['hyderabadi', 'rice dish', 'spiced', 'festive', 'layered']
-    },
-    {
-        id: 19,
-        title: 'Palak Paneer',
-        image: 'https://imgs.search.brave.com/uv0JOhTWy7oKa9-YSJHmpSwAlOJ_J4LX4s9cjcfA4_w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMz/MDk1NDY1MS9waG90/by9oaWdoLWFuZ2xl/LXZpZXctb2YtZm9v/ZC1pbi1ib3dsLW9u/LXRhYmxlLmpwZz9z/PTYxMng2MTImdz0w/Jms9MjAmYz1uMkd6/S2h6clBMb3lyNFh5/eGVpTmJ4V1h2X0U1/dzFNMlgwb1NUX0JH/emVnPQ',
-        time: 35,
-        servings: 4,
-        missedIngredients: 6,
-        usedIngredients: 3,
-        cuisine: 'north indian',
-        diet: 'vegetarian',
-        calories: 280,
-        healthScore: 8,
-        searchKeywords: ['spinach', 'cottage cheese', 'healthy', 'creamy', 'vegetarian']
-    },
-    {
-        id: 20,
-        title: 'Gulab Jamun',
-        image: 'https://imgs.search.brave.com/S733z7E_F4OgpHK5QsT97TNSzUST1DaF2W_esTJk1Pg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvOTg0/OTk1NjgyL3Bob3Rv/L2d1bGFiLWphbXVu/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz1lV19QREZTWi1F/YlRPcVk4cUxkLUxx/X1poRGFhVGFqUzRC/R3NpbTNmOVVRPQ',
-        time: 40,
-        servings: 8,
-        missedIngredients: 6,
-        usedIngredients: 2,
-        cuisine: 'indian',
-        diet: 'vegetarian',
-        calories: 380,
-        healthScore: 2,
-        isTrending: true,
-        searchKeywords: ['indian', 'sweet', 'syrup', 'dessert', 'festive']
-    },
-    {
-        id: 21,
-        title: 'Rasmalai',
-        image: 'https://imgs.search.brave.com/j2UTu_4EVT5fYBrRy_7CbQ_2Qoph0gyCPBbAZhvB1mQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMy/OTM3MzU4MS9waG90/by9yYXMtbWFsYWkt/ZGVzc2VydC5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9UHVG/RnlXUm0tbVZzeS1j/cFdwM0xEX3lCaVZu/MmktbzM3dDBHUzV3/bktiQT0',
-        time: 90,
-        servings: 8,
-        missedIngredients: 7,
-        usedIngredients: 2,
-        cuisine: 'indian',
-        diet: 'vegetarian',
-        calories: 350,
-        healthScore: 4,
-        searchKeywords: ['indian', 'dessert', 'milk', 'sweet', 'festive']
-    },
-    {
-        id: 22,
-        title: 'Pav Bhaji',
-        image: 'https://imgs.search.brave.com/luEdE8pXg6sOOvWYA3r5dTpUqn7-GxTFl8rioHk9jr4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNDA4/MjExNzc2L3N0b2Nr/LXBob3RvLXBhdi1i/aGFqaS1pbmRpYW4t/dHJhZGl0aW9uYWwt/cG9wdWxhci1zdHJl/ZXQtZmFzdC1mb29k/LXRoaWNrLXNwaWN5',
-        time: 45,
-        servings: 4,
-        missedIngredients: 6,
-        usedIngredients: 4,
-        cuisine: 'indian',
-        diet: 'vegetarian',
-        calories: 420,
-        healthScore: 5,
-        isNew: true,
-        searchKeywords: ['street food', 'mumbai', 'vegetable mash', 'buttered buns', 'spicy']
-    },
-    {
-        id: 23,
-        title: 'Vada Pav',
-        image: 'https://imgs.search.brave.com/e290Q26VTUiClQqEpVdx8mG47A8GhJ5isIcWxegrhTE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9taW5p/c3RyeW9mY3Vycnku/Y29tL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDI0LzA2L3ZhZGEt/cGF2LTMtMS5qcGc',
-        time: 35,
-        servings: 4,
-        missedIngredients: 5,
-        usedIngredients: 3,
-        cuisine: 'indian',
-        diet: 'vegetarian',
-        calories: 320,
-        healthScore: 4,
-        searchKeywords: ['mumbai', 'street food', 'potato', 'burger', 'spicy']
-    },
-    {
-        id: 24,
-        title: 'Rajma Chawal',
-        image: 'https://imgs.search.brave.com/5_kxbtZYrIZ2-Jb_U6P3lfSbQY5gZjAGYNRBxjCIWio/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvMTE0/OTA4MzI2L3N0b2Nr/LXBob3RvLWNvb2tl/ZC1yZWQta2lkbmV5/LWJlYW5zLWN1cnJ5/LWFuZC1jb29rZWQt/YmFzbWF0aS1yaWNl/LXJham1hLWNoYXdh/bC1vci1yYWptYS1y/aWNlLXRyYWRpdGlv/bmFs',
-        time: 50,
-        servings: 4,
-        missedIngredients: 5,
-        usedIngredients: 3,
-        cuisine: 'north indian',
-        diet: 'vegetarian',
-        calories: 380,
-        healthScore: 7,
-        isTrending: true,
-        searchKeywords: ['kidney beans', 'rice', 'comfort food', 'homely', 'protein']
-    },
-    {
-        id: 25,
-        title: 'Dhokla',
-        image: 'https://imgs.search.brave.com/QErzc2xg7C8dijwTZyQ4evwejCFVv33rCi4WOWYjXpE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNjcw/OTA3NTU5L3Bob3Rv/L3RyYWRpdGlvbmFs/LWd1amFyYXRpLXNu/YWNrcy5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9NVdRc19H/dGE4LTlJVUdiMm1m/bng2RXFtZmxPYms1/TWxVMTRWWC10N3dh/cz0',
-        time: 30,
-        servings: 4,
-        missedIngredients: 5,
-        usedIngredients: 3,
-        cuisine: 'gujarati',
-        diet: 'vegetarian',
-        calories: 180,
-        healthScore: 8,
-        searchKeywords: ['steamed', 'snack', 'fermented', 'light', 'healthy']
-    },
-    {
-        id: 26,
-        title: 'Mysore Masala Dosa',
-        image: 'https://imgs.search.brave.com/7F7oEzbePrCOm8tD5TQ2lIBCJzsKu_LFPV4FFc8qac8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNjEv/MDYxLzE1Ny9zbWFs/bC9nb2xkZW4tbWFz/YWxhLWRvc2Etc2F2/b3J5LXBvdGF0by1j/cmVwZS1zb3V0aC1p/bmRpYW4tc3RyZWV0/LWZvb2QtaW4td2Fy/bS1oaWdoLXJlc29s/dXRpb24tcGhvdG8u/anBn',
-        time: 45,
-        servings: 3,
-        missedIngredients: 6,
-        usedIngredients: 4,
-        cuisine: 'south indian',
-        diet: 'vegetarian',
-        calories: 300,
-        healthScore: 6,
-        searchKeywords: ['spicy', 'red chutney', 'crispy', 'breakfast', 'karnataka']
-    },
-    {
-        id: 27,
-        title: 'Kathi Roll',
-        image: 'https://imgs.search.brave.com/c_6BwbIMsFZsoFzkLDbewpRLkrMUCp0AWR7BVCtoK7o/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/c2h1dHRlcnN0b2Nr/LmNvbS9pbWFnZS1w/aG90by9sYW1iLWth/dGhpLXJvbGxzLXNl/bGVjdGl2ZS1mb2N1/cy0yNjBudy0xNjIz/MDM3MDE1LmpwZw',
-        time: 25,
-        servings: 2,
-        missedIngredients: 4,
-        usedIngredients: 5,
-        cuisine: 'bengali',
-        diet: '',
-        calories: 350,
-        healthScore: 5,
-        isNew: true,
-        searchKeywords: ['wrap', 'street food', 'kolkata', 'quick meal', 'eggs']
-    },
-    {
-        id: 28,
-        title: 'Malai Kofta',
-        image: 'https://imgs.search.brave.com/vg6CnN6jYjiPBOA490sksrD0q2Ty6Zv1ovhZWuLKGe0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM5/Nzc1NzUyMi9waG90/by9tYWxhaS1rb2Z0/YS1jdXJyeS5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9SUxf/dGtDRFU5N2p5ZXV2/ZkdDWHI4a0t0ZjY0/RG9Eb05JZk1kaE9X/NHdFST0',
-        time: 60,
-        servings: 4,
-        missedIngredients: 7,
-        usedIngredients: 4,
-        cuisine: 'north indian',
-        diet: 'vegetarian',
-        calories: 420,
-        healthScore: 5,
-        searchKeywords: ['dumplings', 'creamy gravy', 'restaurant style', 'rich', 'special occasion']
-    },
-    {
-        id: 29,
-        title: 'Mutton Rogan Josh',
-        image: 'https://imgs.search.brave.com/KlyneZHsw_dgd0qz26wvuDevhMvgGU-hiJULfAs2rx8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNjI5/NDUyMDI0L3N0b2Nr/LXBob3RvLWluZGlh/bi1zdHlsZS1tdXR0/b24tZ29zaHQtbWFz/YWxhLWluZGlhbi1s/YW1iLW1lYXQtcm9n/YW4tam9zaA',
-        time: 120,
-        servings: 6,
-        missedIngredients: 8,
-        usedIngredients: 5,
-        cuisine: 'kashmiri',
-        diet: 'non-vegetarian',
-        calories: 480,
-        healthScore: 4,
-        isTrending: true,
-        searchKeywords: ['lamb', 'slow cooked', 'aromatic', 'special dish', 'kashmiri']
-    },
-    {
-        id: 30,
-        title: 'Jalebi',
-        image: 'https://imgs.search.brave.com/iftohSxVm-BwMqV1ei3IuTz1WnaFy393iaiFTCoB59Y/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxNS8w/Ni8yMy8wNS8yMy9m/cmVzaC1qYWxlYmkt/ODE4MzE2XzY0MC5q/cGc',
-        time: 40,
-        servings: 6,
-        missedIngredients: 5,
-        usedIngredients: 3,
-        cuisine: 'indian',
-        diet: 'vegetarian',
-        calories: 400,
-        healthScore: 2,
-        searchKeywords: ['sweet', 'crispy', 'syrup', 'festive', 'street food']
-    }
-];
-
-    // Enhanced search function
-    const searchRecipes = async (query, page = 1, cuisine = '', diet = '', time = '') => {
+    // Spoonacular API search function
+    const searchRecipes = async (query, page = 1, cuisine = '', diet = '', time = '', trending = false) => {
         // Show loading spinner
         recipeResults.innerHTML = '<div class="spinner"></div>';
         
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 800));
-        
-        const searchTerm = query.toLowerCase().trim();
-        
-        // Enhanced filtering with keyword search
-        let filteredRecipes = mockRecipes.filter(recipe => {
-            // Check title match
-            const titleMatch = recipe.title.toLowerCase().includes(searchTerm);
+        try {
+            let url;
+            const params = new URLSearchParams({
+                apiKey: API_KEY,
+                number: 6, 
+                offset: (page - 1) * 6,
+                addRecipeInformation: true,
+                fillIngredients: true
+            });
             
-            // Check keyword match if keywords exist
-            const keywordMatch = recipe.searchKeywords ? 
-                recipe.searchKeywords.some(kw => kw.includes(searchTerm)) : 
-                false;
-            
-            // Check cuisine filter
-            const cuisineMatch = cuisine ? recipe.cuisine === cuisine : true;
-            
-            // Check diet filter
-            const dietMatch = diet ? 
-                (recipe.diet && recipe.diet.includes(diet.toLowerCase())) : 
-                true;
-            
-            // Check time filter
-            const timeMatch = time ? recipe.time <= parseInt(time) : true;
-            
-            return (titleMatch || keywordMatch) && cuisineMatch && dietMatch && timeMatch;
-        });
-
-        // Sort recipes
-        const sortBy = document.getElementById('sort-by').value;
-        filteredRecipes.sort((a, b) => {
-            switch(sortBy) {
-                case 'time':
-                    return a.time - b.time;
-                case 'healthiness':
-                    return b.healthScore - a.healthScore;
-                case 'calories':
-                    return a.calories - b.calories;
-                case 'newest':
-                    return (b.isNew || false) - (a.isNew || false);
-                default: // popularity
-                    return (b.isTrending || false) - (a.isTrending || false) || 
-                           b.usedIngredients - a.usedIngredients;
+            if (trending) {
+                url = `https://api.spoonacular.com/recipes/random?${params}`;
+            } else {
+                params.append('query', query);
+                
+                if (cuisine) params.append('cuisine', cuisine);
+                if (diet) params.append('diet', diet);
+                if (time) params.append('maxReadyTime', time);
+                
+                url = `https://api.spoonacular.com/recipes/complexSearch?${params}`;
             }
-        });
-        
-        // Pagination logic
-        totalPages = Math.ceil(filteredRecipes.length / 6);
-        const startIdx = (page - 1) * 6;
-        const paginatedRecipes = filteredRecipes.slice(startIdx, startIdx + 6);
-        
+            
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`API request failed with status ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            // Format the response to match your expected format
+            let recipes = [];
+            if (trending) {
+                recipes = data.recipes.map(formatRecipe);
+                totalResults = recipes.length;
+                totalPages = 1;
+            } else {
+                recipes = data.results.map(formatRecipe);
+                totalResults = data.totalResults;
+                totalPages = Math.ceil(data.totalResults / 6);
+            }
+            
+            return {
+                recipes,
+                totalResults,
+                totalPages
+            };
+        } catch (error) {
+            console.error('Error fetching recipes:', error);
+            showNotification('Failed to fetch recipes. Please try again later.');
+            return {
+                recipes: [],
+                totalResults: 0,
+                totalPages: 1
+            };
+        }
+    };
+    
+    // Format Spoonacular recipe to match your expected format
+    const formatRecipe = (recipe) => {
         return {
-            recipes: paginatedRecipes,
-            totalResults: filteredRecipes.length,
-            totalPages
+            id: recipe.id,
+            title: recipe.title,
+            image: recipe.image || 'https://spoonacular.com/recipeImages/placeholder-636x393.png',
+            time: recipe.readyInMinutes || 30,
+            servings: recipe.servings || 2,
+            cuisine: recipe.cuisines?.[0] || '',
+            diet: getDietLabels(recipe),
+            calories: recipe.nutrition?.nutrients?.find(n => n.name === 'Calories')?.amount || 0,
+            healthScore: recipe.healthScore || 5,
+            missedIngredients: recipe.missedIngredientCount || 0,
+            usedIngredients: recipe.usedIngredientCount || 0,
+            sourceUrl: recipe.sourceUrl || `https://spoonacular.com/recipes/${recipe.title.replace(/\s+/g, '-').toLowerCase()}-${recipe.id}`
         };
     };
-
-    // Display recipes
+    
+    // Extract diet labels from Spoonacular recipe
+    const getDietLabels = (recipe) => {
+        const diets = [];
+        if (recipe.vegetarian) diets.push('vegetarian');
+        if (recipe.vegan) diets.push('vegan');
+        if (recipe.glutenFree) diets.push('gluten-free');
+        if (recipe.dairyFree) diets.push('dairy-free');
+        return diets.join(',');
+    };
+    
+    // Display recipes (modified to include source link)
     const displayRecipes = (recipes) => {
         if (recipes.length === 0) {
             recipeResults.innerHTML = `
@@ -1890,7 +1482,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             
-            // Add event listener to reset filters button
             document.getElementById('reset-filters-btn').addEventListener('click', () => {
                 document.getElementById('cuisine').value = '';
                 document.getElementById('diet').value = '';
@@ -1903,9 +1494,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         recipeResults.innerHTML = recipes.map(recipe => `
             <div class="recipe-card">
-                ${recipe.isNew ? '<span class="recipe-badge new">New</span>' : ''}
-                ${recipe.isTrending ? '<span class="recipe-badge trending">Trending</span>' : ''}
-                <img src="${recipe.image}" alt="${recipe.title}">
+                <img src="${recipe.image}" alt="${recipe.title}" onerror="this.src='https://spoonacular.com/recipeImages/placeholder-636x393.png'">
                 <div class="recipe-info">
                     <h3>${recipe.title}</h3>
                     <div class="recipe-meta">
@@ -1913,14 +1502,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span><i class="fas fa-user"></i> ${recipe.servings} ${recipe.servings > 1 ? 'servings' : 'serving'}</span>
                     </div>
                     <div class="recipe-meta">
-                        <span><i class="fas fa-check-circle"></i> ${recipe.usedIngredients} ingredients</span>
-                        <span><i class="fas fa-shopping-basket"></i> ${recipe.missedIngredients} to buy</span>
+                        <span><i class="fas fa-fire"></i> ${Math.round(recipe.calories)} calories</span>
+                        <span><i class="fas fa-heart"></i> Health score: ${recipe.healthScore}/10</span>
                     </div>
                     <div class="recipe-actions">
                         <button class="btn btn-small save-recipe" data-id="${recipe.id}">
                             <i class="far fa-heart"></i> Save
                         </button>
-                        <a href="recipe-${recipe.id}.html" class="btn btn-small btn-outline">View Recipe</a>
+                        <a href="${recipe.sourceUrl}" target="_blank" class="btn btn-small btn-outline">
+                            View Recipe
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1938,11 +1529,28 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Save recipe to favorites
     const saveRecipe = (recipeId, btn) => {
-        // In a real app, you would save to localStorage or a backend
+    const recipeCard = btn.closest('.recipe-card');
+    const recipeTitle = recipeCard.querySelector('h3').textContent;
+    const recipeImage = recipeCard.querySelector('img').src;
+    
+    // Get existing saved recipes or create empty array
+    let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+    
+    // Check if recipe already exists
+    if (!savedRecipes.some(r => r.title === recipeTitle)) {
+        // Add new recipe
+        savedRecipes.push({
+            id: recipeId,
+            title: recipeTitle,
+            image: recipeImage
+        });
+        
+        // Save back to localStorage
+        localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+        
         btn.innerHTML = '<i class="fas fa-heart"></i> Saved';
         btn.classList.add('saved');
         
-        // Show confirmation animation
         const heart = btn.querySelector('i');
         heart.classList.add('heartbeat');
         
@@ -1950,9 +1558,11 @@ document.addEventListener('DOMContentLoaded', () => {
             heart.classList.remove('heartbeat');
         }, 1000);
         
-        // Show notification
         showNotification('Recipe saved to your favorites!');
-    };
+    } else {
+        showNotification('Recipe is already in your favorites!');
+    }
+};
     
     // Show notification
     const showNotification = (message) => {
@@ -1974,13 +1584,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     // Perform search
-    const performSearch = async () => {
+    const performSearch = async (trending = false) => {
         const query = searchInput.value.trim();
         const cuisine = document.getElementById('cuisine').value;
         const diet = document.getElementById('diet').value;
         const time = document.getElementById('time').value;
         
-        if (!query) {
+        if (!query && !trending) {
             recipeResults.innerHTML = `
                 <div class="no-results">
                     <img src="https://cdn-icons-png.flaticon.com/512/4076/4076478.png" alt="No search" class="empty-plate float-animation">
@@ -1991,10 +1601,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             
-            // Re-add event listener to explore button
             document.getElementById('explore-btn').addEventListener('click', () => {
-                searchInput.value = 'popular recipes';
-                performSearch();
+                searchInput.value = '';
+                performSearch(true);
             });
             
             return;
@@ -2003,18 +1612,27 @@ document.addEventListener('DOMContentLoaded', () => {
         currentQuery = query;
         currentPage = 1;
         
-        const { recipes, totalPages: pages } = await searchRecipes(query, currentPage, cuisine, diet, time);
-        totalPages = pages;
+        const { recipes, totalPages: pages, totalResults } = await searchRecipes(
+            query, 
+            currentPage, 
+            cuisine, 
+            diet, 
+            time,
+            trending
+        );
         
+        totalPages = pages;
         displayRecipes(recipes);
         updatePagination();
         
-        // Smooth scroll to results
-        setTimeout(() => {
-            document.querySelector('.results-section').scrollIntoView({
-                behavior: 'smooth'
-            });
-        }, 100);
+        // Only scroll to results if it's not the initial load
+        if (query || trending) {
+            setTimeout(() => {
+                document.querySelector('.results-section').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }, 100);
+        }
     };
     
     // Update pagination controls
@@ -2025,11 +1643,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     // Event listeners
-    searchBtn.addEventListener('click', performSearch);
+    searchBtn.addEventListener('click', () => performSearch(false));
     
     searchInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            performSearch();
+            performSearch(false);
         }
     });
     
